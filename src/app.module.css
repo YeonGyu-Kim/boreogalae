@@ -1,0 +1,14 @@
+.app {
+  height: 100vh;
+}
+
+.main {
+  position: absolute;
+  margin-top: 5rem;
+  display: block;
+  height: 200vh;
+}
+
+.title {
+  display: block;
+}

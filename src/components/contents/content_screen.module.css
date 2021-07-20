@@ -1,0 +1,10 @@
+.content {
+  display: block;
+  height: 60%;
+  margin-right: 0.5rem;
+}
+
+.image {
+  height: 100%;
+  width: 15rem;
+}
