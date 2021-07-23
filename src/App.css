@@ -2,10 +2,12 @@
   display: block;
   margin-top: 67px;
   z-index: -1;
+  overflow: hidden;
 }
 
 .contentContainer.show {
   margin-left: 10vw;
   margin-top: 67px;
   padding: 1rem;
+  overflow: hidden;
 }

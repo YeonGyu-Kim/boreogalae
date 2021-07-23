@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import ContentScreen from "../contents/content_screen";
 import styled from "styled-components";
 
@@ -6,7 +6,7 @@ const UL = styled.ul`
   display: flex;
 `;
 
-const MoviePopular = ({ moviesPopular: { results } }) => {
+const MoviePopular = memo(({ moviesPopular: { results }, onClickContents }) => {
   return (
     <UL>
       {results &&
@@ -16,10 +16,11 @@ const MoviePopular = ({ moviesPopular: { results } }) => {
             key={content?.id}
             title={content?.title}
             poster={content?.poster_path}
+            onClickContents={onClickContents}
           />
         ))}
     </UL>
   );
-};
+});
 
 export default MoviePopular;

@@ -11,9 +11,15 @@ import { useState, useEffect } from "react";
 import MoviePopular from "./components/movie/movie_popular";
 import TvPopular from "./components/tv/tv_popular";
 
-function App({ location, contents }) {
+function App({ location, match, contents }) {
   const [popularMovie, setPopularMovie] = useState([]);
   const [popularTV, setPopularTV] = useState([]);
+  const [movieID, setMovieID] = useState();
+  const [movieDetail, setMovieDetail] = useState([]);
+
+  const getMovieID = (contentsID) => {
+    setMovieID(contentsID);
+  };
 
   useEffect(() => {
     contents.moviePopular().then((content) => setPopularMovie(content));
@@ -22,8 +28,6 @@ function App({ location, contents }) {
   useEffect(() => {
     contents.tvPopular().then((content) => setPopularTV(content));
   }, [contents]);
-
-  console.log(popularTV);
 
   return (
     <div className={styles.app}>
@@ -47,6 +51,12 @@ function App({ location, contents }) {
               <TvPopular tvPopular={popularTV} />
             </section>
           </main>
+        </Route>
+        <Route path='/movie/:id'>
+          <ContentsDetail contents={contents} />
+        </Route>
+        <Route path='/tv/:id'>
+          <ContentsDetail contents={contents} />
         </Route>
       </Switch>
       <GlobalStyle />

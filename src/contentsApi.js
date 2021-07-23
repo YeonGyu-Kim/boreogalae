@@ -18,6 +18,24 @@ class Contents {
     return response.data;
   }
 
+  async movieDetail(id) {
+    const response = await this.contents.get(`movie/${id}`, {
+      params: {
+        append_to_response: "videos",
+      },
+    });
+    return response.data;
+  }
+
+  async tvDetail(id) {
+    const response = await this.contents.get(`tv/${id}`, {
+      params: {
+        append_to_response: "videos",
+      },
+    });
+    return response.data;
+  }
+
   async tvPopular() {
     const response = await this.contents.get("tv/popular");
     return response.data;

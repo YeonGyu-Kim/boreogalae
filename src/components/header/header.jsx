@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import styles from "./header.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import Category from "./../category/category";
+import Category from "../category/category";
+import { memo } from "react";
 
-const Header = () => {
+const Header = memo((props) => {
+  console.log(props);
   const resetGenre = () => {
     const showGenre = document.querySelector(".genre");
     showGenre?.classList.remove("show");
@@ -45,6 +47,6 @@ const Header = () => {
       </section>
     </header>
   );
-};
+});
 
 export default Header;

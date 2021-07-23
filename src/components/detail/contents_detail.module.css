@@ -1,0 +1,8 @@
+.detailContainer {
+  position: absolute;
+  margin-top: 100px;
+}
+
+.contentsInfo {
+  display: flex;
+}
