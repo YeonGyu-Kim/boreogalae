@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useRouteMatch } from "react-router-dom";
 import { useEffect, useState, memo } from "react";
 import styles from "./contents_detail.module.css";
 
@@ -23,10 +23,25 @@ type Content = {
   title?: string;
   name?: string;
   video?: boolean;
+  videos?: {
+    results: [
+      {
+        id: string;
+        iso_639_1: string;
+        iso_3166_1: string;
+        key: string;
+        name: string;
+        site: string;
+        size: number;
+        type: string;
+      }
+    ];
+  };
   vote_average?: number;
   vote_count?: number;
   runtime?: number;
   episode_run_time?: number;
+  number_of_seasons: number;
 };
 
 type ContentsID = {
@@ -44,20 +59,21 @@ const ContentsDetail = memo(({ contents }: any) => {
   const isMovie = pathname.includes("/movie");
   const isTV = pathname.includes("/tv");
   const genreLength = movieDetail?.genres?.length || tvDetail?.genres?.length;
-  console.log(genreLength);
 
   useEffect(() => {
     isMovie &&
       contents.movieDetail(id).then((content: any) => setMovieDetail(content));
-  }, [contents]);
+  }, [contents, isMovie, id]);
 
   useEffect(() => {
     isTV && contents.tvDetail(id).then((content: any) => setTvDetail(content));
-  }, [contents]);
+  }, [contents, isTV, id]);
 
   return (
     <section className={styles.detailContainer}>
-      <div>{isMovie ? movieDetail?.title : isTV ? tvDetail?.name : null}</div>
+      <div className={styles.contentTitle}>
+        {isMovie ? movieDetail?.title : isTV ? tvDetail?.name : null}
+      </div>
       <div className={styles.contentsInfo}>
         <img
           src={`https://image.tmdb.org/t/p/w300${
@@ -66,9 +82,9 @@ const ContentsDetail = memo(({ contents }: any) => {
           alt=''
         />
         <div className={styles.basicInfo}>
-          <span>기본 정보</span>
-          <div>
-            <span>장르</span>
+          <span className={styles.basicTitle}>기본 정보</span>
+          <div className={styles.genreInfo}>
+            <span>장르: </span>
             <span>
               {movieDetail?.genres?.map((genre, index) =>
                 genreLength && index === movieDetail.genres.length - 1
@@ -82,32 +98,63 @@ const ContentsDetail = memo(({ contents }: any) => {
                 )}
             </span>
           </div>
-          <div>
-            <span>{movieDetail ? "개봉" : tvDetail ? "방영일" : null}</span>
+          <div className={styles.releaseInfo}>
+            <span>
+              {movieDetail ? "개봉일: " : tvDetail ? "방영일: " : null}
+            </span>
             <span>{movieDetail?.release_date || tvDetail?.last_air_date}</span>
           </div>
-          <div>
-            <span>평점</span>
+          <div className={styles.voteInfo}>
+            <span>평점: </span>
             <span>{movieDetail?.vote_average || tvDetail?.vote_average}</span>
           </div>
-          <div>
-            <span>런타임</span>
-            <span>{movieDetail?.runtime || tvDetail?.episode_run_time}</span>
+          <div className={styles.runtimeInfo}>
+            <span>{movieDetail ? "런타임: " : tvDetail ? "시즌: " : null}</span>
+            <span>
+              {movieDetail
+                ? `${movieDetail?.runtime}분`
+                : tvDetail
+                ? `${tvDetail?.number_of_seasons}`
+                : null}
+            </span>
           </div>
         </div>
       </div>
       <div className={styles.description}>
         <span>소개</span>
-        <span>{movieDetail?.overview || tvDetail?.overview}</span>
+        <span className={styles.overview}>
+          {movieDetail?.overview || tvDetail?.overview}
+        </span>
       </div>
       <div>
-        <iframe
-          src={`https://www.youtube.com/embed/${"RxAtuMu_ph4"}`}
-          frameBorder='0'
-          allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-          allowFullScreen
-          allowTransparency
-        />
+        {movieDetail
+          ? movieDetail?.videos?.results
+              .slice(0, 3)
+              .map((video) => (
+                <iframe
+                  className={styles.video}
+                  key={video.id}
+                  title='video'
+                  src={`https://www.youtube.com/embed/${video.key}`}
+                  frameBorder='0'
+                  allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                  allowFullScreen
+                />
+              ))
+          : tvDetail
+          ? tvDetail?.videos?.results
+              .slice(0, 3)
+              .map((video) => (
+                <iframe
+                  className={styles.video}
+                  key={video.id}
+                  title='video'
+                  src={`https://www.youtube.com/embed/${video.key}`}
+                  frameBorder='0'
+                  allowFullScreen
+                />
+              ))
+          : null}
       </div>
     </section>
   );

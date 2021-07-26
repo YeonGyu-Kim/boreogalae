@@ -1,7 +1,6 @@
 import "./app.css";
 import styles from "./app.module.css";
 import BeginningScreen from "./components/beginning/beginning_screen";
-import { RouteComponentProps } from "react-router";
 import { Route, Switch, withRouter } from "react-router-dom";
 import GlobalStyle from "./global_style";
 import Header from "./components/header/header";
@@ -10,15 +9,16 @@ import Genre from "./components/genre/genre";
 import { useState, useEffect } from "react";
 import MoviePopular from "./components/movie/movie_popular";
 import TvPopular from "./components/tv/tv_popular";
+import SearchScreen from "./components/search/search_screen";
+import { useCallback } from "react";
 
 function App({ location, match, contents }) {
   const [popularMovie, setPopularMovie] = useState([]);
   const [popularTV, setPopularTV] = useState([]);
-  const [movieID, setMovieID] = useState();
-  const [movieDetail, setMovieDetail] = useState([]);
+  const [searchResult, setSearchResult] = useState(null);
 
-  const getMovieID = (contentsID) => {
-    setMovieID(contentsID);
+  const search = (q) => {
+    setSearchResult(q);
   };
 
   useEffect(() => {
@@ -31,7 +31,11 @@ function App({ location, match, contents }) {
 
   return (
     <div className={styles.app}>
-      {location.pathname === "/" ? <BeginningScreen /> : <Header />}
+      {location.pathname === "/" ? (
+        <BeginningScreen />
+      ) : (
+        <Header onSearch={search} />
+      )}
       {location.pathname === "/detail" && <ContentsDetail />}
       <Switch>
         <Route path='/movie' exact>
@@ -57,6 +61,9 @@ function App({ location, match, contents }) {
         </Route>
         <Route path='/tv/:id'>
           <ContentsDetail contents={contents} />
+        </Route>
+        <Route path='/search_query=:result'>
+          <SearchScreen onSearch={searchResult} contents={contents} />
         </Route>
       </Switch>
       <GlobalStyle />

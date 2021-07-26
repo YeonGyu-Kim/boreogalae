@@ -6,8 +6,11 @@
   display: block;
   position: fixed;
   width: 10vw;
-  height: 100vh;
+  height: 83vh;
+
   border: 1px solid black;
+  overflow-y: auto;
+
   z-index: 3;
 }
 

@@ -1,0 +1,35 @@
+.searchContainer {
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  min-width: 100vw;
+  margin-top: 100px;
+  padding: 0 3rem;
+}
+
+.movieContainer,
+.tvContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 1.5rem;
+}
+
+.header {
+  font-size: 1.5rem;
+}
+
+.movieContainer {
+  margin-bottom: 5rem;
+}
+
+.list {
+  display: flex;
+  width: 300px;
+  margin-bottom: 3rem;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+}

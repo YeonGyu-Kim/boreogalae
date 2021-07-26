@@ -40,6 +40,24 @@ class Contents {
     const response = await this.contents.get("tv/popular");
     return response.data;
   }
+
+  async movieSearch(query) {
+    const response = await this.contents.get("search/movie", {
+      params: {
+        query,
+      },
+    });
+    return response.data;
+  }
+
+  async tvSearch(query) {
+    const response = await this.contents.get("search/tv", {
+      params: {
+        query,
+      },
+    });
+    return response.data;
+  }
 }
 
 export default Contents;

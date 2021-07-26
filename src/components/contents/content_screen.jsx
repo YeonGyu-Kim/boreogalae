@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import styles from "./content_screen.module.css";
 
-const ContentScreen = ({ id, key, title, poster }) => {
+const ContentScreen = ({ id, title, poster }) => {
   const { pathname } = useLocation();
   return (
     <li className={styles.content}>

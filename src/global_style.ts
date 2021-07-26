@@ -9,6 +9,7 @@ a{
 }
 body{
    background-color:white;
+   height:100%;
    
 }
 
