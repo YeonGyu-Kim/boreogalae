@@ -11,6 +11,8 @@ const ContentScreen = ({ id, title, poster }) => {
             ? `/movie/${id}`
             : pathname === "/tv"
             ? `/tv/${id}`
+            : pathname === "/kids"
+            ? `/kids/${id}`
             : null
         }
       >

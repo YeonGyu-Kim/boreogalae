@@ -24,7 +24,7 @@ const Genre = ({ location }: RouteComponentProps) => {
             장르
           </div>
         </div>
-      ) : location.pathname === "kids" ? (
+      ) : location.pathname === "/kids" ? (
         <div className='genre-bar'>
           <span className='genre-title'>키즈</span>
           <div className='genre-btn' onClick={showGenre}>

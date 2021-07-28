@@ -66,8 +66,9 @@ const ContentsDetail = memo(({ contents }: any) => {
   }, [contents, isMovie, id]);
 
   useEffect(() => {
-    isTV && contents.tvDetail(id).then((content: any) => setTvDetail(content));
-  }, [contents, isTV, id]);
+    !isMovie &&
+      contents.tvDetail(id).then((content: any) => setTvDetail(content));
+  }, [contents, isMovie, id]);
 
   return (
     <section className={styles.detailContainer}>
