@@ -1,4 +1,5 @@
 import React from "react";
+import { memo } from "react";
 import styled from "styled-components";
 import ContentScreen from "../contents/content_screen";
 
@@ -6,7 +7,7 @@ const UL = styled.ul`
   display: flex;
 `;
 
-const KidsPopular = ({ popularKids: { results } }) => {
+const KidsPopular = memo(({ popularKids: { results } }) => {
   return (
     <UL>
       {results &&
@@ -20,6 +21,6 @@ const KidsPopular = ({ popularKids: { results } }) => {
         ))}
     </UL>
   );
-};
+});
 
 export default KidsPopular;

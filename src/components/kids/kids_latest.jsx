@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import ContentScreen from "../contents/content_screen";
 
@@ -6,7 +6,7 @@ const UL = styled.ul`
   display: flex;
 `;
 
-const KidsLatest = ({ kidsLatest: { results } }) => {
+const KidsLatest = memo(({ kidsLatest: { results } }) => {
   return (
     <UL>
       {results &&
@@ -20,6 +20,6 @@ const KidsLatest = ({ kidsLatest: { results } }) => {
         ))}
     </UL>
   );
-};
+});
 
 export default KidsLatest;

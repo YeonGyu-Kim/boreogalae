@@ -7,9 +7,9 @@ const ContentScreen = ({ id, title, poster }) => {
     <li className={styles.content}>
       <Link
         to={
-          pathname === "/movie"
+          pathname === "/movie" || pathname.includes("/movie-genre")
             ? `/movie/${id}`
-            : pathname === "/tv"
+            : pathname === "/tv" || pathname.includes("/tv-genre")
             ? `/tv/${id}`
             : pathname === "/kids"
             ? `/kids/${id}`

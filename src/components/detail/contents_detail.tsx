@@ -1,4 +1,4 @@
-import { useLocation, useParams, useRouteMatch } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState, memo } from "react";
 import styles from "./contents_detail.module.css";
 

@@ -1,12 +1,13 @@
-import React, { memo } from "react";
-import ContentScreen from "../contents/content_screen";
+import React from "react";
+import { memo } from "react";
 import styled from "styled-components";
+import ContentScreen from "../../contents/content_screen";
 
 const UL = styled.ul`
   display: flex;
 `;
 
-const MoviePopular = memo(({ moviesPopular: { results } }) => {
+const MovieWestern = memo(({ genre: { results } }) => {
   return (
     <UL>
       {results &&
@@ -22,4 +23,4 @@ const MoviePopular = memo(({ moviesPopular: { results } }) => {
   );
 });
 
-export default MoviePopular;
+export default MovieWestern;
