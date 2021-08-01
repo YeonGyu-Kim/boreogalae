@@ -26,6 +26,18 @@ import MovieMystery from "./components/genre/movie/mystery";
 import MovieRomance from "./components/genre/movie/romance";
 import MovieWar from "./components/genre/movie/war";
 import MovieWestern from "./components/genre/movie/western";
+import TVActionAdventure from "./components/genre/tv/action_adventure";
+import TVAnimation from "./components/genre/tv/animation";
+import TVComedy from "./components/genre/tv/comedy";
+import TVCrime from "./components/genre/tv/crime";
+import TVDocumentary from "./components/genre/tv/documentary";
+import TVDrama from "./components/genre/tv/drama";
+import TVFamily from "./components/genre/tv/family";
+import TVWar from "./components/genre/tv/war";
+import TVWestern from "./components/genre/tv/western";
+import TVMystery from "./components/genre/tv/mystery";
+import TVSfFantasy from "./components/genre/tv/sf_fantasy";
+import TVReality from "./components/genre/tv/reality";
 
 function App({ location, match, contents }) {
   const [popularMovie, setPopularMovie] = useState([]);
@@ -33,7 +45,7 @@ function App({ location, match, contents }) {
   const [popularKids, setPopularKids] = useState([]);
   const [kidsLatest, setKidsLatest] = useState([]);
 
-  // movie genre
+  // 영화 장르
   const [moviePopActionAdventure, setMoviePopActionAdventure] = useState([]);
   const [moviePopAnimation, setMoviePopAnimation] = useState([]);
   const [moviePopComedy, setMoviePopComedy] = useState([]);
@@ -49,7 +61,21 @@ function App({ location, match, contents }) {
   const [moviePopRomance, setMoviePopRomance] = useState([]);
   const [moviePopuWar, setMoviePopWar] = useState([]);
   const [moviePopWestern, setMoviePopwestern] = useState([]);
-  const [tvKrReality, setTvKrReality] = useState([]);
+  const [tvPopActionAdventure, setTvPopActionAdventure] = useState([]);
+
+  // TV 장르
+  const [tvPopAnimation, setTvPopAnimation] = useState([]);
+  const [tvPopComedy, setTvPopComedy] = useState([]);
+  const [tvPopCrime, setTvPopCrime] = useState([]);
+  const [tvPopDocumentary, setTvPopDocumentary] = useState([]);
+  const [tvPopDrama, setTvPopDrama] = useState([]);
+  const [tvPopFamily, setTvPopFamily] = useState([]);
+  const [tvPopMystery, setTvPopMystery] = useState([]);
+  const [tvKoreanShow, setTvKoreanShow] = useState([]);
+  const [tvEnShow, setTvEnShow] = useState([]);
+  const [tvPopSfFantasy, setTvPopSfFantasy] = useState([]);
+  const [tvPopWar, setTvPopWar] = useState([]);
+  const [tvPopWestern, setTvPopWestern] = useState([]);
   const [searchResult, setSearchResult] = useState(null);
 
   const movieGenre = location.pathname.includes("/movie-genre");
@@ -158,10 +184,61 @@ function App({ location, match, contents }) {
   }, [contents]);
 
   useEffect(() => {
-    contents.tvKoreanReality().then((content) => setTvKrReality(content));
+    contents
+      .tvPopularActionAdventure()
+      .then((content) => setTvPopActionAdventure(content));
   }, [contents]);
 
-  console.log(tvKrReality);
+  useEffect(() => {
+    contents.tvPopularAnimation().then((content) => setTvPopAnimation(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.tvPopularComedy().then((content) => setTvPopComedy(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.tvPopularCrime().then((content) => setTvPopCrime(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents
+      .tvPopularDocumentary()
+      .then((content) => setTvPopDocumentary(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.tvPopularDrama().then((content) => setTvPopDrama(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.tvPopularFamily().then((content) => setTvPopFamily(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.tvPopularMystery().then((content) => setTvPopMystery(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.tvKoreanReality().then((content) => setTvKoreanShow(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.tvEnReality().then((content) => setTvEnShow(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.tvEnReality().then((content) => setTvEnShow(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.tvPopularSfFantasy().then((content) => setTvPopSfFantasy(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.tvPopularWar().then((content) => setTvPopWar(content));
+  }, [contents]);
+
   return (
     <div className={styles.app}>
       {location.pathname === "/" ? (
@@ -202,7 +279,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieActionAdventure genre={moviePopActionAdventure} />
+              <MovieActionAdventure popular={moviePopActionAdventure} />
             </section>
           </main>
         </Route>
@@ -210,7 +287,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieAnimation genre={moviePopAnimation} />
+              <MovieAnimation popular={moviePopAnimation} />
             </section>
           </main>
         </Route>
@@ -218,7 +295,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieComedy genre={moviePopComedy} />
+              <MovieComedy popular={moviePopComedy} />
             </section>
           </main>
         </Route>
@@ -226,7 +303,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieCrimeThriller genre={moviePopCrimeThriller} />
+              <MovieCrimeThriller popular={moviePopCrimeThriller} />
             </section>
           </main>
         </Route>
@@ -234,7 +311,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieDocumentary genre={moviePopDocumentary} />
+              <MovieDocumentary popular={moviePopDocumentary} />
             </section>
           </main>
         </Route>
@@ -242,7 +319,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieDrama genre={moviePopDrama} />
+              <MovieDrama popular={moviePopDrama} />
             </section>
           </main>
         </Route>
@@ -250,7 +327,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieDrama genre={moviePopDrama} />
+              <MovieDrama popular={moviePopDrama} />
             </section>
           </main>
         </Route>
@@ -258,7 +335,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieSfFantasy genre={moviePopSfFantasy} />
+              <MovieSfFantasy popular={moviePopSfFantasy} />
             </section>
           </main>
         </Route>
@@ -266,7 +343,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieHistory genre={moviePopHistory} />
+              <MovieHistory popular={moviePopHistory} />
             </section>
           </main>
         </Route>
@@ -274,7 +351,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieMusic genre={moviePopMusic} />
+              <MovieMusic popular={moviePopMusic} />
             </section>
           </main>
         </Route>
@@ -282,7 +359,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieMusic genre={moviePopMusic} />
+              <MovieMusic popular={moviePopMusic} />
             </section>
           </main>
         </Route>
@@ -290,7 +367,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieMystery genre={moviePopMystery} />
+              <MovieMystery popular={moviePopMystery} />
             </section>
           </main>
         </Route>
@@ -298,7 +375,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieRomance genre={moviePopRomance} />
+              <MovieRomance popular={moviePopRomance} />
             </section>
           </main>
         </Route>
@@ -306,7 +383,7 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieWar genre={moviePopuWar} />
+              <MovieWar popular={moviePopuWar} />
             </section>
           </main>
         </Route>
@@ -314,7 +391,102 @@ function App({ location, match, contents }) {
           <main className={styles.main}>
             <section className='contentContainer'>
               <div>인기</div>
-              <MovieWestern genre={moviePopWestern} />
+              <MovieWestern popular={moviePopWestern} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/action-adventure' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <div>인기</div>
+              <TVActionAdventure popular={tvPopActionAdventure} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/animation' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <div>인기</div>
+              <TVAnimation popular={tvPopAnimation} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/comedy' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <div>인기</div>
+              <TVComedy popular={tvPopComedy} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/crime' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <div>인기</div>
+              <TVCrime popular={tvPopCrime} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/documentary' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <div>인기</div>
+              <TVDocumentary popular={tvPopDocumentary} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/drama' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <div>인기</div>
+              <TVDrama popular={tvPopDrama} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/family' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <div>인기</div>
+              <TVFamily popular={tvPopFamily} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/reality' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <TVReality kr={tvKoreanShow} en={tvEnShow} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/mystery' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <div>인기</div>
+              <TVMystery popular={tvPopMystery} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/sf-fantasy' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <div>인기</div>
+              <TVSfFantasy popular={tvPopSfFantasy} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/war' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <div>인기</div>
+              <TVWar popular={tvPopWar} />
+            </section>
+          </main>
+        </Route>
+        <Route path='/tv-genre/western' exact>
+          <main className={styles.main}>
+            <section className='contentContainer'>
+              <div>인기</div>
+              <TVWestern popular={tvPopWestern} />
             </section>
           </main>
         </Route>

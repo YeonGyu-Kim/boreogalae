@@ -7,7 +7,7 @@ const UL = styled.ul`
   display: flex;
 `;
 
-const MovieFamily = memo(({ genre: { results } }) => {
+const MovieFamily = memo(({ popular: { results } }) => {
   return (
     <UL>
       {results &&

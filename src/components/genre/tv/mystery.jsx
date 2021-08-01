@@ -7,7 +7,7 @@ const UL = styled.ul`
   display: flex;
 `;
 
-const MovieWar = memo(({ popular: { results } }) => {
+const TVMystery = memo(({ popular: { results } }) => {
   return (
     <UL>
       {results &&
@@ -15,7 +15,7 @@ const MovieWar = memo(({ popular: { results } }) => {
           <ContentScreen
             id={content?.id}
             key={content?.id}
-            title={content?.title}
+            title={content?.name}
             poster={content?.poster_path}
           />
         ))}
@@ -23,4 +23,4 @@ const MovieWar = memo(({ popular: { results } }) => {
   );
 });
 
-export default MovieWar;
+export default TVMystery;

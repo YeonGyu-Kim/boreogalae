@@ -11,6 +11,7 @@ const Genre = ({ location }: RouteComponentProps) => {
     const showMovie = document.querySelector(".contentContainer");
     showMovie?.classList.toggle("show");
   };
+
   return (
     <section className='genre-container'>
       {location.pathname === "/movie" || movieGenre ? (
@@ -35,7 +36,7 @@ const Genre = ({ location }: RouteComponentProps) => {
           </div>
         </div>
       ) : null}
-      {location.pathname === "/movie" || movieGenre ? (
+      {(location.pathname === "/movie" || movieGenre) && (
         <ul className='genre'>
           <Link to='/movie-genre/action-adventure'>
             <li className='genre-detail'>액션/모험</li>
@@ -83,43 +84,47 @@ const Genre = ({ location }: RouteComponentProps) => {
             <li className='genre-detail'>서부</li>
           </Link>
         </ul>
-      ) : location.pathname === "/tv" || tvGenre ? (
+      )}
+      {(location.pathname === "/tv" || tvGenre) && (
         <ul className='genre'>
-          <Link to='tv-genre/action-adventure'>
+          <Link to='/tv-genre/action-adventure'>
             <li className='genre-detail'>액션/어드벤쳐</li>
           </Link>
-          <Link to='tv-genre/animation'>
+          <Link to='/tv-genre/animation'>
             <li className='genre-detail'>애니메이션</li>
           </Link>
-          <Link to='tv-genre/comedy'>
+          <Link to='/tv-genre/comedy'>
             <li className='genre-detail'>코미디</li>
           </Link>
-          <Link to='tv-genre/crime'>
+          <Link to='/tv-genre/crime'>
             <li className='genre-detail'>범죄</li>
           </Link>
-          <Link to='tv-genre/documentary'>
+          <Link to='/tv-genre/documentary'>
             <li className='genre-detail'>다큐멘터리</li>
           </Link>
-          <Link to='tv-genre/drama'>
+          <Link to='/tv-genre/drama'>
             <li className='genre-detail'>드라마</li>
           </Link>
-          <Link to='tv-genre/family'>
+          <Link to='/tv-genre/family'>
             <li className='genre-detail'>가족</li>
           </Link>
-          <Link to='tv-genre/mystery'>
+          <Link to='/tv-genre/reality'>
+            <li className='genre-detail'>예능</li>
+          </Link>
+          <Link to='/tv-genre/mystery'>
             <li className='genre-detail'>미스터리</li>
           </Link>
-          <Link to='tv-genre/sf-fantasy'>
+          <Link to='/tv-genre/sf-fantasy'>
             <li className='genre-detail'>SF/판타지</li>
           </Link>
-          <Link to='tv-genre/war'>
+          <Link to='/tv-genre/war'>
             <li className='genre-detail'>전쟁</li>
           </Link>
-          <Link to='tv-genre/western'>
+          <Link to='/tv-genre/western'>
             <li className='genre-detail'>서부</li>
           </Link>
         </ul>
-      ) : null}
+      )}
     </section>
   );
 };

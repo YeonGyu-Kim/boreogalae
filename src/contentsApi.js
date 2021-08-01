@@ -33,7 +33,7 @@ class Contents {
     return response.data;
   }
 
-  // movie genre
+  // 영화 장르
   async moviePopularActionAdventure() {
     const response = await this.contents.get(
       `discover/movie/?api_key=${this.key}&vote_average.gte=7.9&vote_count.gte=1000&with_genres=28,12`
@@ -219,7 +219,7 @@ class Contents {
     return response.data;
   }
 
-  // tv genre
+  // TV 장르
   async tvPopularActionAdventure() {
     const response = await this.contents.get(
       `discover/tv/?api_key=${this.key}&vote_average.gte=8&vote_count.gte=1000`,
@@ -346,18 +346,6 @@ class Contents {
       {
         params: {
           with_genres: 10765,
-        },
-      }
-    );
-    return response.data;
-  }
-
-  async tvPopularWar() {
-    const response = await this.contents.get(
-      `discover/tv/?api_key=${this.key}&vote_average.gte=7&vote_count.gte=300`,
-      {
-        params: {
-          with_genres: 10768,
         },
       }
     );
