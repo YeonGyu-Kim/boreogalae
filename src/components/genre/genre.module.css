@@ -1,0 +1,12 @@
+.genre_detail {
+  padding: 1rem;
+}
+
+.genre_detail:hover {
+  padding: 1rem;
+  background-color: gray;
+}
+
+.checked {
+  background-color: gray;
+}

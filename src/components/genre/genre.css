@@ -5,15 +5,11 @@
 .genre.show {
   display: block;
   position: fixed;
-  width: 10vw;
+  width: 10rem;
   height: 83vh;
-  border: 1px solid black;
   overflow-y: auto;
+  background-color: #3b3e40;
   z-index: 3;
-}
-
-.genre-detail {
-  padding: 1rem;
 }
 
 .genre-btn {
@@ -21,7 +17,7 @@
   margin-left: 2rem;
   padding: 0.5rem;
   border-radius: 10%;
-  border: 1px solid black;
+  border: 1px solid #f0eded;
   cursor: pointer;
 }
 
@@ -29,7 +25,8 @@
   position: fixed;
   top: 80px;
   width: 100%;
-  background-color: lightgray;
+  background-color: #3b3e40;
+
   z-index: 3;
 }
 

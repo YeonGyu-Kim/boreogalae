@@ -36,13 +36,13 @@ const Header = memo(({ onSearch }) => {
           보러갈래?
         </Link>
         <Link to='/movie' className={styles.category} onClick={resetGenre}>
-          Movie
+          영화
         </Link>
         <Link to='/tv' className={styles.category} onClick={resetGenre}>
           TV
         </Link>
-        <Link to='kids' className={styles.category} onClick={resetGenre}>
-          Kids
+        <Link to='/kids' className={styles.category} onClick={resetGenre}>
+          키즈
         </Link>
       </section>
       <Category />

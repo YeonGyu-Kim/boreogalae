@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Home = styled.div`
   padding: 2rem;
   font-size: 2rem;
+  color: #bd42f5;
 `;
 
 const Button = styled.ul`

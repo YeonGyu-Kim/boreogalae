@@ -4,6 +4,12 @@
 }
 
 .image {
-  height: 80%;
-  width: 16vw;
+  min-width: 13vw;
+  max-width: 16vw;
+  height: 28vh;
+  min-height: 23vh;
+}
+
+.title {
+  font-size: 0.9rem;
 }

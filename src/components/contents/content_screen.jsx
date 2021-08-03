@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import styles from "./content_screen.module.css";
 
 const ContentScreen = ({ id, title, poster }) => {
@@ -21,7 +21,7 @@ const ContentScreen = ({ id, title, poster }) => {
           src={`https://image.tmdb.org/t/p/w300${poster}`}
           alt='movie-poster'
         />
-        <div>{title}</div>
+        <div className={styles.title}>{title}</div>
       </Link>
     </li>
   );

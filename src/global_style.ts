@@ -8,15 +8,11 @@ a{
    color: inherit;
 }
 body{
-   background-color:white;
+   background-color:#272829;
    height:100%;
+   color: #f0eded;
    
 }
-
-
-
-
-
 `;
 
 export default GlobalStyle;
