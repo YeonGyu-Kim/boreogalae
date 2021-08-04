@@ -1,24 +1,23 @@
 import { memo } from "react";
-import styled from "styled-components";
+import ContentContainer from "../contents/content_container";
 import ContentScreen from "../contents/content_screen";
-
-const UL = styled.ul`
-  display: flex;
-`;
 
 const TvPopular = memo(({ tvPopular: { results } }) => {
   return (
-    <UL>
-      {results &&
+    <ContentContainer
+      title='인기 프로그램'
+      children={
+        results &&
         results.map((content) => (
           <ContentScreen
-            key={content?.id}
             id={content?.id}
-            poster={content?.poster_path}
+            key={content?.id}
             title={content?.name}
+            poster={content?.poster_path}
           />
-        ))}
-    </UL>
+        ))
+      }
+    />
   );
 });
 

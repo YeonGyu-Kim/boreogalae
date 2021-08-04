@@ -40,11 +40,32 @@ import TVSfFantasy from "./components/genre/tv/sf_fantasy";
 import TVReality from "./components/genre/tv/reality";
 import MovieFamily from "./components/genre/movie/family";
 import MovieHorror from "./components/genre/movie/horror";
+import MovieNowPlaying from "./components/movie/movie_now_playing";
+import MovieTopRated from "./components/movie/movie_top_rated";
+import MovieUpComing from "./components/movie/movie_upcoming";
+import MovieClassic from "./components/movie/movie_classic";
+import TvKrPoular from "./components/tv/tv_kr_poular";
+import TvTopRated from "./components/tv/tv_top_rated";
 
-function App({ location, match, contents }) {
+function App({
+  location,
+  match,
+  contents,
+  contentsMovieGenre,
+  contentsTvGenre,
+}) {
+  // 영화
   const [popularMovie, setPopularMovie] = useState([]);
+  const [topRatedMovie, setTopRatedMovie] = useState([]);
+  const [upComingMovie, setUpComingMovie] = useState([]);
+  const [nowPlayingMovie, setNowPlayingMovie] = useState([]);
+  const [classicMovie, setClassicMovie] = useState([]);
+
+  // TV & 키즈
   const [popularTV, setPopularTV] = useState([]);
   const [popularKids, setPopularKids] = useState([]);
+  const [krPopularTV, setKrPopularTv] = useState([]);
+  const [topRatedTV, setTopRatedTV] = useState([]);
   const [kidsLatest, setKidsLatest] = useState([]);
 
   // 영화 장르
@@ -63,9 +84,9 @@ function App({ location, match, contents }) {
   const [moviePopRomance, setMoviePopRomance] = useState([]);
   const [moviePopuWar, setMoviePopWar] = useState([]);
   const [moviePopWestern, setMoviePopwestern] = useState([]);
-  const [tvPopActionAdventure, setTvPopActionAdventure] = useState([]);
 
   // TV 장르
+  const [tvPopActionAdventure, setTvPopActionAdventure] = useState([]);
   const [tvPopAnimation, setTvPopAnimation] = useState([]);
   const [tvPopComedy, setTvPopComedy] = useState([]);
   const [tvPopCrime, setTvPopCrime] = useState([]);
@@ -89,158 +110,210 @@ function App({ location, match, contents }) {
   const search = (q) => {
     setSearchResult(q);
   };
-
+  // 영화
   useEffect(() => {
     contents.moviePopular().then((content) => setPopularMovie(content));
   }, [contents]);
 
   useEffect(() => {
+    contents.movieTopRated().then((content) => setTopRatedMovie(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.movieUpComing().then((content) => setUpComingMovie(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contents.movieNowPlaying().then((content) => setNowPlayingMovie(content));
+  }, [contents]);
+
+  useEffect(() => {
+    contentsMovieGenre
+      .movieClassic()
+      .then((content) => setClassicMovie(content));
+  }, [contentsMovieGenre]);
+
+  // TV
+  useEffect(() => {
     contents.tvPopular().then((content) => setPopularTV(content));
   }, [contents]);
 
   useEffect(() => {
-    contents.tvKidsPopular().then((content) => setPopularKids(content));
+    contents.tvTopRated().then((content) => setTopRatedTV(content));
   }, [contents]);
 
   useEffect(() => {
-    contents.tvKidsLatest().then((content) => setKidsLatest(content));
-  }, [contents]);
+    contentsTvGenre.tvKrPopular().then((content) => setKrPopularTv(content));
+  }, [contentsTvGenre]);
+
+  // 키즈
+  useEffect(() => {
+    contentsTvGenre.tvKidsPopular().then((content) => setPopularKids(content));
+  }, [contentsTvGenre]);
+
+  useEffect(() => {
+    contentsTvGenre.tvKidsLatest().then((content) => setKidsLatest(content));
+  }, [contentsTvGenre]);
 
   //영화 장르
   useEffect(() => {
-    contents
+    contentsMovieGenre
       .moviePopularActionAdventure()
       .then((content) => setMoviePopActionAdventure(content));
-  }, [contents]);
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents
+    contentsMovieGenre
       .moviePopularAnimation()
       .then((content) => setMoviePopAnimation(content));
-  }, [contents]);
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents.moviePopularComedy().then((content) => setMoviePopComedy(content));
-  }, [contents]);
+    contentsMovieGenre
+      .moviePopularComedy()
+      .then((content) => setMoviePopComedy(content));
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents
+    contentsMovieGenre
       .moviePopularCrimeThriller()
       .then((content) => setMoviePopCrimeThriller(content));
-  }, [contents]);
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents
+    contentsMovieGenre
       .moviePopularDocumentary()
       .then((content) => setMoviePopDocumentary(content));
-  }, [contents]);
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents.moviePopularDrama().then((content) => setMoviePopDrama(content));
-  }, [contents]);
+    contentsMovieGenre
+      .moviePopularDrama()
+      .then((content) => setMoviePopDrama(content));
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents.moviePopularFamily().then((content) => setMoviePopFamily(content));
-  }, [contents]);
+    contentsMovieGenre
+      .moviePopularFamily()
+      .then((content) => setMoviePopFamily(content));
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents
+    contentsMovieGenre
       .moviePopularSfFantasy()
       .then((content) => setMoviePopSfFantasy(content));
-  }, [contents]);
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents
+    contentsMovieGenre
       .moviePopularHistory()
       .then((content) => setMoviePopHistory(content));
-  }, [contents]);
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents.moviePopularHorror().then((content) => setMoviePopHorror(content));
-  }, [contents]);
+    contentsMovieGenre
+      .moviePopularHorror()
+      .then((content) => setMoviePopHorror(content));
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents.moviePopularMusic().then((content) => setMoviePopMusic(content));
-  }, [contents]);
+    contentsMovieGenre
+      .moviePopularMusic()
+      .then((content) => setMoviePopMusic(content));
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents
+    contentsMovieGenre
       .moviePopularMystery()
       .then((content) => setMoviePopMystery(content));
-  }, [contents]);
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents
+    contentsMovieGenre
       .moviePopularRomance()
       .then((content) => setMoviePopRomance(content));
-  }, [contents]);
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents.moviePopularWar().then((content) => setMoviePopWar(content));
-  }, [contents]);
+    contentsMovieGenre
+      .moviePopularWar()
+      .then((content) => setMoviePopWar(content));
+  }, [contentsMovieGenre]);
 
   useEffect(() => {
-    contents
+    contentsMovieGenre
       .moviePopularWestern()
       .then((content) => setMoviePopwestern(content));
-  }, [contents]);
+  }, [contentsMovieGenre]);
 
   // TV 장르
   useEffect(() => {
-    contents
+    contentsTvGenre
       .tvPopularActionAdventure()
       .then((content) => setTvPopActionAdventure(content));
-  }, [contents]);
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents.tvPopularAnimation().then((content) => setTvPopAnimation(content));
-  }, [contents]);
+    contentsTvGenre
+      .tvPopularAnimation()
+      .then((content) => setTvPopAnimation(content));
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents.tvPopularComedy().then((content) => setTvPopComedy(content));
-  }, [contents]);
+    contentsTvGenre
+      .tvPopularComedy()
+      .then((content) => setTvPopComedy(content));
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents.tvPopularCrime().then((content) => setTvPopCrime(content));
-  }, [contents]);
+    contentsTvGenre.tvPopularCrime().then((content) => setTvPopCrime(content));
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents
+    contentsTvGenre
       .tvPopularDocumentary()
       .then((content) => setTvPopDocumentary(content));
-  }, [contents]);
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents.tvPopularDrama().then((content) => setTvPopDrama(content));
-  }, [contents]);
+    contentsTvGenre.tvPopularDrama().then((content) => setTvPopDrama(content));
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents.tvPopularFamily().then((content) => setTvPopFamily(content));
-  }, [contents]);
+    contentsTvGenre
+      .tvPopularFamily()
+      .then((content) => setTvPopFamily(content));
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents.tvPopularMystery().then((content) => setTvPopMystery(content));
-  }, [contents]);
+    contentsTvGenre
+      .tvPopularMystery()
+      .then((content) => setTvPopMystery(content));
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents.tvKoreanReality().then((content) => setTvKoreanShow(content));
-  }, [contents]);
+    contentsTvGenre
+      .tvKoreanReality()
+      .then((content) => setTvKoreanShow(content));
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents.tvEnReality().then((content) => setTvEnShow(content));
-  }, [contents]);
+    contentsTvGenre.tvEnReality().then((content) => setTvEnShow(content));
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents.tvPopularSfFantasy().then((content) => setTvPopSfFantasy(content));
-  }, [contents]);
+    contentsTvGenre
+      .tvPopularSfFantasy()
+      .then((content) => setTvPopSfFantasy(content));
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents.tvPopularWar().then((content) => setTvPopWar(content));
-  }, [contents]);
+    contentsTvGenre.tvPopularWar().then((content) => setTvPopWar(content));
+  }, [contentsTvGenre]);
 
   useEffect(() => {
-    contents.tvPopularWar().then((content) => setTvPopWar(content));
-  }, [contents]);
+    contentsTvGenre.tvPopularWar().then((content) => setTvPopWar(content));
+  }, [contentsTvGenre]);
 
   return (
     <div className={styles.app}>
@@ -255,25 +328,27 @@ function App({ location, match, contents }) {
         <Route path='/movie' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기 영화</div>
               <MoviePopular moviesPopular={popularMovie} />
+              <MovieNowPlaying nowPlaying={nowPlayingMovie} />
+              <MovieTopRated topRated={topRatedMovie} />
+              <MovieUpComing upComing={upComingMovie} />
+              <MovieClassic classic={classicMovie} />
             </section>
           </main>
         </Route>
         <Route path='/tv' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기 TV프로그램</div>
               <TvPopular tvPopular={popularTV} />
+              <TvKrPoular tvKrPopukar={krPopularTV} />
+              <TvTopRated tvTopRated={topRatedTV} />
             </section>
           </main>
         </Route>
         <Route path='/kids' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기 키즈</div>
               <KidsPopular popularKids={popularKids} />
-              <div>최근 키즈</div>
               <KidsLatest kidsLatest={kidsLatest} />
             </section>
           </main>
@@ -281,7 +356,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/action-adventure' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieActionAdventure popular={moviePopActionAdventure} />
             </section>
           </main>
@@ -289,7 +363,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/animation' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieAnimation popular={moviePopAnimation} />
             </section>
           </main>
@@ -297,7 +370,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/comedy' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieComedy popular={moviePopComedy} />
             </section>
           </main>
@@ -305,7 +377,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/crime-thriller' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieCrimeThriller popular={moviePopCrimeThriller} />
             </section>
           </main>
@@ -313,7 +384,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/documentary' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieDocumentary popular={moviePopDocumentary} />
             </section>
           </main>
@@ -321,7 +391,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/drama' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieDrama popular={moviePopDrama} />
             </section>
           </main>
@@ -329,7 +398,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/family' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieFamily popular={moviePopFamily} />
             </section>
           </main>
@@ -337,7 +405,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/sf-fantasy' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieSfFantasy popular={moviePopSfFantasy} />
             </section>
           </main>
@@ -345,7 +412,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/history' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieHistory popular={moviePopHistory} />
             </section>
           </main>
@@ -353,7 +419,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/music' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieMusic popular={moviePopMusic} />
             </section>
           </main>
@@ -361,7 +426,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/horror' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieHorror popular={moviePopHorror} />
             </section>
           </main>
@@ -369,7 +433,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/mystery' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieMystery popular={moviePopMystery} />
             </section>
           </main>
@@ -377,7 +440,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/romance' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieRomance popular={moviePopRomance} />
             </section>
           </main>
@@ -385,7 +447,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/war' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieWar popular={moviePopuWar} />
             </section>
           </main>
@@ -393,7 +454,6 @@ function App({ location, match, contents }) {
         <Route path='/movie-genre/western' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <MovieWestern popular={moviePopWestern} />
             </section>
           </main>
@@ -401,7 +461,6 @@ function App({ location, match, contents }) {
         <Route path='/tv-genre/action-adventure' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <TVActionAdventure popular={tvPopActionAdventure} />
             </section>
           </main>
@@ -409,7 +468,6 @@ function App({ location, match, contents }) {
         <Route path='/tv-genre/animation' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <TVAnimation popular={tvPopAnimation} />
             </section>
           </main>
@@ -417,7 +475,6 @@ function App({ location, match, contents }) {
         <Route path='/tv-genre/comedy' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <TVComedy popular={tvPopComedy} />
             </section>
           </main>
@@ -425,7 +482,6 @@ function App({ location, match, contents }) {
         <Route path='/tv-genre/crime' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <TVCrime popular={tvPopCrime} />
             </section>
           </main>
@@ -433,7 +489,6 @@ function App({ location, match, contents }) {
         <Route path='/tv-genre/documentary' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <TVDocumentary popular={tvPopDocumentary} />
             </section>
           </main>
@@ -441,7 +496,6 @@ function App({ location, match, contents }) {
         <Route path='/tv-genre/drama' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <TVDrama popular={tvPopDrama} />
             </section>
           </main>
@@ -449,7 +503,6 @@ function App({ location, match, contents }) {
         <Route path='/tv-genre/family' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <TVFamily popular={tvPopFamily} />
             </section>
           </main>
@@ -464,7 +517,6 @@ function App({ location, match, contents }) {
         <Route path='/tv-genre/mystery' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <TVMystery popular={tvPopMystery} />
             </section>
           </main>
@@ -472,7 +524,6 @@ function App({ location, match, contents }) {
         <Route path='/tv-genre/sf-fantasy' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <TVSfFantasy popular={tvPopSfFantasy} />
             </section>
           </main>
@@ -480,7 +531,6 @@ function App({ location, match, contents }) {
         <Route path='/tv-genre/war' exact>
           <main className={styles.main}>
             <section className='contentContainer'>
-              <div>인기</div>
               <TVWar popular={tvPopWar} />
             </section>
           </main>

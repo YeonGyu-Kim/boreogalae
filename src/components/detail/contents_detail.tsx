@@ -44,6 +44,25 @@ type Content = {
   number_of_seasons: number;
 };
 
+type Credit = {
+  cast: [
+    {
+      adult: boolean;
+      gender: number;
+      id: number;
+      known_for_department: string;
+      name: string;
+      original_name: string;
+      popularity: number;
+      profile_path: string;
+      cast_id: number;
+      character: string;
+      credit_id: string;
+      order: number;
+    }
+  ];
+};
+
 type ContentsID = {
   id: string;
 };
@@ -53,6 +72,7 @@ const ContentsDetail = memo(({ contents }: any) => {
     undefined
   );
   const [tvDetail, setTvDetail] = useState<Content | undefined>(undefined);
+  const [movieCredit, setMovieCredit] = useState<Credit | undefined>(undefined);
 
   const { id } = useParams<ContentsID>();
   const { pathname } = useLocation();
@@ -70,6 +90,11 @@ const ContentsDetail = memo(({ contents }: any) => {
       contents.tvDetail(id).then((content: any) => setTvDetail(content));
   }, [contents, isMovie, id]);
 
+  useEffect(() => {
+    isMovie &&
+      contents.movieCredit(id).then((content: any) => setMovieCredit(content));
+  }, [contents, isMovie, id]);
+
   return (
     <section className={styles.detailContainer}>
       <div className={styles.contentTitle}>
@@ -80,7 +105,7 @@ const ContentsDetail = memo(({ contents }: any) => {
           src={`https://image.tmdb.org/t/p/w300${
             movieDetail?.poster_path || tvDetail?.poster_path
           }`}
-          alt=''
+          alt='image'
         />
         <div className={styles.basicInfo}>
           <span className={styles.basicTitle}>기본 정보</span>
@@ -157,6 +182,18 @@ const ContentsDetail = memo(({ contents }: any) => {
               ))
           : null}
       </div>
+      <ul className={styles.creditContainer}>
+        {movieCredit &&
+          movieCredit.cast.slice(0, 10).map((credit) => (
+            <li className={styles.creditItem}>
+              <img
+                src={`https://image.tmdb.org/t/p/w300${credit.profile_path}`}
+                alt='image'
+              />
+              <span>{credit?.character}</span>
+            </li>
+          ))}
+      </ul>
     </section>
   );
 });

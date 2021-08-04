@@ -1,6 +1,7 @@
 import React from "react";
 import { memo } from "react";
 import styled from "styled-components";
+import ContentContainer from "../../contents/content_container";
 import ContentScreen from "../../contents/content_screen";
 
 const Container = styled.section`
@@ -21,10 +22,11 @@ const Item = styled.div`
 
 const TVReality = memo(({ kr: { results: kr }, en: { results: en } }) => {
   return (
-    <Container>
-      <Title>한국</Title>
-      <UL>
-        {kr &&
+    <>
+      <ContentContainer
+        title='한국 드라마'
+        children={
+          kr &&
           kr.map((content) => (
             <ContentScreen
               id={content?.id}
@@ -32,11 +34,13 @@ const TVReality = memo(({ kr: { results: kr }, en: { results: en } }) => {
               title={content?.name}
               poster={content?.poster_path}
             />
-          ))}
-      </UL>
-      <div>미국</div>
-      <UL>
-        {en &&
+          ))
+        }
+      />
+      <ContentContainer
+        title='미국 드라마'
+        children={
+          en &&
           en.map((content) => (
             <ContentScreen
               id={content?.id}
@@ -44,9 +48,10 @@ const TVReality = memo(({ kr: { results: kr }, en: { results: en } }) => {
               title={content?.name}
               poster={content?.poster_path}
             />
-          ))}
-      </UL>
-    </Container>
+          ))
+        }
+      />
+    </>
   );
 });
 

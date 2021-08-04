@@ -1,16 +1,14 @@
 import React from "react";
 import { memo } from "react";
-import styled from "styled-components";
+import ContentContainer from "../../contents/content_container";
 import ContentScreen from "../../contents/content_screen";
-
-const UL = styled.ul`
-  display: flex;
-`;
 
 const TVActionAdventure = memo(({ popular: { results } }) => {
   return (
-    <UL>
-      {results &&
+    <ContentContainer
+      title='인기 콘텐츠'
+      children={
+        results &&
         results.map((content) => (
           <ContentScreen
             id={content?.id}
@@ -18,8 +16,9 @@ const TVActionAdventure = memo(({ popular: { results } }) => {
             title={content?.name}
             poster={content?.poster_path}
           />
-        ))}
-    </UL>
+        ))
+      }
+    />
   );
 });
 

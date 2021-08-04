@@ -37,3 +37,14 @@
   width: 400px;
   height: 200px;
 }
+
+.creditContainer {
+  display: flex;
+  overflow-y: hidden;
+}
+
+.creditItem {
+  display: flex;
+  flex-direction: column;
+  width: 8rem;
+}

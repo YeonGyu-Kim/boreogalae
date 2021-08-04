@@ -1,25 +1,24 @@
 import React from "react";
 import { memo } from "react";
-import styled from "styled-components";
+import ContentContainer from "../contents/content_container";
 import ContentScreen from "../contents/content_screen";
-
-const UL = styled.ul`
-  display: flex;
-`;
 
 const KidsPopular = memo(({ popularKids: { results } }) => {
   return (
-    <UL>
-      {results &&
-        results.map((kids) => (
+    <ContentContainer
+      title='인기 키즈'
+      children={
+        results &&
+        results.map((content) => (
           <ContentScreen
-            key={kids?.id}
-            id={kids?.id}
-            poster={kids?.poster_path}
-            title={kids?.name}
+            id={content?.id}
+            key={content?.id}
+            title={content?.name}
+            poster={content?.poster_path}
           />
-        ))}
-    </UL>
+        ))
+      }
+    />
   );
 });
 
