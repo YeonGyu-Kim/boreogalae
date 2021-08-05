@@ -4,7 +4,7 @@ import styles from "./content_screen.module.css";
 const ContentScreen = ({ id, title, poster }) => {
   const { pathname } = useLocation();
   return (
-    <li className={styles.content}>
+    <li key={id} className={styles.content}>
       <Link
         to={
           pathname === "/movie" || pathname.includes("/movie-genre")

@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, Link } from "react-router-dom";
 import { useEffect, useState, memo } from "react";
 import styles from "./contents_detail.module.css";
 
@@ -8,8 +8,8 @@ type Content = {
   backdrop_path?: string;
   genres: [
     {
-      id: string;
-      name: string;
+      id?: string;
+      name?: string;
     }
   ];
   id?: number;
@@ -27,13 +27,11 @@ type Content = {
     results: [
       {
         id: string;
-        iso_639_1: string;
-        iso_3166_1: string;
-        key: string;
-        name: string;
-        site: string;
-        size: number;
-        type: string;
+        key?: string;
+        name?: string;
+        site?: string;
+        size?: number;
+        type?: string;
       }
     ];
   };
@@ -41,26 +39,55 @@ type Content = {
   vote_count?: number;
   runtime?: number;
   episode_run_time?: number;
-  number_of_seasons: number;
+  number_of_seasons?: number;
 };
 
 type Credit = {
   cast: [
     {
-      adult: boolean;
-      gender: number;
-      id: number;
-      known_for_department: string;
-      name: string;
-      original_name: string;
-      popularity: number;
-      profile_path: string;
-      cast_id: number;
-      character: string;
-      credit_id: string;
-      order: number;
+      adult?: boolean;
+      gender?: number;
+      id?: number;
+      known_for_department?: string;
+      name?: string;
+      original_name?: string;
+      popularity?: number;
+      profile_path?: string;
+      cast_id?: number;
+      character?: string;
+      credit_id?: string;
+      order?: number;
     }
   ];
+  crew: [
+    {
+      adult?: boolean;
+      gender?: number;
+      id?: number;
+      known_for_department?: string;
+      name?: string;
+      original_name?: string;
+      popularity?: number;
+      profile_path?: string;
+      credit_id?: string;
+      department?: string;
+      job?: string;
+    }
+  ];
+};
+
+type Provider = {
+  results: {
+    KR?: {
+      flatrate?: [
+        {
+          logo_path?: string;
+          provider_id?: number;
+          provider_name?: string;
+        }
+      ];
+    };
+  };
 };
 
 type ContentsID = {
@@ -68,37 +95,61 @@ type ContentsID = {
 };
 
 const ContentsDetail = memo(({ contents }: any) => {
-  const [movieDetail, setMovieDetail] = useState<Content | undefined>(
-    undefined
-  );
-  const [tvDetail, setTvDetail] = useState<Content | undefined>(undefined);
-  const [movieCredit, setMovieCredit] = useState<Credit | undefined>(undefined);
+  const [movieDetail, setMovieDetail] = useState<Content | undefined>();
+  const [tvDetail, setTvDetail] = useState<Content | undefined>();
+  const [movieCredit, setMovieCredit] = useState<Credit | undefined>();
+  const [tvCredit, setTvCredit] = useState<Credit | undefined>();
+  const [movieProvider, setMovieProvider] = useState<Provider | undefined>();
+  const [tvProvider, setTvProvider] = useState<Provider | undefined>();
 
   const { id } = useParams<ContentsID>();
   const { pathname } = useLocation();
   const isMovie = pathname.includes("/movie");
-  const isTV = pathname.includes("/tv");
+  const isTvKids = pathname.includes("/tv") || pathname.includes("/kids");
   const genreLength = movieDetail?.genres?.length || tvDetail?.genres?.length;
 
   useEffect(() => {
     isMovie &&
-      contents.movieDetail(id).then((content: any) => setMovieDetail(content));
+      contents
+        .movieDetail(id)
+        .then((content: Content) => setMovieDetail(content));
   }, [contents, isMovie, id]);
 
   useEffect(() => {
-    !isMovie &&
-      contents.tvDetail(id).then((content: any) => setTvDetail(content));
-  }, [contents, isMovie, id]);
+    isTvKids &&
+      contents.tvDetail(id).then((content: Content) => setTvDetail(content));
+  }, [contents, isTvKids, id]);
 
   useEffect(() => {
     isMovie &&
-      contents.movieCredit(id).then((content: any) => setMovieCredit(content));
+      contents
+        .movieCredit(id)
+        .then((content: Credit) => setMovieCredit(content));
   }, [contents, isMovie, id]);
+
+  useEffect(() => {
+    isTvKids &&
+      contents.tvCredit(id).then((content: Credit) => setTvCredit(content));
+  }, [contents, isTvKids, id]);
+
+  useEffect(() => {
+    isMovie &&
+      contents
+        .movieProvider(id)
+        .then((content: Provider) => setMovieProvider(content));
+  }, [contents, isMovie, id]);
+
+  useEffect(() => {
+    isTvKids &&
+      contents
+        .tvProvider(id)
+        .then((content: Provider) => setTvProvider(content));
+  }, [contents, isTvKids, id]);
 
   return (
     <section className={styles.detailContainer}>
       <div className={styles.contentTitle}>
-        {isMovie ? movieDetail?.title : isTV ? tvDetail?.name : null}
+        {isMovie ? movieDetail?.title : isTvKids ? tvDetail?.name : null}
       </div>
       <div className={styles.contentsInfo}>
         <img
@@ -144,6 +195,22 @@ const ContentsDetail = memo(({ contents }: any) => {
                 : null}
             </span>
           </div>
+          {movieProvider?.results?.KR?.flatrate &&
+            movieProvider?.results?.KR?.flatrate.map((flat) => (
+              <img
+                key={flat.provider_id}
+                className={styles.logo}
+                src={`https://image.tmdb.org/t/p/w300${flat?.logo_path}`}
+              />
+            ))}
+          {tvProvider?.results?.KR?.flatrate &&
+            tvProvider?.results?.KR?.flatrate.map((flat) => (
+              <img
+                key={flat.provider_id}
+                className={styles.logo}
+                src={`https://image.tmdb.org/t/p/w300${flat?.logo_path}`}
+              />
+            ))}
         </div>
       </div>
       <div className={styles.description}>
@@ -185,12 +252,30 @@ const ContentsDetail = memo(({ contents }: any) => {
       <ul className={styles.creditContainer}>
         {movieCredit &&
           movieCredit.cast.slice(0, 10).map((credit) => (
-            <li className={styles.creditItem}>
-              <img
-                src={`https://image.tmdb.org/t/p/w300${credit.profile_path}`}
-                alt='image'
-              />
-              <span>{credit?.character}</span>
+            <li key={credit.id} className={styles.creditItem}>
+              <Link to={`/${credit?.credit_id}`}>
+                <img
+                  className={styles.creditImg}
+                  src={`https://image.tmdb.org/t/p/w300${credit?.profile_path}`}
+                  alt='image'
+                />
+                <span className={styles.name}>{credit?.name}</span>
+                <span className={styles.character}>{credit?.character}</span>
+              </Link>
+            </li>
+          ))}
+        {tvCredit &&
+          tvCredit.cast.slice(0, 10).map((credit) => (
+            <li key={credit.id} className={styles.creditItem}>
+              <Link to={`/${credit.credit_id}`}>
+                <img
+                  className={styles.creditImg}
+                  src={`https://image.tmdb.org/t/p/w300${credit.profile_path}`}
+                  alt='image'
+                />
+                <span className={styles.name}>{credit?.name}</span>
+                <span className={styles.character}>{credit?.character}</span>
+              </Link>
             </li>
           ))}
       </ul>

@@ -27,6 +27,11 @@
   font-size: 1rem;
 }
 
+.logo {
+  width: 3rem;
+  height: 3rem;
+}
+
 .genreInfo,
 .releaseInfo,
 .voteInfo,
@@ -44,7 +49,14 @@
 }
 
 .creditItem {
-  display: flex;
-  flex-direction: column;
   width: 8rem;
+  margin-right: 0.5rem;
+}
+
+.creditImg {
+  width: 100%;
+}
+
+.name {
+  font-size: 1.3rem;
 }

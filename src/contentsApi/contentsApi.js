@@ -48,6 +48,11 @@ class Contents {
     return response.data;
   }
 
+  async movieProvider(id) {
+    const response = await this.contents.get(`movie/${id}/watch/providers`);
+    return response.data;
+  }
+
   // TV
   async tvPopular() {
     const response = await this.contents.get("tv/popular");
@@ -70,6 +75,11 @@ class Contents {
 
   async tvCredit(id) {
     const response = await this.contents.get(`tv/${id}/credits`);
+    return response.data;
+  }
+
+  async tvProvider(id) {
+    const response = await this.contents.get(`tv/${id}/watch/providers`);
     return response.data;
   }
 
