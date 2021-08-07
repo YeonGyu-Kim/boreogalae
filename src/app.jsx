@@ -1,7 +1,8 @@
+import BeginningScreen from "./components/beginning/beginning_screen";
+import { useCallback } from "react";
+import { Route, Switch, withRouter } from "react-router-dom";
 import "./app.css";
 import styles from "./app.module.css";
-import BeginningScreen from "./components/beginning/beginning_screen";
-import { Route, Switch, withRouter } from "react-router-dom";
 import GlobalStyle from "./global_style";
 import Header from "./components/header/header";
 import ContentsDetail from "./components/detail/contents_detail";
@@ -10,7 +11,6 @@ import { useState, useEffect } from "react";
 import MoviePopular from "./components/movie/movie_popular";
 import TvPopular from "./components/tv/tv_popular";
 import SearchScreen from "./components/search/search_screen";
-import { useCallback } from "react";
 import KidsPopular from "./components/kids/kids_popular";
 import KidsLatest from "./components/kids/kids_latest";
 import MovieActionAdventure from "./components/genre/movie/action_adventure";
@@ -46,14 +46,9 @@ import MovieUpComing from "./components/movie/movie_upcoming";
 import MovieClassic from "./components/movie/movie_classic";
 import TvKrPoular from "./components/tv/tv_kr_poular";
 import TvTopRated from "./components/tv/tv_top_rated";
+import CharacterDetail from "./components/detail/character_detail";
 
-function App({
-  location,
-  match,
-  contents,
-  contentsMovieGenre,
-  contentsTvGenre,
-}) {
+function App({ location, match, contents, contentsMovie, contentsTV }) {
   // 영화
   const [popularMovie, setPopularMovie] = useState([]);
   const [topRatedMovie, setTopRatedMovie] = useState([]);
@@ -128,10 +123,8 @@ function App({
   }, [contents]);
 
   useEffect(() => {
-    contentsMovieGenre
-      .movieClassic()
-      .then((content) => setClassicMovie(content));
-  }, [contentsMovieGenre]);
+    contentsMovie.movieClassic().then((content) => setClassicMovie(content));
+  }, [contentsMovie]);
 
   // TV
   useEffect(() => {
@@ -143,177 +136,167 @@ function App({
   }, [contents]);
 
   useEffect(() => {
-    contentsTvGenre.tvKrPopular().then((content) => setKrPopularTv(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvKrPopular().then((content) => setKrPopularTv(content));
+  }, [contentsTV]);
 
   // 키즈
   useEffect(() => {
-    contentsTvGenre.tvKidsPopular().then((content) => setPopularKids(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvKidsPopular().then((content) => setPopularKids(content));
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre.tvKidsLatest().then((content) => setKidsLatest(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvKidsLatest().then((content) => setKidsLatest(content));
+  }, [contentsTV]);
 
   //영화 장르
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularActionAdventure()
       .then((content) => setMoviePopActionAdventure(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularAnimation()
       .then((content) => setMoviePopAnimation(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularComedy()
       .then((content) => setMoviePopComedy(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularCrimeThriller()
       .then((content) => setMoviePopCrimeThriller(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularDocumentary()
       .then((content) => setMoviePopDocumentary(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularDrama()
       .then((content) => setMoviePopDrama(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularFamily()
       .then((content) => setMoviePopFamily(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularSfFantasy()
       .then((content) => setMoviePopSfFantasy(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularHistory()
       .then((content) => setMoviePopHistory(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularHorror()
       .then((content) => setMoviePopHorror(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularMusic()
       .then((content) => setMoviePopMusic(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularMystery()
       .then((content) => setMoviePopMystery(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularRomance()
       .then((content) => setMoviePopRomance(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
-      .moviePopularWar()
-      .then((content) => setMoviePopWar(content));
-  }, [contentsMovieGenre]);
+    contentsMovie.moviePopularWar().then((content) => setMoviePopWar(content));
+  }, [contentsMovie]);
 
   useEffect(() => {
-    contentsMovieGenre
+    contentsMovie
       .moviePopularWestern()
       .then((content) => setMoviePopwestern(content));
-  }, [contentsMovieGenre]);
+  }, [contentsMovie]);
 
   // TV 장르
   useEffect(() => {
-    contentsTvGenre
+    contentsTV
       .tvPopularActionAdventure()
       .then((content) => setTvPopActionAdventure(content));
-  }, [contentsTvGenre]);
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre
+    contentsTV
       .tvPopularAnimation()
       .then((content) => setTvPopAnimation(content));
-  }, [contentsTvGenre]);
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre
-      .tvPopularComedy()
-      .then((content) => setTvPopComedy(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvPopularComedy().then((content) => setTvPopComedy(content));
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre.tvPopularCrime().then((content) => setTvPopCrime(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvPopularCrime().then((content) => setTvPopCrime(content));
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre
+    contentsTV
       .tvPopularDocumentary()
       .then((content) => setTvPopDocumentary(content));
-  }, [contentsTvGenre]);
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre.tvPopularDrama().then((content) => setTvPopDrama(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvPopularDrama().then((content) => setTvPopDrama(content));
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre
-      .tvPopularFamily()
-      .then((content) => setTvPopFamily(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvPopularFamily().then((content) => setTvPopFamily(content));
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre
-      .tvPopularMystery()
-      .then((content) => setTvPopMystery(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvPopularMystery().then((content) => setTvPopMystery(content));
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre
-      .tvKoreanReality()
-      .then((content) => setTvKoreanShow(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvKoreanReality().then((content) => setTvKoreanShow(content));
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre.tvEnReality().then((content) => setTvEnShow(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvEnReality().then((content) => setTvEnShow(content));
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre
+    contentsTV
       .tvPopularSfFantasy()
       .then((content) => setTvPopSfFantasy(content));
-  }, [contentsTvGenre]);
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre.tvPopularWar().then((content) => setTvPopWar(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvPopularWar().then((content) => setTvPopWar(content));
+  }, [contentsTV]);
 
   useEffect(() => {
-    contentsTvGenre.tvPopularWar().then((content) => setTvPopWar(content));
-  }, [contentsTvGenre]);
+    contentsTV.tvPopularWar().then((content) => setTvPopWar(content));
+  }, [contentsTV]);
 
   return (
     <div className={styles.app}>
@@ -543,6 +526,9 @@ function App({
         </Route>
         <Route path='/kids/:id'>
           <ContentsDetail contents={contents} />
+        </Route>
+        <Route path='/:id'>
+          <CharacterDetail contents={contents} />
         </Route>
         <Route path='/search_query=:result'>
           <SearchScreen onSearch={searchResult} contents={contents} />

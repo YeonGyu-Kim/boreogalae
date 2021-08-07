@@ -83,7 +83,7 @@ class Contents {
     return response.data;
   }
 
-  // search
+  // 검색
   async movieSearch(query) {
     const response = await this.contents.get("search/movie", {
       params: {
@@ -97,6 +97,25 @@ class Contents {
     const response = await this.contents.get("search/tv", {
       params: {
         query,
+      },
+    });
+    return response.data;
+  }
+
+  // 인물
+  async personCredit(id) {
+    const response = await this.contents.get(`person/${id}/combined_credits`, {
+      params: {
+        person_id: id,
+      },
+    });
+    return response.data;
+  }
+
+  async personDetail(id) {
+    const response = await this.contents.get(`person/${id}`, {
+      params: {
+        person_id: id,
       },
     });
     return response.data;

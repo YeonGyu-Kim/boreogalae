@@ -3,20 +3,20 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./app";
 import Contents from "./contentsApi/contentsApi";
-import ContentsMovieGenre from "./contentsApi/movieGenreApi";
-import ContentsTvGenre from "./contentsApi/tvGenreApi";
+import ContentsMovie from "./contentsApi/movieApi";
+import ContentsTV from "./contentsApi/tvApi";
 
 const contents = new Contents(process.env.REACT_APP_TMDB_API_KEY);
-const contentsMovieGenre = new ContentsMovieGenre();
-const contentsTvGenre = new ContentsTvGenre();
+const contentsMovie = new ContentsMovie();
+const contentsTV = new ContentsTV();
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <App
         contents={contents}
-        contentsMovieGenre={contentsMovieGenre}
-        contentsTvGenre={contentsTvGenre}
+        contentsMovie={contentsMovie}
+        contentsTV={contentsTV}
       />
     </BrowserRouter>
   </React.StrictMode>,

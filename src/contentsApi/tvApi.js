@@ -1,9 +1,9 @@
 import axios from "axios";
 
-class ContentsMovieGenre {
+class ContentsTV {
   key = process.env.REACT_APP_TMDB_API_KEY;
   contents = axios.create({
-    baseURL: `https://api.themoviedb.org/3/discover/movie/`,
+    baseURL: `https://api.themoviedb.org/3/discover/tv/`,
     params: {
       language: "ko",
       region: "kr",
@@ -11,15 +11,20 @@ class ContentsMovieGenre {
     },
   });
 
-  // 영화 장르
-  async moviePopularActionAdventure() {
+  // TV 장르
+  async tvPopularActionAdventure() {
     const response = await this.contents.get(
-      `?api_key=${this.key}&vote_average.gte=7.9&vote_count.gte=1000&with_genres=28,12`
+      `?api_key=${this.key}&vote_average.gte=8&vote_count.gte=1000`,
+      {
+        params: {
+          with_genres: 10759,
+        },
+      }
     );
     return response.data;
   }
 
-  async moviePopularAnimation() {
+  async tvPopularAnimation() {
     const response = await this.contents.get(
       `?api_key=${this.key}&vote_average.gte=8&vote_count.gte=1000`,
       {
@@ -31,7 +36,7 @@ class ContentsMovieGenre {
     return response.data;
   }
 
-  async moviePopularComedy() {
+  async tvPopularComedy() {
     const response = await this.contents.get(
       `?api_key=${this.key}&vote_average.gte=8&vote_count.gte=1000`,
       {
@@ -43,14 +48,19 @@ class ContentsMovieGenre {
     return response.data;
   }
 
-  async moviePopularCrimeThriller() {
+  async tvPopularCrime() {
     const response = await this.contents.get(
-      `?api_key=${this.key}&vote_average.gte=7.7&vote_count.gte=1000&with_genres=80,53`
+      `?api_key=${this.key}&vote_average.gte=7.7&vote_count.gte=1000`,
+      {
+        params: {
+          with_genres: 80,
+        },
+      }
     );
     return response.data;
   }
 
-  async moviePopularDocumentary() {
+  async tvPopularDocumentary() {
     const response = await this.contents.get(
       `?api_key=${this.key}&vote_average.gte=7&vote_count.gte=300`,
       {
@@ -62,7 +72,7 @@ class ContentsMovieGenre {
     return response.data;
   }
 
-  async moviePopularDrama() {
+  async tvPopularDrama() {
     const response = await this.contents.get(
       `?api_key=${this.key}&vote_average.gte=8&vote_count.gte=1000`,
       {
@@ -74,7 +84,7 @@ class ContentsMovieGenre {
     return response.data;
   }
 
-  async moviePopularFamily() {
+  async tvPopularFamily() {
     const response = await this.contents.get(
       `?api_key=${this.key}&vote_average.gte=7.9&vote_count.gte=1000&`,
       {
@@ -86,50 +96,7 @@ class ContentsMovieGenre {
     return response.data;
   }
 
-  async moviePopularSfFantasy() {
-    const response = await this.contents.get(
-      `?api_key=${this.key}&vote_average.gte=7&vote_count.gte=1000&with_genres=14,878`
-    );
-    return response.data;
-  }
-
-  async moviePopularHistory() {
-    const response = await this.contents.get(
-      `?api_key=${this.key}&vote_average.gte=7.7&vote_count.gte=1000&`,
-      {
-        params: {
-          with_genres: 36,
-        },
-      }
-    );
-    return response.data;
-  }
-
-  async moviePopularHorror() {
-    const response = await this.contents.get(
-      `?api_key=${this.key}&vote_average.gte=7.5&vote_count.gte=1000&`,
-      {
-        params: {
-          with_genres: 27,
-        },
-      }
-    );
-    return response.data;
-  }
-
-  async moviePopularMusic() {
-    const response = await this.contents.get(
-      `?api_key=${this.key}&vote_average.gte=7.2&vote_count.gte=1000&`,
-      {
-        params: {
-          with_genres: 10402,
-        },
-      }
-    );
-    return response.data;
-  }
-
-  async moviePopularMystery() {
+  async tvPopularMystery() {
     const response = await this.contents.get(
       `?api_key=${this.key}&vote_average.gte=8&vote_count.gte=1000`,
       {
@@ -141,48 +108,90 @@ class ContentsMovieGenre {
     return response.data;
   }
 
-  async moviePopularRomance() {
+  async tvKoreanReality() {
     const response = await this.contents.get(
-      `?api_key=${this.key}&vote_average.gte=7.9&vote_count.gte=1000`,
+      `?api_key=${this.key}&with_original_language=ko`,
       {
         params: {
-          with_genres: 10749,
+          with_genres: 10764,
         },
       }
     );
     return response.data;
   }
 
-  async moviePopularWar() {
+  async tvEnReality() {
     const response = await this.contents.get(
-      `?api_key=${this.key}&vote_average.gte=7.7&vote_count.gte=1000`,
+      `?api_key=${this.key}&with_original_language=en`,
       {
         params: {
-          with_genres: 10752,
+          with_genres: 10764,
         },
       }
     );
     return response.data;
   }
 
-  async moviePopularWestern() {
+  async tvPopularSfFantasy() {
     const response = await this.contents.get(
-      `?api_key=${this.key}&vote_average.gte=7&vote_count.gte=1000`,
+      `?api_key=${this.key}&vote_average.gte=8&vote_count.gte=1000`,
       {
         params: {
-          with_genres: 37,
+          with_genres: 10765,
         },
       }
     );
     return response.data;
   }
 
-  async movieClassic() {
+  async tvPopularWar() {
     const response = await this.contents.get(
-      `?api_key=${this.key}&sort_by=popularity.desc&release_date.lte=2004-01-01`
+      `?api_key=${this.key}&vote_average.gte=7&vote_count.gte=300`,
+      {
+        params: {
+          with_genres: 10768,
+        },
+      }
+    );
+    return response.data;
+  }
+
+  async tvKrPopular() {
+    const response = await this.contents.get(
+      `?api_key=${this.key}&sort_by=popularity.desc&with_original_language=ko`,
+      {
+        params: {
+          with_genres: 10768,
+        },
+      }
+    );
+    return response.data;
+  }
+
+  // kids
+  async tvKidsPopular() {
+    const response = await this.contents.get(
+      `?api_key=${this.key}&vote_average.gte=7&vote_count.gte=450`,
+      {
+        params: {
+          with_genres: 10762,
+        },
+      }
+    );
+    return response.data;
+  }
+
+  async tvKidsLatest() {
+    const response = await this.contents.get(
+      `?api_key=${this.key}&first_air_date.gte=2021-05-01`,
+      {
+        params: {
+          with_genres: 10762,
+        },
+      }
     );
     return response.data;
   }
 }
 
-export default ContentsMovieGenre;
+export default ContentsTV;

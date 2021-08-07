@@ -253,7 +253,7 @@ const ContentsDetail = memo(({ contents }: any) => {
         {movieCredit &&
           movieCredit.cast.slice(0, 10).map((credit) => (
             <li key={credit.id} className={styles.creditItem}>
-              <Link to={`/${credit?.credit_id}`}>
+              <Link to={`/${credit?.id}`}>
                 <img
                   className={styles.creditImg}
                   src={`https://image.tmdb.org/t/p/w300${credit?.profile_path}`}
@@ -267,7 +267,7 @@ const ContentsDetail = memo(({ contents }: any) => {
         {tvCredit &&
           tvCredit.cast.slice(0, 10).map((credit) => (
             <li key={credit.id} className={styles.creditItem}>
-              <Link to={`/${credit.credit_id}`}>
+              <Link to={`/${credit?.id}`}>
                 <img
                   className={styles.creditImg}
                   src={`https://image.tmdb.org/t/p/w300${credit.profile_path}`}
