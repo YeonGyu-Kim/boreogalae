@@ -19,8 +19,7 @@ const Header = memo(({ onSearch }) => {
 
   const handleSearch = () => {
     const result = value.current.value;
-    onSearch(result);
-    history.push(`/search_query=${result}`);
+    history.push(`/result/search_query=${result}`);
   };
 
   const onKeyPress = (event) => {

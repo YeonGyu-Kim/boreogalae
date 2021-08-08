@@ -93,7 +93,6 @@ function App({ location, match, contents, contentsMovie, contentsTV }) {
   const [tvEnShow, setTvEnShow] = useState([]);
   const [tvPopSfFantasy, setTvPopSfFantasy] = useState([]);
   const [tvPopWar, setTvPopWar] = useState([]);
-  const [searchResult, setSearchResult] = useState(null);
 
   const movieGenre = location.pathname.includes("/movie-genre");
   const tvGenre = location.pathname.includes("/tv-genre");
@@ -102,9 +101,6 @@ function App({ location, match, contents, contentsMovie, contentsTV }) {
     location.pathname === "/tv" ||
     location.pathname === "/kids";
 
-  const search = (q) => {
-    setSearchResult(q);
-  };
   // 영화
   useEffect(() => {
     contents.moviePopular().then((content) => setPopularMovie(content));
@@ -300,11 +296,7 @@ function App({ location, match, contents, contentsMovie, contentsTV }) {
 
   return (
     <div className={styles.app}>
-      {location.pathname === "/" ? (
-        <BeginningScreen />
-      ) : (
-        <Header onSearch={search} />
-      )}
+      {location.pathname === "/" ? <BeginningScreen /> : <Header />}
       {movieGenre || tvGenre || movieTvKids ? <Genre /> : null}
       {location.pathname === "/detail" && <ContentsDetail />}
       <Switch>
@@ -518,20 +510,20 @@ function App({ location, match, contents, contentsMovie, contentsTV }) {
             </section>
           </main>
         </Route>
-        <Route path='/movie/:id'>
+        <Route path='/movie/:id' exact>
           <ContentsDetail contents={contents} />
         </Route>
-        <Route path='/tv/:id'>
+        <Route path='/tv/:id' exact>
           <ContentsDetail contents={contents} />
         </Route>
-        <Route path='/kids/:id'>
+        <Route path='/kids/:id' exact>
           <ContentsDetail contents={contents} />
         </Route>
-        <Route path='/:id'>
+        <Route path='/:id' exact>
           <CharacterDetail contents={contents} />
         </Route>
-        <Route path='/search_query=:result'>
-          <SearchScreen onSearch={searchResult} contents={contents} />
+        <Route path='/result/search_query=:result'>
+          <SearchScreen contents={contents} />
         </Route>
       </Switch>
       <GlobalStyle />

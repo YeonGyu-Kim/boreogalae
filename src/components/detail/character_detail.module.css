@@ -1,4 +1,46 @@
 .container {
   position: absolute;
-  margin-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 6rem;
+  padding: 0 10vw;
+}
+
+.profile {
+  display: flex;
+
+  height: 10rem;
+}
+
+.profilePoster {
+  width: 10rem;
+}
+
+.profileDetail {
+  display: flex;
+  flex-direction: column;
+}
+
+.name,
+.birthday {
+  font-size: 1.5rem;
+}
+
+.filmContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filmDetail {
+  display: flex;
+  width: 20rem;
+}
+
+.filmPoster {
+  width: 7rem;
+}
+
+.filmTitle {
+  font-size: 0.8rem;
 }

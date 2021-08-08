@@ -1,12 +1,13 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation, useRouteMatch } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { memo } from "react";
 import styles from "./search_screen.module.css";
 
-const SearchScreen = memo(({ onSearch, contents }) => {
+const SearchScreen = memo(({ contents }) => {
   const [searchMovie, setSearchMovie] = useState(null);
   const [searchTV, setSearchTV] = useState(null);
   const { result } = useParams();
+  const param = useRouteMatch();
 
   useEffect(() => {
     contents.movieSearch(result).then((movie) => setSearchMovie(movie));
@@ -16,7 +17,7 @@ const SearchScreen = memo(({ onSearch, contents }) => {
     contents.tvSearch(result).then((tv) => setSearchTV(tv));
   }, [contents, result]);
 
-  console.log(searchTV);
+  console.log(param);
 
   return (
     <section className={styles.searchContainer}>
