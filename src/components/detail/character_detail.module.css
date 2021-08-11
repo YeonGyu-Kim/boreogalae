@@ -3,14 +3,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 6rem;
-  padding: 0 10vw;
+  margin-top: 7rem;
+  padding: 0 14vw;
 }
 
 .profile {
   display: flex;
-
   height: 10rem;
+  margin-bottom: 3rem;
 }
 
 .profilePoster {
@@ -20,11 +20,13 @@
 .profileDetail {
   display: flex;
   flex-direction: column;
+  margin-left: 1rem;
 }
 
 .name,
 .birthday {
   font-size: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .filmContainer {
@@ -34,13 +36,17 @@
 
 .filmDetail {
   display: flex;
-  width: 20rem;
+  width: 15rem;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
 }
 
 .filmPoster {
   width: 7rem;
+  margin-right: 1rem;
 }
 
 .filmTitle {
   font-size: 0.8rem;
+  line-height: 1rem;
 }

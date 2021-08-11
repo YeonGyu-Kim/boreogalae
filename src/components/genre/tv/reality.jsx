@@ -24,7 +24,7 @@ const TVReality = memo(({ kr: { results: kr }, en: { results: en } }) => {
   return (
     <>
       <ContentContainer
-        title='한국 드라마'
+        title='한국 예능'
         children={
           kr &&
           kr.map((content) => (
@@ -38,7 +38,7 @@ const TVReality = memo(({ kr: { results: kr }, en: { results: en } }) => {
         }
       />
       <ContentContainer
-        title='미국 드라마'
+        title='미국 예능'
         children={
           en &&
           en.map((content) => (

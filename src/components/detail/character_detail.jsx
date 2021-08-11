@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { useParams, useRouteMatch } from "react-router-dom";
+import { Link, useParams, useRouteMatch } from "react-router-dom";
 import styles from "./character_detail.module.css";
 
 const CharacterDetail = memo(({ contents }) => {
@@ -35,16 +35,24 @@ const CharacterDetail = memo(({ contents }) => {
             .sort((a, b) => b.popularity - a.popularity)
             .slice(0, 10)
             .map((content) => (
-              <div className={styles.filmDetail}>
-                <img
-                  className={styles.filmPoster}
-                  src={`https://image.tmdb.org/t/p/w300${content?.poster_path}`}
-                  alt='poster'
-                />
-                <span className={styles.filmTitle}>
-                  {content?.title || content?.name}
-                </span>
-              </div>
+              <Link
+                to={
+                  content.media_type === "movie"
+                    ? `/movie/${content.id}`
+                    : `/tv/${content.id}`
+                }
+              >
+                <div className={styles.filmDetail}>
+                  <img
+                    className={styles.filmPoster}
+                    src={`https://image.tmdb.org/t/p/w300${content?.poster_path}`}
+                    alt='poster'
+                  />
+                  <span className={styles.filmTitle}>
+                    {content?.title || content?.name}
+                  </span>
+                </div>
+              </Link>
             ))}
       </div>
     </section>

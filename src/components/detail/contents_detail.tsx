@@ -195,22 +195,24 @@ const ContentsDetail = memo(({ contents }: any) => {
                 : null}
             </span>
           </div>
-          {movieProvider?.results?.KR?.flatrate &&
-            movieProvider?.results?.KR?.flatrate.map((flat) => (
-              <img
-                key={flat.provider_id}
-                className={styles.logo}
-                src={`https://image.tmdb.org/t/p/w300${flat?.logo_path}`}
-              />
-            ))}
-          {tvProvider?.results?.KR?.flatrate &&
-            tvProvider?.results?.KR?.flatrate.map((flat) => (
-              <img
-                key={flat.provider_id}
-                className={styles.logo}
-                src={`https://image.tmdb.org/t/p/w300${flat?.logo_path}`}
-              />
-            ))}
+          <div className={styles.provider}>
+            {movieProvider?.results?.KR?.flatrate &&
+              movieProvider?.results?.KR?.flatrate.map((flat) => (
+                <img
+                  key={flat.provider_id}
+                  className={styles.logo}
+                  src={`https://image.tmdb.org/t/p/w300${flat?.logo_path}`}
+                />
+              ))}
+            {tvProvider?.results?.KR?.flatrate &&
+              tvProvider?.results?.KR?.flatrate.map((flat) => (
+                <img
+                  key={flat.provider_id}
+                  className={styles.logo}
+                  src={`https://image.tmdb.org/t/p/w300${flat?.logo_path}`}
+                />
+              ))}
+          </div>
         </div>
       </div>
       <div className={styles.description}>
@@ -219,7 +221,7 @@ const ContentsDetail = memo(({ contents }: any) => {
           {movieDetail?.overview || tvDetail?.overview}
         </span>
       </div>
-      <div>
+      <div className={styles.videoContainer}>
         {movieDetail
           ? movieDetail?.videos?.results
               .slice(0, 3)
@@ -251,7 +253,7 @@ const ContentsDetail = memo(({ contents }: any) => {
       </div>
       <ul className={styles.creditContainer}>
         {movieCredit &&
-          movieCredit.cast.slice(0, 10).map((credit) => (
+          movieCredit.cast.slice(0, 25).map((credit) => (
             <li key={credit.id} className={styles.creditItem}>
               <Link to={`/${credit?.id}`}>
                 <img
@@ -259,13 +261,15 @@ const ContentsDetail = memo(({ contents }: any) => {
                   src={`https://image.tmdb.org/t/p/w300${credit?.profile_path}`}
                   alt='image'
                 />
-                <span className={styles.name}>{credit?.name}</span>
-                <span className={styles.character}>{credit?.character}</span>
+                <div className={styles.nameContainer}>
+                  <span className={styles.name}>{credit?.name}</span>
+                  <span className={styles.character}>{credit?.character}</span>
+                </div>
               </Link>
             </li>
           ))}
         {tvCredit &&
-          tvCredit.cast.slice(0, 10).map((credit) => (
+          tvCredit.cast.slice(0, 25).map((credit) => (
             <li key={credit.id} className={styles.creditItem}>
               <Link to={`/${credit?.id}`}>
                 <img
@@ -273,12 +277,17 @@ const ContentsDetail = memo(({ contents }: any) => {
                   src={`https://image.tmdb.org/t/p/w300${credit.profile_path}`}
                   alt='image'
                 />
-                <span className={styles.name}>{credit?.name}</span>
-                <span className={styles.character}>{credit?.character}</span>
+                <div className={styles.nameContainer}>
+                  <span className={styles.name}>{credit?.name}</span>
+                  <span className={styles.character}>{credit?.character}</span>
+                </div>
               </Link>
             </li>
           ))}
       </ul>
+      <section className={styles.commentContainer}>
+        <span className={styles.comment}>코멘트</span>
+      </section>
     </section>
   );
 });
