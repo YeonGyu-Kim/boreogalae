@@ -1,13 +1,12 @@
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import styles from "./header.module.css";
+import { memo, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Category from "../category/category";
-import { memo, useRef } from "react";
 
 const Header = memo(({ onSearch }) => {
   const value = useRef();
-  const match = useRouteMatch();
   const history = useHistory();
 
   const resetGenre = () => {
@@ -43,8 +42,8 @@ const Header = memo(({ onSearch }) => {
         <Link to='/kids' className={styles.category} onClick={resetGenre}>
           키즈
         </Link>
+        <Category />
       </section>
-      <Category />
       <section className={styles.right}>
         <div className={styles.search}>
           <label htmlFor='search'></label>

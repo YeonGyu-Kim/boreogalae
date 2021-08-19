@@ -14,10 +14,9 @@
 }
 
 .image {
-  min-width: 13vw;
-  max-width: 16vw;
-  height: 28vh;
-  min-height: 23vh;
+  min-width: 13rem;
+  max-height: 15.6rem;
+  min-height: 15.6rem;
   border-radius: 10px;
 }
 

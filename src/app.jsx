@@ -41,6 +41,8 @@ import TVReality from "./components/genre/tv/reality";
 import MovieFamily from "./components/genre/movie/family";
 import MovieHorror from "./components/genre/movie/horror";
 import CharacterDetail from "./components/detail/character_detail";
+import ChatScreen from "./components/chat/chat_screen";
+import NoticeScreen from "./components/notice/notice_screen";
 
 function App({ location, match, contents, contentsMovie, contentsTV }) {
   // 영화
@@ -431,8 +433,6 @@ function App({ location, match, contents, contentsMovie, contentsTV }) {
     contentsTV.tvKrLatest().then((content) => setTvKrLatest(content));
   }, [contentsTV]);
 
-  console.log(movieLatest);
-
   return (
     <div className={styles.app}>
       {location.pathname === "/" ? <BeginningScreen /> : <Header />}
@@ -686,11 +686,17 @@ function App({ location, match, contents, contentsMovie, contentsTV }) {
         <Route path='/kids/:id' exact>
           <ContentsDetail contents={contents} />
         </Route>
-        <Route path='/:id' exact>
+        <Route path='/person/:id' exact>
           <CharacterDetail contents={contents} />
         </Route>
-        <Route path='/result/search_query=:result'>
+        <Route path='/result/search_query=:result' exact>
           <SearchScreen contents={contents} />
+        </Route>
+        <Route path='/notice' exact>
+          <NoticeScreen />
+        </Route>
+        <Route path='/chat' exact>
+          <ChatScreen />
         </Route>
       </Switch>
       <GlobalStyle />

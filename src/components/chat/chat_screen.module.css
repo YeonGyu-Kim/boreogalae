@@ -1,0 +1,9 @@
+.chatContainer {
+  position: absolute;
+  display: flex;
+  margin-top: 7rem;
+}
+
+.searchIcon {
+  cursor: pointer;
+}

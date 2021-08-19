@@ -271,7 +271,7 @@ const ContentsDetail = memo(({ contents }: any) => {
         {tvCredit &&
           tvCredit.cast.slice(0, 25).map((credit) => (
             <li key={credit.id} className={styles.creditItem}>
-              <Link to={`/${credit?.id}`}>
+              <Link to={`/person/${credit?.id}`}>
                 <img
                   className={styles.creditImg}
                   src={`https://image.tmdb.org/t/p/w300${credit.profile_path}`}

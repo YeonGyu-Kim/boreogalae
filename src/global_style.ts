@@ -11,6 +11,8 @@ body{
    background-color:#272829;
    height:100%;
    color: #f0eded;
+   overflow-x:hidden;
+   
    
 }
 `;

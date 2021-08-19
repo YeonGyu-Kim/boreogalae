@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const CG = styled.section`
   display: flex;
+  margin-left: 4rem;
 `;
 
 const Button = styled.div`
