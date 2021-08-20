@@ -90,6 +90,7 @@
 
 .creditImg {
   width: 10rem;
+  height: 13rem;
 }
 
 .nameContainer {
@@ -104,6 +105,10 @@
 
 .character {
   font-size: 1rem;
+}
+
+.imgEmpty {
+  width: 100px;
 }
 
 .commentContainer {

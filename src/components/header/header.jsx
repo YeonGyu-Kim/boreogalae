@@ -1,4 +1,4 @@
-import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import styles from "./header.module.css";
 import { memo, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +8,11 @@ import Category from "../category/category";
 const Header = memo(({ onSearch }) => {
   const value = useRef();
   const history = useHistory();
+  const location = useLocation();
+
+  const checkedMovie = location.pathname.includes("/movie");
+  const checkedTV = location.pathname.includes("/tv");
+  const checkedKids = location.pathname.includes("/kids");
 
   const resetGenre = () => {
     const showGenre = document.querySelector(".genre");
@@ -33,13 +38,25 @@ const Header = memo(({ onSearch }) => {
         <Link to='/movie' className={styles.home} onClick={resetGenre}>
           보러갈래?
         </Link>
-        <Link to='/movie' className={styles.category} onClick={resetGenre}>
+        <Link
+          to='/movie'
+          className={`${styles.category} ${checkedMovie && styles.checked}`}
+          onClick={resetGenre}
+        >
           영화
         </Link>
-        <Link to='/tv' className={styles.category} onClick={resetGenre}>
+        <Link
+          to='/tv'
+          className={`${styles.category} ${checkedTV && styles.checked}`}
+          onClick={resetGenre}
+        >
           TV
         </Link>
-        <Link to='/kids' className={styles.category} onClick={resetGenre}>
+        <Link
+          to='/kids'
+          className={`${styles.category} ${checkedKids && styles.checked}`}
+          onClick={resetGenre}
+        >
           키즈
         </Link>
         <Category />

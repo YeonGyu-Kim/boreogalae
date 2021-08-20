@@ -255,10 +255,14 @@ const ContentsDetail = memo(({ contents }: any) => {
         {movieCredit &&
           movieCredit.cast.slice(0, 25).map((credit) => (
             <li key={credit.id} className={styles.creditItem}>
-              <Link to={`/${credit?.id}`}>
+              <Link to={`/person/${credit?.id}`}>
                 <img
                   className={styles.creditImg}
-                  src={`https://image.tmdb.org/t/p/w300${credit?.profile_path}`}
+                  src={
+                    credit?.profile_path
+                      ? `https://image.tmdb.org/t/p/w300${credit.profile_path}`
+                      : "/images/person.png"
+                  }
                   alt='image'
                 />
                 <div className={styles.nameContainer}>
@@ -274,12 +278,21 @@ const ContentsDetail = memo(({ contents }: any) => {
               <Link to={`/person/${credit?.id}`}>
                 <img
                   className={styles.creditImg}
-                  src={`https://image.tmdb.org/t/p/w300${credit.profile_path}`}
+                  src={
+                    credit?.profile_path
+                      ? `https://image.tmdb.org/t/p/w300${credit.profile_path}`
+                      : "/images/person.png"
+                  }
                   alt='image'
                 />
                 <div className={styles.nameContainer}>
                   <span className={styles.name}>{credit?.name}</span>
-                  <span className={styles.character}>{credit?.character}</span>
+                  <span className={styles.character}>
+                    {credit?.character?.split("/")[0]}
+                  </span>
+                  <span className={styles.character}>
+                    {credit?.character?.split("/")[1]}
+                  </span>
                 </div>
               </Link>
             </li>

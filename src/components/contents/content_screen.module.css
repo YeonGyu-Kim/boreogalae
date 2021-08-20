@@ -15,6 +15,7 @@
 
 .image {
   min-width: 13rem;
+  max-width: 13rem;
   max-height: 15.6rem;
   min-height: 15.6rem;
   border-radius: 10px;

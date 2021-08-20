@@ -27,7 +27,7 @@ const MovieActionAdventure = memo(
               <ContentScreen
                 id={content?.id}
                 key={content?.id}
-                title={content?.name}
+                title={content?.title}
                 poster={content?.poster_path}
               />
             ))}

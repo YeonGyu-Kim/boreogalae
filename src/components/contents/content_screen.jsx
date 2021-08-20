@@ -18,10 +18,16 @@ const ContentScreen = ({ id, title, poster }) => {
       >
         <img
           className={styles.image}
-          src={`https://image.tmdb.org/t/p/w300${poster}`}
+          src={
+            poster
+              ? `https://image.tmdb.org/t/p/w300${poster}`
+              : "/images/poster.png"
+          }
           alt='movie-poster'
         />
-        <div className={styles.title}>{title}</div>
+        <div className={styles.title}>
+          {title.length > 13 ? `${title.substring(0, 13)}...` : title}
+        </div>
       </Link>
     </li>
   );

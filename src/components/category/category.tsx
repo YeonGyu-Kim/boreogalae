@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import styles from "./category.module.css";
 import styled from "styled-components";
 
 const CG = styled.section`
@@ -16,19 +17,26 @@ const Button = styled.div`
 `;
 
 const Category = () => {
+  const location = useLocation();
+
+  const checkedTalk = location.pathname.includes("/talk");
+  const checkedVoice = location.pathname.includes("/voice");
+  const checkedChat = location.pathname.includes("/chat");
+  const checkedNotice = location.pathname.includes("/notice");
+
   return (
     <CG>
       <Link to='/talk'>
-        <Button>톡톡</Button>
+        <Button className={`${checkedTalk && styles.checked}`}>톡톡</Button>
       </Link>
       <Link to='/voice'>
-        <Button>음성</Button>
+        <Button className={`${checkedVoice && styles.checked}`}>음성</Button>
       </Link>
       <Link to='/chat'>
-        <Button>채팅방</Button>
+        <Button className={`${checkedChat && styles.checked}`}>채팅방</Button>
       </Link>
       <Link to='/notice'>
-        <Button>게시판</Button>
+        <Button className={`${checkedNotice && styles.checked}`}>게시판</Button>
       </Link>
     </CG>
   );
