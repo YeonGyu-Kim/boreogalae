@@ -1,0 +1,32 @@
+{
+  "name": "boreogalae",
+  "version": "1.0.0",
+  "description": "boreogalae server",
+  "main": "app.js",
+  "type": "module",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-http-proxy": "^1.6.2",
+    "express-session": "^1.17.2",
+    "helmet": "^4.6.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.0",
+    "node-fetch": "^3.0.0",
+    "nodemon": "^2.0.12",
+    "passport": "^0.4.1",
+    "passport-kakao": "^1.0.1",
+    "request": "^2.88.2",
+    "sha256": "^0.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app"
+  },
+  "author": "",
+  "license": "ISC"
+}
