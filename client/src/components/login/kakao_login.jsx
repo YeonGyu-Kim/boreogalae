@@ -7,7 +7,7 @@ import UserProfile from "./user_profile";
 const { Kakao } = window;
 
 const KakaoLogin = () => {
-  const [isLogin, setIsLogin] = useState();
+  const [isLogin, setIsLogin] = useState(false);
 
   // 카카오
   const [user, setUser] = useState([]);
@@ -20,7 +20,10 @@ const KakaoLogin = () => {
         }
         Kakao.Auth.login({
           success: (auth) => {
-            console.log("정상적으로 로그인 되었습니다.", auth);
+            localStorage.setItem("token", auth);
+            console.log("정상적으로 로그인 되었습니다.", auth.access_token);
+            setIsLogin(true);
+
             Kakao.API.request({
               url: "/v2/user/me",
               success: function ({ kakao_account, id }) {
@@ -30,8 +33,6 @@ const KakaoLogin = () => {
                 console.log(profile.nickname);
                 console.log(`responsed img: ${profile.profile_image_url}`);
 
-                // 수집한 사용자 정보로 페이지를 수정하기 위해 setState
-
                 axios
                   .post("http://localhost:8080/auth/user", {
                     header: {
@@ -40,6 +41,8 @@ const KakaoLogin = () => {
                       "Content-Type": "application/json",
                     },
                     data: {
+                      access_token: auth.access_token,
+                      refresh_token: auth.refresh_token,
                       id: id,
                       nickname: profile.nickname,
                       image: profile.profile_image_url,
@@ -48,7 +51,6 @@ const KakaoLogin = () => {
                   })
                   .then((res) => {
                     console.log(res.data);
-                    // history.push("/main/feed");
                   })
                   .catch((error) => {
                     // console.log(error);
@@ -60,7 +62,6 @@ const KakaoLogin = () => {
                 console.log(error);
               },
             });
-            setIsLogin(true);
           },
           fail: (error) => {
             console.log(error);
@@ -79,10 +80,13 @@ const KakaoLogin = () => {
         Kakao.Auth.getAccessToken()
       );
       Kakao.Auth.logout(() => {
+        alert(
+          "https://accounts.kakao.com/weblogin/account/info 에서 로그아웃 하고 다시 눌러주세요."
+        );
         console.log("로그아웃 되었습니다.", Kakao.Auth.getAccessToken());
-        localStorage.clear();
+        setIsLogin(false);
       });
-      setIsLogin(false);
+      sessionStorage.clear();
     }
   };
 
@@ -93,6 +97,10 @@ const KakaoLogin = () => {
       setIsLogin(true);
     }
   }, []);
+
+  useEffect(() => {
+    kakaoApi.kakaoMe().then((me) => setUser(me));
+  }, [kakaoApi]);
 
   /*
    useEffect(() => {
@@ -142,13 +150,13 @@ const KakaoLogin = () => {
 
    */
   return (
-    <>
-      <div onClick={kakaoLogin}>로그인</div>
-
-      <div>
-        <div onClick={kakaoLogout}>로그아웃</div>
+    <section>
+      <div onClick={kakaoLogin}>
+        {isLogin === false && "로그인"}
+        <div>{user && isLogin === true ? user.nickname : null}</div>
+        <div onClick={kakaoLogout}>{isLogin === true && "로그아웃"}</div>
       </div>
-    </>
+    </section>
   );
 };
 

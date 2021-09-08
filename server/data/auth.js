@@ -18,7 +18,7 @@ export async function createUser(user) {
       id,
     ])
     .then((result) => {
-      return result;
+      return id;
     })
     .catch((e) => console.error(e));
 }
