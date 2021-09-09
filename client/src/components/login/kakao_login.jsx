@@ -11,6 +11,7 @@ const KakaoLogin = () => {
 
   // 카카오
   const [user, setUser] = useState([]);
+  const [nickname, setNickname] = useState();
 
   const kakaoLogin = () => {
     try {
@@ -41,8 +42,6 @@ const KakaoLogin = () => {
                       "Content-Type": "application/json",
                     },
                     data: {
-                      access_token: auth.access_token,
-                      refresh_token: auth.refresh_token,
                       id: id,
                       nickname: profile.nickname,
                       image: profile.profile_image_url,
@@ -51,6 +50,7 @@ const KakaoLogin = () => {
                   })
                   .then((res) => {
                     console.log(res.data);
+                    setNickname(res.data.nickname);
                   })
                   .catch((error) => {
                     // console.log(error);
@@ -153,7 +153,7 @@ const KakaoLogin = () => {
     <section>
       <div onClick={kakaoLogin}>
         {isLogin === false && "로그인"}
-        <div>{user && isLogin === true ? user.nickname : null}</div>
+        <div>{isLogin === true && (nickname || user.nickname)}</div>
         <div onClick={kakaoLogout}>{isLogin === true && "로그아웃"}</div>
       </div>
     </section>

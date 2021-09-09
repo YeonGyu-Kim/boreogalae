@@ -8,7 +8,7 @@ const ORDER_DESC = "ORDER BY cm.createdAt DESC";
 export async function getAll() {
   return db
     .execute(`${SELECT_JOIN} ${ORDER_DESC}`)
-    .then((result) => console.log(result))
+    .then((result) => console.log(result[0]))
     .catch((e) => console.log(e));
 }
 

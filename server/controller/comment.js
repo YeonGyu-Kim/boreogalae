@@ -1,18 +1,20 @@
 import * as commentRepository from "../data/comment.js";
+import * as userRepository from "../data/auth.js";
+import { currentId } from "./auth.js";
 
 export const getComments = async (req, res, next) => {
   const nickname = req.query.nickname;
   const data = await (nickname
     ? commentRepository.getAllByNickname(nickname)
     : commentRepository.getAll());
-  res.status(200).json(data);
+  res.status(201).json(data);
 };
 
 export const getComment = async (req, res, next) => {};
 
 export const createComment = async (req, res, next) => {
   const { text } = req.body;
-  const comment = await commentRepository.create(text, req.userId);
+  const comment = await commentRepository.create(text, currentId);
   res.status(201).json(comment);
 };
 

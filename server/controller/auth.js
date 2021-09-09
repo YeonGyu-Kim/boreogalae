@@ -64,7 +64,7 @@ function authSuccess(req, res) {
 
 export default router;
 */
-let currentId;
+export let currentId;
 export const login = async (req, res, next) => {
   const { data } = req.body;
   const user = await userRepository.findByUserId(data.id);

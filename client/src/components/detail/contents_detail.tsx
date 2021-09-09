@@ -1,6 +1,8 @@
 import { useLocation, useParams, Link } from "react-router-dom";
 import { useEffect, useState, memo } from "react";
 import styles from "./contents_detail.module.css";
+import { kakaoApi } from "../../contentsApi/kakaoApi";
+import styled from "styled-components";
 
 type Content = {
   key?: number;
@@ -94,6 +96,28 @@ type ContentsID = {
   id: string;
 };
 
+type User = {
+  id?: number;
+  nickname?: string;
+  image?: string;
+};
+
+const Comment = styled.div`
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Nickname = styled.span`
+  color: black;
+`;
+
+const Input = styled.input`
+  height: 5rem;
+  border: none;
+  outline: none;
+`;
+
 const ContentsDetail = memo(({ contents }: any) => {
   const [movieDetail, setMovieDetail] = useState<Content | undefined>();
   const [tvDetail, setTvDetail] = useState<Content | undefined>();
@@ -101,6 +125,7 @@ const ContentsDetail = memo(({ contents }: any) => {
   const [tvCredit, setTvCredit] = useState<Credit | undefined>();
   const [movieProvider, setMovieProvider] = useState<Provider | undefined>();
   const [tvProvider, setTvProvider] = useState<Provider | undefined>();
+  const [user, setUser] = useState<User | undefined>();
 
   const { id } = useParams<ContentsID>();
   const { pathname } = useLocation();
@@ -145,6 +170,10 @@ const ContentsDetail = memo(({ contents }: any) => {
         .tvProvider(id)
         .then((content: Provider) => setTvProvider(content));
   }, [contents, isTvKids, id]);
+
+  useEffect(() => {
+    kakaoApi.kakaoMe().then((me) => setUser(me));
+  }, [kakaoApi]);
 
   return (
     <section className={styles.detailContainer}>
@@ -300,6 +329,10 @@ const ContentsDetail = memo(({ contents }: any) => {
       </ul>
       <section className={styles.commentContainer}>
         <span className={styles.comment}>코멘트</span>
+        <Comment>
+          <Nickname>{user ? user?.nickname : null}</Nickname>
+          <Input type='text' placeholder='내용을 입력하세요.'></Input>
+        </Comment>
       </section>
     </section>
   );
