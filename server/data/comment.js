@@ -8,7 +8,7 @@ const ORDER_DESC = "ORDER BY cm.createdAt DESC";
 export async function getAll() {
   return db
     .execute(`${SELECT_JOIN} ${ORDER_DESC}`)
-    .then((result) => console.log(result[0]))
+    .then((result) => result[0])
     .catch((e) => console.log(e));
 }
 
@@ -20,7 +20,7 @@ export async function getAllByNickname(nickname) {
 
 export async function getAllById(id) {
   return db
-    .execute(`${SELECT_JOIN} WHERE tw.id=?`, [id])
+    .execute(`${SELECT_JOIN} WHERE cm.id=?`, [id])
     .then((result) => result[0][0]);
 }
 
@@ -31,13 +31,13 @@ export async function create(text, userId) {
       new Date(),
       userId,
     ])
-    .then((result) => console.log(result));
+    .then((result) => result[0]);
 }
 
 export async function update(id, text) {
   return db
     .execute("UPDATE comments SET text=? WHERE id=?", [text, id])
-    .then(() => getById(id));
+    .then(() => getAllById(id));
 }
 
 export async function remove(id) {

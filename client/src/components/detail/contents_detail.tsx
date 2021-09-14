@@ -1,8 +1,9 @@
 import { useLocation, useParams, Link } from "react-router-dom";
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useRef } from "react";
+import { kakaoApi, userComment } from "../../contentsApi/kakaoApi";
 import styles from "./contents_detail.module.css";
-import { kakaoApi } from "../../contentsApi/kakaoApi";
-import styled from "styled-components";
+import CommentsAll from "../comments/comments_all";
+import CommentsEnroll from "../comments/comments_enroll";
 
 type Content = {
   key?: number;
@@ -97,26 +98,21 @@ type ContentsID = {
 };
 
 type User = {
-  id?: number;
+  userId?: number;
   nickname?: string;
-  image?: string;
+  url?: string;
 };
 
-const Comment = styled.div`
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Nickname = styled.span`
-  color: black;
-`;
-
-const Input = styled.input`
-  height: 5rem;
-  border: none;
-  outline: none;
-`;
+type Comment = [
+  {
+    id: number;
+    text: string;
+    createdAt: string;
+    userId: number;
+    nickname: string;
+    url: string;
+  }
+];
 
 const ContentsDetail = memo(({ contents }: any) => {
   const [movieDetail, setMovieDetail] = useState<Content | undefined>();
@@ -126,6 +122,8 @@ const ContentsDetail = memo(({ contents }: any) => {
   const [movieProvider, setMovieProvider] = useState<Provider | undefined>();
   const [tvProvider, setTvProvider] = useState<Provider | undefined>();
   const [user, setUser] = useState<User | undefined>();
+  const [text, setText] = useState<string | HTMLInputElement>();
+  const [comment, setComment] = useState<Comment | undefined>();
 
   const { id } = useParams<ContentsID>();
   const { pathname } = useLocation();
@@ -174,6 +172,10 @@ const ContentsDetail = memo(({ contents }: any) => {
   useEffect(() => {
     kakaoApi.kakaoMe().then((me) => setUser(me));
   }, [kakaoApi]);
+
+  useEffect(() => {
+    userComment.getComment().then((comment) => setComment(comment));
+  }, [userComment]);
 
   return (
     <section className={styles.detailContainer}>
@@ -327,13 +329,12 @@ const ContentsDetail = memo(({ contents }: any) => {
             </li>
           ))}
       </ul>
-      <section className={styles.commentContainer}>
-        <span className={styles.comment}>코멘트</span>
-        <Comment>
-          <Nickname>{user ? user?.nickname : null}</Nickname>
-          <Input type='text' placeholder='내용을 입력하세요.'></Input>
-        </Comment>
-      </section>
+      <CommentsEnroll user={user} />
+      <ul>
+        {comment?.map((comment) => (
+          <CommentsAll key={comment.id} comment={comment} user={user} />
+        ))}
+      </ul>
     </section>
   );
 });

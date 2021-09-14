@@ -14,13 +14,14 @@ export const getComment = async (req, res, next) => {};
 
 export const createComment = async (req, res, next) => {
   const { text } = req.body;
-  const comment = await commentRepository.create(text, currentId);
+  const comment = await commentRepository.create(JSON.parse(text), currentId);
   res.status(201).json(comment);
 };
 
 export const updateComment = async (req, res, next) => {
+  const { id } = req.params;
   const { text } = req.body;
-  const comment = await commentRepository.create(text, req.userId);
+  const comment = await commentRepository.update(id, text);
   res.status(201).json(comment);
 };
 

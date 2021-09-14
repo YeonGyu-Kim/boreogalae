@@ -17,8 +17,6 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 app.use(morgan("tiny"));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use("/comments", commenstRouter);
 app.use("/auth", authRotuer);
