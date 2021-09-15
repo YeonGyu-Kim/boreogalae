@@ -330,7 +330,7 @@ const ContentsDetail = memo(({ contents }: any) => {
           ))}
       </ul>
       <CommentsEnroll user={user} />
-      <ul>
+      <ul className={styles.commentContainer}>
         {comment?.map((comment) => (
           <CommentsAll key={comment.id} comment={comment} user={user} />
         ))}

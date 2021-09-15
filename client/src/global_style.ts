@@ -12,6 +12,7 @@ body{
    height:100%;
    color: #f0eded;
    overflow-x:hidden;
+  
    
    
 }

@@ -2,7 +2,10 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 import { userComment } from "../../contentsApi/kakaoApi";
 
-const CommentContainer = styled.section``;
+const CommentContainer = styled.section`
+  padding-bottom: 1rem;
+  border-bottom: 1px solid gainsboro;
+`;
 
 const Title = styled.span`
   font-size: 1.3rem;
@@ -57,7 +60,7 @@ const CommentsEnroll = ({ user }) => {
 
   const handleEnroll = () => {
     const result = value?.current?.value;
-    userComment.createComment(result).then((r) => console.log(r));
+    userComment.createComment(result);
   };
 
   return (

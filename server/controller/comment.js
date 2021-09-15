@@ -21,7 +21,7 @@ export const createComment = async (req, res, next) => {
 export const updateComment = async (req, res, next) => {
   const { id } = req.params;
   const { text } = req.body;
-  const comment = await commentRepository.update(id, text);
+  const comment = await commentRepository.update(id, JSON.parse(text));
   res.status(201).json(comment);
 };
 
