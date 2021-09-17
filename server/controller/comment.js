@@ -1,6 +1,7 @@
 import * as commentRepository from "../data/comment.js";
 import * as userRepository from "../data/auth.js";
 import { currentId } from "./auth.js";
+import { getSocketIO } from "../connection/socket.js";
 
 export const getComments = async (req, res, next) => {
   const nickname = req.query.nickname;
@@ -14,8 +15,14 @@ export const getComment = async (req, res, next) => {};
 
 export const createComment = async (req, res, next) => {
   const { text } = req.body;
-  const comment = await commentRepository.create(JSON.parse(text), currentId);
+  const { contentsId } = req.body;
+  const comment = await commentRepository.create(
+    JSON.parse(text),
+    currentId,
+    contentsId
+  );
   res.status(201).json(comment);
+  getSocketIO().emit("comments", comment);
 };
 
 export const updateComment = async (req, res, next) => {
@@ -27,14 +34,13 @@ export const updateComment = async (req, res, next) => {
 
 export const deleteComment = async (req, res, next) => {
   const id = req.params.id;
-  const text = req.body.text;
-  const comment = await commentRepository.getById(id);
+  const comment = await commentRepository.getAllById(id);
   if (!comment) {
     return res.sendStatus(404);
   }
-  if (comment.userId !== req.userId) {
+  if (comment.userId !== currentId) {
     return res.sendStatus(403);
   }
-  const updated = await commentRepository.update(id, text);
-  res.status(200).json(updated);
+  await commentRepository.remove(id);
+  res.sendStatus(204);
 };

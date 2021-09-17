@@ -45,7 +45,14 @@ import ChatScreen from "./components/chat/chat_screen";
 import NoticeScreen from "./components/notice/notice_screen";
 import KidsKr from "./components/kids/kids_kr";
 
-function App({ location, match, contents, contentsMovie, contentsTV }) {
+function App({
+  location,
+  match,
+  contents,
+  contentsMovie,
+  contentsTV,
+  commentService,
+}) {
   // 영화
   const [popularMovie, setPopularMovie] = useState([]);
   const [topRatedMovie, setTopRatedMovie] = useState([]);
@@ -685,13 +692,13 @@ function App({ location, match, contents, contentsMovie, contentsTV }) {
           </main>
         </Route>
         <Route path='/movie/:id' exact>
-          <ContentsDetail contents={contents} />
+          <ContentsDetail contents={contents} commentService={commentService} />
         </Route>
         <Route path='/tv/:id' exact>
-          <ContentsDetail contents={contents} />
+          <ContentsDetail contents={contents} commentService={commentService} />
         </Route>
         <Route path='/kids/:id' exact>
-          <ContentsDetail contents={contents} />
+          <ContentsDetail contents={contents} commentService={commentService} />
         </Route>
         <Route path='/person/:id' exact>
           <CharacterDetail contents={contents} />

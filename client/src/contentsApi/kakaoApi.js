@@ -8,10 +8,11 @@ export const kakaoApi = {
 };
 
 export const userComment = {
-  createComment: async (text) =>
+  createComment: async (text, contentsId) =>
     await axios
       .post("http://localhost:8080/comments", {
         text: JSON.stringify(text),
+        contentsId,
       })
       .then((response) => {
         return response.data;
@@ -27,6 +28,13 @@ export const userComment = {
       .put(`http://localhost:8080/comments/${id}`, {
         text: JSON.stringify(text),
       })
+      .then((response) => {
+        return response.data;
+      }),
+
+  deleteComment: async (id) =>
+    await axios
+      .delete(`http://localhost:8080/comments/${id}`)
       .then((response) => {
         return response.data;
       }),

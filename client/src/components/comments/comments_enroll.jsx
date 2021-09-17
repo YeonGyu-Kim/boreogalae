@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useParams } from "react-router";
 import styled from "styled-components";
 import { userComment } from "../../contentsApi/kakaoApi";
 
@@ -53,6 +54,8 @@ const Button = styled.div`
 
 const CommentsEnroll = ({ user }) => {
   const value = useRef(null);
+  const { id } = useParams();
+  const contentsId = id;
 
   const onKeyPress = (event) => {
     return event.key;
@@ -60,7 +63,7 @@ const CommentsEnroll = ({ user }) => {
 
   const handleEnroll = () => {
     const result = value?.current?.value;
-    userComment.createComment(result);
+    userComment.createComment(result, contentsId);
   };
 
   return (

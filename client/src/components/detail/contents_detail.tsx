@@ -111,10 +111,11 @@ type Comment = [
     userId: number;
     nickname: string;
     url: string;
+    contentsId: number;
   }
 ];
 
-const ContentsDetail = memo(({ contents }: any) => {
+const ContentsDetail = memo(({ contents, commentService }: any) => {
   const [movieDetail, setMovieDetail] = useState<Content | undefined>();
   const [tvDetail, setTvDetail] = useState<Content | undefined>();
   const [movieCredit, setMovieCredit] = useState<Credit | undefined>();
@@ -122,7 +123,7 @@ const ContentsDetail = memo(({ contents }: any) => {
   const [movieProvider, setMovieProvider] = useState<Provider | undefined>();
   const [tvProvider, setTvProvider] = useState<Provider | undefined>();
   const [user, setUser] = useState<User | undefined>();
-  const [text, setText] = useState<string | HTMLInputElement>();
+  const [text, setText] = useState<any>();
   const [comment, setComment] = useState<Comment | undefined>();
 
   const { id } = useParams<ContentsID>();
@@ -175,7 +176,18 @@ const ContentsDetail = memo(({ contents }: any) => {
 
   useEffect(() => {
     userComment.getComment().then((comment) => setComment(comment));
-  }, [userComment]);
+
+    const stopSync = commentService.onSync((comment: any) =>
+      onCreated(comment)
+    );
+    return () => stopSync();
+  }, [userComment, commentService]);
+
+  const onCreated = (text: any) => {
+    setComment((comments: any) => [{ text, ...comments }]);
+  };
+
+  console.log(user);
 
   return (
     <section className={styles.detailContainer}>

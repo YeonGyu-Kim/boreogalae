@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router";
 import styled from "styled-components";
 import { userComment } from "../../contentsApi/kakaoApi";
 import CommentsUpdate from "./comments_update";
@@ -26,6 +27,7 @@ const Text = styled.div`
 
 const CommentsAll = ({ comment, user }) => {
   const [editing, setEditing] = useState(false);
+  const { id } = useParams();
 
   const handleRevise = () => {
     setEditing(true);
@@ -36,22 +38,33 @@ const CommentsAll = ({ comment, user }) => {
     update && update.classList.toggle("hiddenUpdate");
   };
 
+  const handleDelete = () => {
+    if (window.confirm("정말 삭제 하시겠습니까?") === true) {
+      userComment.deleteComment(comment.id);
+    } else {
+      return;
+    }
+  };
+
   return (
     <div>
-      <CommentList id={`comment-${comment.id}`}>
-        <Profile>
-          <ProfileImg
-            src={comment.url}
-            alt='profile-img'
-            width='30px'
-            height='30px'
-          />
-          <span>{comment.nickname}</span>
-        </Profile>
-        <Text>{comment.text}</Text>
-        <div>{comment.createdAt.split("T")[0]}</div>
-        <div onClick={handleRevise}>수정</div>
-      </CommentList>
+      {id == comment.contentsId ? (
+        <CommentList id={`comment-${comment.id}`}>
+          <Profile>
+            <ProfileImg
+              src={comment.url}
+              alt='profile-img'
+              width='30px'
+              height='30px'
+            />
+            <span>{comment.nickname}</span>
+          </Profile>
+          <Text>{comment.text}</Text>
+          <div>{comment.createdAt.split("T")[0]}</div>
+          <div onClick={handleRevise}>수정</div>
+          <div onClick={handleDelete}>삭제</div>
+        </CommentList>
+      ) : null}
 
       {editing && <CommentsUpdate comment={comment} />}
     </div>

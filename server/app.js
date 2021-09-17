@@ -10,6 +10,8 @@ import authRotuer from "./router/auth.js";
 import axios from "axios";
 import passport from "passport";
 import passportKakao from "passport-kakao";
+import { Server } from "socket.io";
+import { initSocket } from "./connection/socket.js";
 
 const app = express();
 
@@ -30,4 +32,5 @@ app.use((error, req, res, next) => {
   res.sendStatus(500);
 });
 
-app.listen(8080);
+const server = app.listen(8080);
+initSocket(server);
