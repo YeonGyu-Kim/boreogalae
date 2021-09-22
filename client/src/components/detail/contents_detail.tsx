@@ -124,7 +124,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
   const [tvProvider, setTvProvider] = useState<Provider | undefined>();
   const [user, setUser] = useState<User | undefined>();
   const [text, setText] = useState<any>();
-  const [comment, setComment] = useState<Comment | undefined>();
+  const [comments, setComments] = useState<Comment | any>();
 
   const { id } = useParams<ContentsID>();
   const { pathname } = useLocation();
@@ -175,7 +175,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
   }, [kakaoApi]);
 
   useEffect(() => {
-    userComment.getComment().then((comment) => setComment(comment));
+    userComment.getComment().then((comments) => setComments(comments));
 
     const stopSync = commentService.onSync((comment: any) =>
       onCreated(comment)
@@ -183,11 +183,9 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
     return () => stopSync();
   }, [userComment, commentService]);
 
-  const onCreated = (text: any) => {
-    setComment((comments: any) => [{ text, ...comments }]);
+  const onCreated = (comment: any) => {
+    setComments((comments: Comment) => [comment, ...comments]);
   };
-
-  console.log(user);
 
   return (
     <section className={styles.detailContainer}>
@@ -343,7 +341,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
       </ul>
       <CommentsEnroll user={user} />
       <ul className={styles.commentContainer}>
-        {comment?.map((comment) => (
+        {comments?.map((comment: any) => (
           <CommentsAll key={comment.id} comment={comment} user={user} />
         ))}
       </ul>

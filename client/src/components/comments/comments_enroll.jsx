@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import { userComment } from "../../contentsApi/kakaoApi";
 
-const CommentContainer = styled.section`
+const CommentContainer = styled.form`
   padding-bottom: 1rem;
   border-bottom: 1px solid gainsboro;
 `;
@@ -46,7 +46,7 @@ const Enroll = styled.div`
   justify-content: flex-end;
 `;
 
-const Button = styled.div`
+const Button = styled.button`
   padding: 0.7rem;
   cursor: pointer;
   background-color: #bd42f5;
@@ -57,17 +57,34 @@ const CommentsEnroll = ({ user }) => {
   const { id } = useParams();
   const contentsId = id;
 
+  const [comment, setComment] = useState("");
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    userComment
+      .createComment(comment, contentsId)
+      .then((created) => console.log(created));
+  };
+
+  const onChange = (event) => {
+    setComment(event.target.value);
+  };
+
+  /*
   const onKeyPress = (event) => {
     return event.key;
   };
 
   const handleEnroll = () => {
     const result = value?.current?.value;
-    userComment.createComment(result, contentsId);
+    userComment.createComment(result, contentsId).then((created) => {
+      console.log(created);
+    });
   };
 
+  */
   return (
-    <CommentContainer>
+    <CommentContainer onSubmit={onSubmit}>
       <Title>코멘트</Title>
       <Comments>
         <Profile>
@@ -78,12 +95,12 @@ const CommentsEnroll = ({ user }) => {
           id='inputText'
           type='text'
           placeholder='내용을 입력하세요.'
-          ref={value}
-          onKeyPress={onKeyPress}
+          value={comment}
+          onChange={onChange}
         ></Input>
       </Comments>
       <Enroll>
-        <Button onClick={handleEnroll}>등록</Button>
+        <Button type='submit'>등록</Button>
       </Enroll>
     </CommentContainer>
   );

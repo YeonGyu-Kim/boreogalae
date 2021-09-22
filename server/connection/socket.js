@@ -15,10 +15,10 @@ class Socket {
       if (!token) {
         return next(new Error("Authentication error"));
       }
+      next();
     });
     this.io.on("connection", (socket) => {
       console.log("Socket client connected");
-      this.io.emit("Helooo@@@");
     });
   }
 }

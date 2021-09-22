@@ -30,7 +30,7 @@ export async function create(text, userId, contentsId) {
       "INSERT INTO comments (text, createdAt, userId, contentsId) VALUES(?,?,?,?)",
       [text, new Date(), userId, contentsId]
     )
-    .then((result) => result[0]);
+    .then((result) => getAllById(result[0].insertId));
 }
 
 export async function update(id, text) {

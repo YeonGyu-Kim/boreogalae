@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { memo, PureComponent, useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { kakaoApi } from "../../contentsApi/kakaoApi";
+import TokenStorage from "../../db/token";
 import UserProfile from "./user_profile";
 
 const { Kakao } = window;
+const tokenStorage = new TokenStorage();
 
 const KakaoLogin = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -24,15 +26,12 @@ const KakaoLogin = () => {
             localStorage.setItem("token", auth);
             console.log("정상적으로 로그인 되었습니다.", auth.access_token);
             setIsLogin(true);
+            tokenStorage.saveToken(auth.access_token);
 
             Kakao.API.request({
               url: "/v2/user/me",
               success: function ({ kakao_account, id }) {
                 const { profile } = kakao_account;
-                console.log(id);
-                console.log(kakao_account);
-                console.log(profile.nickname);
-                console.log(`responsed img: ${profile.profile_image_url}`);
 
                 axios
                   .post("http://localhost:8080/auth/user", {
@@ -49,7 +48,6 @@ const KakaoLogin = () => {
                     responseType: "json",
                   })
                   .then((res) => {
-                    console.log(res.data);
                     setNickname(res.data.nickname);
                   })
                   .catch((error) => {
