@@ -22,7 +22,7 @@ export const createComment = async (req, res, next) => {
     contentsId
   );
   res.status(201).json(comment);
-  getSocketIO().emit("comments", comment);
+  getSocketIO().emit("create", comment);
 };
 
 export const updateComment = async (req, res, next) => {
@@ -43,4 +43,5 @@ export const deleteComment = async (req, res, next) => {
   }
   await commentRepository.remove(id);
   res.sendStatus(204);
+  getSocketIO().emit("delete", comment);
 };

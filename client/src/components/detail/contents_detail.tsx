@@ -123,7 +123,6 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
   const [movieProvider, setMovieProvider] = useState<Provider | undefined>();
   const [tvProvider, setTvProvider] = useState<Provider | undefined>();
   const [user, setUser] = useState<User | undefined>();
-  const [text, setText] = useState<any>();
   const [comments, setComments] = useState<Comment | any>();
 
   const { id } = useParams<ContentsID>();
@@ -177,16 +176,29 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
   useEffect(() => {
     userComment.getComment().then((comments) => setComments(comments));
 
-    const stopSync = commentService.onSync((comment: any) =>
+    const stopSync = commentService.onSyncCreate((comment: any) =>
       onCreated(comment)
     );
-    return () => stopSync();
+
+    const stopSyncDelete = commentService.onSyncDelete((comment: any) =>
+      onDelete(comment)
+    );
+
+    return () => {
+      stopSync();
+      stopSyncDelete();
+    };
   }, [userComment, commentService]);
 
   const onCreated = (comment: any) => {
     setComments((comments: Comment) => [comment, ...comments]);
   };
 
+  const onDelete = (comment: any) => {
+    setComments((comments: Comment) =>
+      comments.filter((c) => c.id !== comment.id)
+    );
+  };
   return (
     <section className={styles.detailContainer}>
       <div className={styles.contentTitle}>

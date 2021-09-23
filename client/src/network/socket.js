@@ -14,12 +14,10 @@ export default class Socket {
   onSync(event, callback) {
     if (!this.io.connected) {
       this.io.connect();
-    } else {
-      this.io.on(event, (message) => {
-        callback(message);
-        console.log(message);
-      });
-      return () => this.io.off(event);
     }
+
+    this.io.on(event, (message) => callback(message));
+
+    return () => this.io.off(event);
   }
 }

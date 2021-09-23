@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import { userComment } from "../../contentsApi/kakaoApi";
@@ -28,6 +28,7 @@ const Text = styled.div`
 const CommentsAll = ({ comment, user }) => {
   const [editing, setEditing] = useState(false);
   const { id } = useParams();
+  const [comments, setComments] = useState([comment]);
 
   const handleRevise = () => {
     setEditing(true);

@@ -3,7 +3,6 @@ import React, { memo, PureComponent, useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { kakaoApi } from "../../contentsApi/kakaoApi";
 import TokenStorage from "../../db/token";
-import UserProfile from "./user_profile";
 
 const { Kakao } = window;
 const tokenStorage = new TokenStorage();
@@ -51,7 +50,6 @@ const KakaoLogin = () => {
                     setNickname(res.data.nickname);
                   })
                   .catch((error) => {
-                    // console.log(error);
                     console.error(error);
                     alert("카카오 로그인 에러?");
                   });
@@ -100,53 +98,6 @@ const KakaoLogin = () => {
     kakaoApi.kakaoMe().then((me) => setUser(me));
   }, [kakaoApi]);
 
-  /*
-   useEffect(() => {
-    kakaoApi
-      .kakaoMe(window.location.search.split("=")[1])
-      .then((me) => setUser(me));
-  }, [kakaoApi]);
-
-  */
-
-  /*
-  useEffect(() => {
-    Kakao.Auth.login({
-      success: (auth) => {
-        Kakao.Auth.setAccessToken(window.location.search.split("=")[1]);
-        Kakao.API.request({
-          url: "/v2/user/me",
-          data: {
-            propery_keys: ["properties"],
-          },
-          success: function (response) {
-            console.log(response);
-          },
-          fail: function (error) {
-            console.log(error);
-          },
-        });
-      },
-    });
-  }, []);
- */
-
-  /*
-   <div onClick={kakaoLogin}>
-        카카오 로그인{!isLogin && console.log("not yet")}
-      </div>
-      <div onClick={kakaoLogout}>로그아웃</div>
-      
-       */
-
-  /*
-   <a
-          href={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=122827d5a2d98f94f483c48aab2549a9&redirect_uri=http://localhost:8080/auth/kakao/callback`}
-        >
-          로그인
-        </a>
-
-   */
   return (
     <section>
       <div onClick={kakaoLogin}>

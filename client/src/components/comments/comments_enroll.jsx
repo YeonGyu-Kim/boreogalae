@@ -61,28 +61,15 @@ const CommentsEnroll = ({ user }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    userComment
-      .createComment(comment, contentsId)
-      .then((created) => console.log(created));
+    userComment.createComment(comment, contentsId).then((created) => {
+      setComment("");
+    });
   };
 
   const onChange = (event) => {
     setComment(event.target.value);
   };
 
-  /*
-  const onKeyPress = (event) => {
-    return event.key;
-  };
-
-  const handleEnroll = () => {
-    const result = value?.current?.value;
-    userComment.createComment(result, contentsId).then((created) => {
-      console.log(created);
-    });
-  };
-
-  */
   return (
     <CommentContainer onSubmit={onSubmit}>
       <Title>코멘트</Title>
