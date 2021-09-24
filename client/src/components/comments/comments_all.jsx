@@ -25,6 +25,15 @@ const Text = styled.div`
   margin: 0.8rem 0;
 `;
 
+const Button = styled.div`
+  display: flex;
+  margin-top: 2rem;
+`;
+
+const Revise = styled.div`
+  margin-right: 0.8rem;
+`;
+
 const CommentsAll = ({ comment, user }) => {
   const [editing, setEditing] = useState(false);
   const { id } = useParams();
@@ -62,8 +71,10 @@ const CommentsAll = ({ comment, user }) => {
           </Profile>
           <Text>{comment.text}</Text>
           <div>{comment.createdAt.split("T")[0]}</div>
-          <div onClick={handleRevise}>수정</div>
-          <div onClick={handleDelete}>삭제</div>
+          <Button>
+            <Revise onClick={handleRevise}>수정</Revise>
+            <div onClick={handleDelete}>삭제</div>
+          </Button>
         </CommentList>
       ) : null}
 

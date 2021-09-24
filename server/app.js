@@ -8,8 +8,6 @@ import { db } from "./db/database.js";
 import commenstRouter from "./router/comments.js";
 import authRotuer from "./router/auth.js";
 import axios from "axios";
-import passport from "passport";
-import passportKakao from "passport-kakao";
 import { Server } from "socket.io";
 import { initSocket } from "./connection/socket.js";
 

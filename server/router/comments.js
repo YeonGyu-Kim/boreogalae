@@ -8,9 +8,6 @@ const router = express.Router();
 // GET /comments?username=:username
 router.get("/", commentController.getComments);
 
-// GET /comments/:id
-router.get("/:id", commentController.getComment);
-
 // POST /comments
 router.post("/", commentController.createComment);
 // PUT /comments/:id

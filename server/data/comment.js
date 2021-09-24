@@ -19,9 +19,10 @@ export async function getAllByNickname(nickname) {
 }
 
 export async function getAllById(id) {
-  return db
-    .execute(`${SELECT_JOIN} WHERE cm.id=?`, [id])
-    .then((result) => result[0][0]);
+  return db.execute(`${SELECT_JOIN} WHERE cm.id=?`, [id]).then((result) => {
+    console.log(result[0][0]);
+    return result[0][0];
+  });
 }
 
 export async function create(text, userId, contentsId) {
@@ -36,7 +37,7 @@ export async function create(text, userId, contentsId) {
 export async function update(id, text) {
   return db
     .execute("UPDATE comments SET text=? WHERE id=?", [text, id])
-    .then(() => getAllById(id));
+    .then((result) => getAllById(id));
 }
 
 export async function remove(id) {

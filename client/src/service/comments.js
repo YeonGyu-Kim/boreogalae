@@ -10,4 +10,8 @@ export default class CommentService {
   onSyncDelete(callback) {
     return this.socket.onSync("delete", callback);
   }
+
+  onSyncUpdate(callback) {
+    return this.socket.onSync("update", callback);
+  }
 }

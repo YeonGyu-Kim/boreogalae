@@ -16,7 +16,10 @@ export default class Socket {
       this.io.connect();
     }
 
-    this.io.on(event, (message) => callback(message));
+    this.io.on(event, (message) => {
+      console.log(message);
+      return callback(message);
+    });
 
     return () => this.io.off(event);
   }

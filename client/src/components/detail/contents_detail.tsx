@@ -176,7 +176,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
   useEffect(() => {
     userComment.getComment().then((comments) => setComments(comments));
 
-    const stopSync = commentService.onSyncCreate((comment: any) =>
+    const stopSyncCreate = commentService.onSyncCreate((comment: any) =>
       onCreated(comment)
     );
 
@@ -184,9 +184,14 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
       onDelete(comment)
     );
 
+    const stopSyncUpdate = commentService.onSyncUpdate((comment: any) =>
+      onUpdated(comment)
+    );
+
     return () => {
-      stopSync();
+      stopSyncCreate();
       stopSyncDelete();
+      stopSyncUpdate();
     };
   }, [userComment, commentService]);
 
@@ -194,9 +199,15 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
     setComments((comments: Comment) => [comment, ...comments]);
   };
 
+  const onUpdated = (comment: any) => {
+    setComments((comments: Comment) =>
+      comments.map((item) => (item.id === comment.id ? comment : item))
+    );
+  };
+
   const onDelete = (comment: any) => {
     setComments((comments: Comment) =>
-      comments.filter((c) => c.id !== comment.id)
+      comments?.filter((item) => item.id !== comment.id)
     );
   };
   return (

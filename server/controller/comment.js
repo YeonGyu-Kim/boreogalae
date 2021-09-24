@@ -11,8 +11,6 @@ export const getComments = async (req, res, next) => {
   res.status(201).json(data);
 };
 
-export const getComment = async (req, res, next) => {};
-
 export const createComment = async (req, res, next) => {
   const { text } = req.body;
   const { contentsId } = req.body;
@@ -30,6 +28,7 @@ export const updateComment = async (req, res, next) => {
   const { text } = req.body;
   const comment = await commentRepository.update(id, JSON.parse(text));
   res.status(201).json(comment);
+  getSocketIO().emit("update", comment);
 };
 
 export const deleteComment = async (req, res, next) => {
