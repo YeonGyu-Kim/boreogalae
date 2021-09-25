@@ -31,7 +31,6 @@ const ContentContainer = ({ title, children, slidePrev, slideNext }) => {
   const [current, setCurrent] = useState(0);
 
   const prevSlide = (event) => {
-    const itemCount = event.nativeEvent.path[2].firstChild.childElementCount;
     const slide = event.nativeEvent.path[2].children[0];
     setCurrent(current < 1 ? 3 : current - 1);
     slide.classList.remove(`next${current}`);
@@ -49,7 +48,6 @@ const ContentContainer = ({ title, children, slidePrev, slideNext }) => {
   };
 
   const nextSlide = (event) => {
-    const itemCount = event.nativeEvent.path[2].firstChild.childElementCount;
     const slide = event.nativeEvent.path[2].children[0];
     setCurrent(current === 3 ? current - 3 : current + 1);
     slide.classList.remove(`prev${current}`);

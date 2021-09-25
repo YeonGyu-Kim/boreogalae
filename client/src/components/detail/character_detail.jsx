@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { Link, useParams, useRouteMatch } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./character_detail.module.css";
 
 const CharacterDetail = memo(({ contents }) => {

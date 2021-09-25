@@ -1,5 +1,5 @@
 import { useLocation, useParams, Link } from "react-router-dom";
-import { useEffect, useState, memo, useRef } from "react";
+import { useEffect, useState, memo } from "react";
 import { kakaoApi, userComment } from "../../contentsApi/kakaoApi";
 import styles from "./contents_detail.module.css";
 import CommentsAll from "../comments/comments_all";
@@ -171,7 +171,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
 
   useEffect(() => {
     kakaoApi.kakaoMe().then((me) => setUser(me));
-  }, [kakaoApi]);
+  }, []);
 
   useEffect(() => {
     userComment.getComment().then((comments) => setComments(comments));
@@ -193,7 +193,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
       stopSyncDelete();
       stopSyncUpdate();
     };
-  }, [userComment, commentService]);
+  }, [commentService]);
 
   const onCreated = (comment: any) => {
     setComments((comments: Comment) => [comment, ...comments]);
@@ -220,7 +220,6 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
           src={`https://image.tmdb.org/t/p/w300${
             movieDetail?.poster_path || tvDetail?.poster_path
           }`}
-          alt='image'
         />
         <div className={styles.basicInfo}>
           <span className={styles.basicTitle}>기본 정보</span>
@@ -347,7 +346,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
                       ? `https://image.tmdb.org/t/p/w300${credit.profile_path}`
                       : "/images/person.png"
                   }
-                  alt='image'
+                  alt='img'
                 />
                 <div className={styles.nameContainer}>
                   <span className={styles.name}>{credit?.name}</span>

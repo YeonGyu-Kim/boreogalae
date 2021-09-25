@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./app";
-import NaverLogin from "./components/login/kakao_login";
 import Contents from "./contentsApi/contentsApi";
 import ContentsMovie from "./contentsApi/movieApi";
 import ContentsTV from "./contentsApi/tvApi";

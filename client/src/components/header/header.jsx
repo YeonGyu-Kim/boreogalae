@@ -1,4 +1,4 @@
-import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import styles from "./header.module.css";
 import { memo, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

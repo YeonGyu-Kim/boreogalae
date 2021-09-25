@@ -1,9 +1,48 @@
 .chatContainer {
   position: absolute;
-  display: flex;
+  display: block;
   margin-top: 7rem;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
 }
 
 .searchIcon {
   cursor: pointer;
+}
+
+.create {
+  display: flex;
+  margin: 3rem 0;
+}
+
+.dialogContainer {
+  position: relative;
+  width: 100vw;
+}
+
+.dialog {
+  position: absolute;
+  width: 30rem;
+  height: 30rem;
+}
+
+.dialog.chatDidalog {
+  display: flex;
+  justify-content: center;
+}
+
+.inputTitle {
+  margin: 2rem 0;
+}
+
+.enroll {
+  margin-right: 1rem;
+}
+
+.leave {
+  position: absolute;
+  right: 1rem;
 }

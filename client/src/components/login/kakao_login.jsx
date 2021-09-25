@@ -1,13 +1,12 @@
 import axios from "axios";
-import React, { memo, PureComponent, useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { memo, useEffect, useState } from "react";
 import { kakaoApi } from "../../contentsApi/kakaoApi";
 import TokenStorage from "../../db/token";
 
 const { Kakao } = window;
 const tokenStorage = new TokenStorage();
 
-const KakaoLogin = () => {
+const KakaoLogin = memo(() => {
   const [isLogin, setIsLogin] = useState(false);
 
   // 카카오
@@ -107,6 +106,6 @@ const KakaoLogin = () => {
       </div>
     </section>
   );
-};
+});
 
 export default KakaoLogin;

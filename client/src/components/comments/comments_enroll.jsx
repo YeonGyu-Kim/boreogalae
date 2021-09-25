@@ -53,7 +53,6 @@ const Button = styled.button`
 `;
 
 const CommentsEnroll = ({ user }) => {
-  const value = useRef(null);
   const { id } = useParams();
   const contentsId = id;
 

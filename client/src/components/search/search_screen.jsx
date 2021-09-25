@@ -1,4 +1,4 @@
-import { useParams, Link, useLocation, useRouteMatch } from "react-router-dom";
+import { useParams, Link, useRouteMatch } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { memo } from "react";
 import styles from "./search_screen.module.css";
@@ -30,7 +30,7 @@ const SearchScreen = memo(({ contents }) => {
                 <div className={styles.list}>
                   <img
                     src={`https://image.tmdb.org/t/p/w300${content?.poster_path}`}
-                    alt='image'
+                    alt='img'
                     width='100px'
                     height='100px'
                   />
@@ -53,7 +53,7 @@ const SearchScreen = memo(({ contents }) => {
                 <div className={styles.list}>
                   <img
                     src={`https://image.tmdb.org/t/p/w300${content?.poster_path}`}
-                    alt='image'
+                    alt='img'
                     width='100px'
                     height='100px'
                   />

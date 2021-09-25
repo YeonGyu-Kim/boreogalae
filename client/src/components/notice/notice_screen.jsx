@@ -5,7 +5,6 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const NoticeScreen = () => {
   const value = useRef();
-  const text = value;
 
   const onKeyPress = (event) => {
     if (event.key === "Enter") {

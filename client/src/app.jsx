@@ -1,5 +1,4 @@
 import BeginningScreen from "./components/beginning/beginning_screen";
-import { useCallback } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./app.css";
@@ -34,7 +33,6 @@ import TVDocumentary from "./components/genre/tv/documentary";
 import TVDrama from "./components/genre/tv/drama";
 import TVFamily from "./components/genre/tv/family";
 import TVWar from "./components/genre/tv/war";
-import TVWestern from "./components/genre/tv/western";
 import TVMystery from "./components/genre/tv/mystery";
 import TVSfFantasy from "./components/genre/tv/sf_fantasy";
 import TVReality from "./components/genre/tv/reality";

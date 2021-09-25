@@ -4,22 +4,6 @@ import styled from "styled-components";
 import ContentContainer from "../../contents/content_container";
 import ContentScreen from "../../contents/content_screen";
 
-const Container = styled.section`
-  display: block;
-`;
-
-const UL = styled.ul`
-  display: flex;
-`;
-
-const Title = styled.div`
-  display: block;
-`;
-
-const Item = styled.div`
-  display: block;
-`;
-
 const TVReality = memo(({ kr: { results: kr }, en: { results: en } }) => {
   return (
     <>
