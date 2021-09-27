@@ -112,6 +112,7 @@ type Comment = [
     nickname: string;
     url: string;
     contentsId: number;
+    voteCount: number;
   }
 ];
 

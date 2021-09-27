@@ -12,6 +12,8 @@ router.get("/", commentController.getComments);
 router.post("/", commentController.createComment);
 // PUT /comments/:id
 router.put("/:id", commentController.updateComment);
+// PUT /comments/:id/count
+router.put("/:id/count", commentController.countVote);
 // DELETE /comments/:id
 router.delete("/:id", commentController.deleteComment);
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import { userComment } from "../../contentsApi/kakaoApi";
+import CommentsEnroll from "./comments_enroll";
 import CommentsUpdate from "./comments_update";
 
 const CommentList = styled.li`
@@ -31,12 +32,14 @@ const Button = styled.div`
 `;
 
 const Revise = styled.div`
-  margin-right: 0.8rem;
+  margin: 0 0.8rem;
 `;
 
 const CommentsAll = ({ comment, user }) => {
   const [editing, setEditing] = useState(false);
+  const [reply, setReply] = useState(false);
   const { id } = useParams();
+  const [count, setCount] = useState(1);
 
   const handleRevise = () => {
     setEditing(true);
@@ -55,6 +58,16 @@ const CommentsAll = ({ comment, user }) => {
     }
   };
 
+  const handleReply = () => {
+    setReply(true);
+  };
+
+  const handleLike = () => {
+    setCount(count + 1);
+    userComment.voteComment(comment.id, count);
+    return count;
+  };
+
   return (
     <div>
       {id == comment.contentsId ? (
@@ -71,13 +84,16 @@ const CommentsAll = ({ comment, user }) => {
           <Text>{comment.text}</Text>
           <div>{comment.createdAt.split("T")[0]}</div>
           <Button>
+            <div onClick={handleReply}>답글</div>
             <Revise onClick={handleRevise}>수정</Revise>
             <div onClick={handleDelete}>삭제</div>
+            <div onClick={handleLike}>{`좋아요 ${comment.voteCount}`}</div>
           </Button>
         </CommentList>
       ) : null}
 
       {editing && <CommentsUpdate comment={comment} />}
+      {reply && <CommentsEnroll user={user} />}
     </div>
   );
 };

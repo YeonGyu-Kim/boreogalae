@@ -31,6 +31,14 @@ export const updateComment = async (req, res, next) => {
   getSocketIO().emit("update", comment);
 };
 
+export const countVote = async (req, res, next) => {
+  const { id } = req.params;
+  const { voteCount } = req.body;
+  const count = await commentRepository.count(id, voteCount);
+  res.status(201).json(count);
+  getSocketIO().emit("update", count);
+};
+
 export const deleteComment = async (req, res, next) => {
   const id = req.params.id;
   const comment = await commentRepository.getAllById(id);

@@ -26,12 +26,12 @@ const Profile = styled.div`
   align-items: center;
 `;
 
-const ProfileImg = styled.img`
+/*const ProfileImg = styled.img`
   width: 30px;
   height: 30px;
   border-radius: 50%;
   margin-right: 0.3rem;
-`;
+`;*/
 
 const Input = styled.input`
   height: 5rem;
@@ -60,9 +60,14 @@ const CommentsEnroll = ({ user }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    userComment.createComment(comment, contentsId).then((created) => {
+    if (localStorage.length === 1) {
+      alert("로그인 하신 후 이용해 주시기 바랍니다");
       setComment("");
-    });
+    } else {
+      userComment.createComment(comment, contentsId).then((created) => {
+        setComment("");
+      });
+    }
   };
 
   const onChange = (event) => {
@@ -74,8 +79,11 @@ const CommentsEnroll = ({ user }) => {
       <Title>코멘트</Title>
       <Comments>
         <Profile>
-          <ProfileImg src={user ? user?.url : ""} />
-          <span>{user ? user?.nickname : null}</span>
+          <span>
+            {localStorage.length === 2
+              ? user?.nickname
+              : "로그인 하신 후 이용해 주시기 바랍니다."}
+          </span>
         </Profile>
         <Input
           id='inputText'

@@ -32,6 +32,15 @@ export const userComment = {
         return response.data;
       }),
 
+  voteComment: async (id, count) =>
+    await axios
+      .put(`http://localhost:8080/comments/${id}/count`, {
+        voteCount: count,
+      })
+      .then((response) => {
+        return response.data;
+      }),
+
   deleteComment: async (id) =>
     await axios
       .delete(`http://localhost:8080/comments/${id}`)
