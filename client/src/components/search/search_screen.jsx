@@ -17,8 +17,6 @@ const SearchScreen = memo(({ contents }) => {
     contents.tvSearch(result).then((tv) => setSearchTV(tv));
   }, [contents, result]);
 
-  console.log(param);
-
   return (
     <section className={styles.searchContainer}>
       <span className={styles.header}>영화</span>

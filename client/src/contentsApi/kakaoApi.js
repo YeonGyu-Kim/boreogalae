@@ -18,6 +18,17 @@ export const userComment = {
         return response.data;
       }),
 
+  createReply: async (text, contentsId, parentId) =>
+    await axios
+      .post("http://localhost:8080/comments/reply", {
+        text: JSON.stringify(text),
+        contentsId,
+        parentId,
+      })
+      .then((response) => {
+        return response.data;
+      }),
+
   getComment: async () =>
     await axios.get("http://localhost:8080/comments").then((response) => {
       return response.data;

@@ -113,6 +113,7 @@ type Comment = [
     url: string;
     contentsId: number;
     voteCount: number;
+    p_id: number;
   }
 ];
 
@@ -211,6 +212,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
       comments?.filter((item) => item.id !== comment.id)
     );
   };
+
   return (
     <section className={styles.detailContainer}>
       <div className={styles.contentTitle}>

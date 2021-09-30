@@ -10,6 +10,8 @@ router.get("/", commentController.getComments);
 
 // POST /comments
 router.post("/", commentController.createComment);
+// POST /comments/reply
+router.post("/reply", commentController.createReply);
 // PUT /comments/:id
 router.put("/:id", commentController.updateComment);
 // PUT /comments/:id/count

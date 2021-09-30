@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import { userComment } from "../../contentsApi/kakaoApi";
-import CommentsEnroll from "./comments_enroll";
+import CommentsReply from "./comments_reply";
 import CommentsUpdate from "./comments_update";
 
 const CommentList = styled.li`
@@ -10,6 +10,21 @@ const CommentList = styled.li`
   border-bottom: 1px solid lightgray;
   background-color: #272829;
   padding: 1rem 0;
+`;
+
+const Reply = styled.span`
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+  height: 0.05rem;
+  width: 0.05rem;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+`;
+
+const Content = styled.div``;
+
+const ContentContainer = styled.div`
+  display: flex;
 `;
 
 const Profile = styled.div`
@@ -43,9 +58,6 @@ const CommentsAll = ({ comment, user }) => {
 
   const handleRevise = () => {
     setEditing(true);
-    const currentComment = document.getElementById(`comment-${comment.id}`);
-    currentComment && currentComment.classList.toggle("hiddenComment");
-
     const update = document.getElementById(`update-${comment.id}`);
     update && update.classList.toggle("hiddenUpdate");
   };
@@ -60,6 +72,8 @@ const CommentsAll = ({ comment, user }) => {
 
   const handleReply = () => {
     setReply(true);
+    const currentComment = document.getElementById(`reply-${comment.id}`);
+    currentComment && currentComment.classList.toggle("hiddenReply");
   };
 
   const handleLike = () => {
@@ -72,28 +86,33 @@ const CommentsAll = ({ comment, user }) => {
     <div>
       {id == comment.contentsId ? (
         <CommentList id={`comment-${comment.id}`}>
-          <Profile>
-            <ProfileImg
-              src={comment.url}
-              alt='profile-img'
-              width='30px'
-              height='30px'
-            />
-            <span>{comment.nickname}</span>
-          </Profile>
-          <Text>{comment.text}</Text>
-          <div>{comment.createdAt.split("T")[0]}</div>
-          <Button>
-            <div onClick={handleReply}>답글</div>
-            <Revise onClick={handleRevise}>수정</Revise>
-            <div onClick={handleDelete}>삭제</div>
-            <div onClick={handleLike}>{`좋아요 ${comment.voteCount}`}</div>
-          </Button>
+          <ContentContainer>
+            {comment.p_id && <Reply />}
+            <Content>
+              <Profile>
+                <ProfileImg
+                  src={comment.url}
+                  alt='profile-img'
+                  width='30px'
+                  height='30px'
+                />
+                <span>{comment.nickname}</span>
+              </Profile>
+              <Text>{comment.text}</Text>
+              <div>{comment.createdAt.split("T")[0]}</div>
+              <Button>
+                <div onClick={handleReply}>답글</div>
+                <Revise onClick={handleRevise}>수정</Revise>
+                <div onClick={handleDelete}>삭제</div>
+                <div onClick={handleLike}>{`좋아요 ${comment.voteCount}`}</div>
+              </Button>
+            </Content>
+          </ContentContainer>
+          {reply && <CommentsReply user={user} parentId={comment.id} />}
         </CommentList>
       ) : null}
 
       {editing && <CommentsUpdate comment={comment} />}
-      {reply && <CommentsEnroll user={user} />}
     </div>
   );
 };
