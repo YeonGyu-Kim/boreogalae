@@ -17,7 +17,6 @@ export default class Socket {
     }
 
     this.io.on(event, (message) => {
-      console.log(message);
       return callback(message);
     });
 

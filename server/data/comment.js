@@ -25,7 +25,6 @@ export async function getAllByNickname(nickname) {
 
 export async function getAllById(id) {
   return db.execute(`${SELECT_JOIN} WHERE cm.id=?`, [id]).then((result) => {
-    console.log(result[0][0]);
     return result[0][0];
   });
 }

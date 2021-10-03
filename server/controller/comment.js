@@ -20,7 +20,7 @@ export const createComment = async (req, res, next) => {
     contentsId
   );
   res.status(201).json(comment);
-  getSocketIO().emit("create", comment);
+  getSocketIO().emit("create-comment", comment);
 };
 
 export const createReply = async (req, res, next) => {
@@ -34,7 +34,7 @@ export const createReply = async (req, res, next) => {
     parentId
   );
   res.status(201).json(comment);
-  getSocketIO().emit("create", comment);
+  getSocketIO().emit("create-reply", comment);
 };
 
 export const updateComment = async (req, res, next) => {

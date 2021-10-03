@@ -3,8 +3,12 @@ export default class CommentService {
     this.socket = socket;
   }
 
-  onSyncCreate(callback) {
-    return this.socket.onSync("create", callback);
+  onSyncCreateComment(callback) {
+    return this.socket.onSync("create-comment", callback);
+  }
+
+  onSyncCreateReply(callback) {
+    return this.socket.onSync("create-reply", callback);
   }
 
   onSyncDelete(callback) {
