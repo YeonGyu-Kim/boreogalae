@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
-import { userComment } from "../../contentsApi/kakaoApi";
+import { userComment } from "../../contentsApi/commentApi";
 import CommentsReply from "./comments_reply";
 import CommentsUpdate from "./comments_update";
 

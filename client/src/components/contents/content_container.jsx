@@ -27,7 +27,7 @@ const Button = styled.div`
   width: 100%;
 `;
 
-const ContentContainer = ({ title, children, slidePrev, slideNext }) => {
+const ContentContainer = ({ title, children }) => {
   const [current, setCurrent] = useState(0);
 
   const prevSlide = (event) => {

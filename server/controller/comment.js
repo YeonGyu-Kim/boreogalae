@@ -1,5 +1,4 @@
 import * as commentRepository from "../data/comment.js";
-import * as userRepository from "../data/auth.js";
 import { currentId } from "./auth.js";
 import { getSocketIO } from "../connection/socket.js";
 

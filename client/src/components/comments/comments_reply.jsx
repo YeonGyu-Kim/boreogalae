@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
-import { userComment } from "../../contentsApi/kakaoApi";
+import { userComment } from "../../contentsApi/commentApi";
 import "./comments_reply.css";
 
 const CommentContainer = styled.form`

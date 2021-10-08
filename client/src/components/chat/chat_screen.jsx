@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import styles from "./chat_screen.module.css";
+import { userChat, userRoom } from "../../contentsApi/chatApi";
 
 const ChatScreen = () => {
   const value = useRef();
+  const [room, setRoom] = useState();
   const [create, setCreate] = useState(false);
   const [enter, setEnter] = useState(false);
 
@@ -34,6 +36,10 @@ const ChatScreen = () => {
     setEnter(false);
   };
 
+  useEffect(() => {
+    userRoom.getRoom().then((room) => setRoom(room));
+  }, [userRoom]);
+
   return (
     <section className={styles.chatContainer}>
       <div className={styles.searchContainer}>
@@ -57,9 +63,15 @@ const ChatScreen = () => {
       </div>
       <div>
         <span>채팅방 목록</span>
-        <div className={styles.chat} onClick={enterChatRoom}>
-          <span>원티트</span>
-        </div>
+        <ul className={styles.chat} onClick={enterChatRoom}>
+          {room &&
+            room.map((result) => (
+              <li>
+                <div>{result.title}</div>
+                <div>{result.nickname}</div>
+              </li>
+            ))}
+        </ul>
       </div>
       {create && (
         <div className={styles.dialogContainer}>

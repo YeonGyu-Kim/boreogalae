@@ -1,9 +1,10 @@
 import { useLocation, useParams, Link } from "react-router-dom";
 import { useEffect, useState, memo } from "react";
-import { kakaoApi, userComment } from "../../contentsApi/kakaoApi";
+import { kakaoApi } from "../../contentsApi/kakaoApi";
 import styles from "./contents_detail.module.css";
 import CommentsAll from "../comments/comments_all";
 import CommentsEnroll from "../comments/comments_enroll";
+import { userComment } from "../../contentsApi/commentApi";
 
 type Content = {
   key?: number;

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useParams } from "react-router";
+import { userComment } from "../../contentsApi/commentApi";
 import styled from "styled-components";
-import { userComment } from "../../contentsApi/kakaoApi";
 
 const CommentContainer = styled.form`
   padding-bottom: 1rem;

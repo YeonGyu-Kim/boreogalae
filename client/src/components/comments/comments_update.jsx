@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { userComment } from "../../contentsApi/commentApi";
 import "./comments_update.css";
-import { userComment } from "../../contentsApi/kakaoApi";
 
 const CommentsContainer = styled.section``;
 
