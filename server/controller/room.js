@@ -13,7 +13,7 @@ export const createRoom = async (req, res, next) => {
   const data = req.body;
   const room = await roomRepository.createChatRoom(
     currentUser,
-    data.title,
+    JSON.parse(data.title),
     data.max,
     currentId
   );

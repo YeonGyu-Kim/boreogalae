@@ -16,5 +16,13 @@ export const userRoom = {
     await api.get("room").then((response) => {
       return response.data;
     }),
-  createRoom: async () => api.post("room"),
+  createRoom: async (title) =>
+    api
+      .post("room", {
+        title: JSON.stringify(title),
+        max: 2,
+      })
+      .then((response) => {
+        return response.data;
+      }),
 };
