@@ -1,0 +1,29 @@
+.roomContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 5rem;
+  width: 70vw;
+  margin: 1rem 0;
+  border: 1px solid;
+}
+
+.dialogContainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  margin-top: -10rem;
+  margin-left: -10rem;
+  width: 100vw;
+  height: 100vh;
+}
+
+.dialog {
+  width: 40vw;
+  height: 60vh;
+}
+
+.leave {
+  position: absolute;
+  right: 1rem;
+}

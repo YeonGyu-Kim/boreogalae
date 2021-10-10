@@ -29,11 +29,18 @@
   border: 1px solid;
 }
 
-.dialog {
+.dialogContainer {
   position: absolute;
-  margin-top: -40vh;
+  margin-top: -5rem;
+  margin-left: -20rem;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.dialog {
   width: 30vw;
-  height: 50vh;
+  height: 60vh;
 }
 
 .dialog.chatDidalog {
@@ -47,9 +54,4 @@
 
 .enroll {
   margin-right: 1rem;
-}
-
-.leave {
-  position: absolute;
-  right: 1rem;
 }
