@@ -1,9 +1,10 @@
 import SQ from "sequelize";
 import { sequelize } from "../db/database.js";
 import { User } from "./auth.js";
+import { Room } from "./room.js";
 const DataTypes = SQ.DataTypes;
 
-const Chat = sequelize.define(
+export const Chat = sequelize.define(
   "chat",
   {
     id: {
@@ -16,9 +17,6 @@ const Chat = sequelize.define(
     nickname: {
       type: DataTypes.STRING(15),
       allowNull: false,
-    },
-    title: {
-      type: DataTypes.STRING(100),
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -35,11 +33,17 @@ const Chat = sequelize.define(
   }
 );
 Chat.belongsTo(User);
+Chat.belongsTo(Room);
 
 export async function getAll() {
-  return Chat.findAll({}).then((data) => console.log(data));
+  return Chat.findAll({}).then((data) => data[0].dataValues);
 }
 
-export async function createChatRoom() {
-  return Chat.create({}).then;
+export async function createChatRoom(text, roomId, userId, nickname) {
+  return Chat.create({
+    nickname,
+    chat: text,
+    userUserId: userId,
+    roomId,
+  }).then((data) => console.log(data));
 }

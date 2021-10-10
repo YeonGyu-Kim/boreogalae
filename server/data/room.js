@@ -4,7 +4,7 @@ import { sequelize } from "../db/database.js";
 import { User } from "./auth.js";
 const DataTypes = SQ.DataTypes;
 
-const Room = sequelize.define(
+export const Room = sequelize.define(
   "room",
   {
     id: {

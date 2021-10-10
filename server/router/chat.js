@@ -5,9 +5,9 @@ import * as chatController from "../controller/chat.js";
 const router = express.Router();
 
 //GET Chat
-router.get("/", chatController.getChat);
+router.get("/room/:roomId", chatController.getChat);
 
 //POST Chat
-router.post("/", chatController.createChat);
+router.post("/room/user/:userId", chatController.createChat);
 
 export default router;

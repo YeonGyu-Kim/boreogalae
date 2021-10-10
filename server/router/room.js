@@ -4,10 +4,10 @@ import * as roomController from "../controller/room.js";
 
 const router = express.Router();
 
-//GET Chat
+//GET Room
 router.get("/", roomController.getRoom);
 
-//POST Chat
+//POST Room
 router.post("/", roomController.createRoom);
 
 export default router;

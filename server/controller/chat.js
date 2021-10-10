@@ -9,12 +9,12 @@ export const getChat = async (req, res, next) => {
 };
 
 export const createChat = async (req, res, next) => {
-  const { userUserId } = req.body;
-  const { contentsId } = req.body;
-  const chat = await chatRepository.createChatRoom(
-    JSON.parse(text),
-    currentId,
-    contentsId
+  const result = req.body;
+  const chat = await chatRepository.createChat(
+    JSON.parse(result.text),
+    result.roomId,
+    result.userId,
+    result.nickname
   );
   res.status(201).json(chat);
 };
