@@ -39,7 +39,7 @@ export async function getAll() {
   return Chat.findAll({}).then((data) => data[0].dataValues);
 }
 
-export async function createChatRoom(text, roomId, userId, nickname) {
+export async function createChat(text, roomId, userId, nickname) {
   return Chat.create({
     nickname,
     chat: text,
