@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { userChat, userRoom } from "../../contentsApi/chatApi";
@@ -65,16 +65,16 @@ const ChatScreen = () => {
           />
         </div>
       </div>
-      <div className={styles.create}>
-        <span>채팅방 생성</span>
-        <div onClick={createChatRoom}>+</div>
-      </div>
-      <div>
+      <div className={styles.roomList}>
         <span>채팅방 목록</span>
-        <ul className={styles.chat}>
+        <section className={styles.chat}>
           {room && room.map((result) => <ChatRoomAll room={result} />)}
-        </ul>
+        </section>
       </div>
+      <div className={styles.create}>
+        <span onClick={createChatRoom}>채팅방 생성</span>
+      </div>
+
       {create && (
         <div className={styles.dialogContainer}>
           <dialog open className={styles.dialog}>

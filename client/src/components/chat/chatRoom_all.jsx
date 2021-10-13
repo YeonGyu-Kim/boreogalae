@@ -30,32 +30,37 @@ const ChatRoomAll = ({ room }) => {
 
   return (
     <div>
-      <li className={styles.roomContainer} onClick={enterChatRoom}>
-        <div>{room.title}</div>
-        <div>{room.nickname}</div>
-      </li>
+      <ul className={styles.roomContainer}>
+        <li className={styles.room} onClick={enterChatRoom}>
+          <div>{room.title}</div>
+          <div>{room.nickname}</div>
+        </li>
+      </ul>
       {enter && (
-        <div className={styles.dialogContainer}>
-          <dialog open className={`${styles.dialog} ${styles.chatDidalog}`}>
-            <div className={styles.title}></div>
-            <div className={styles.button}>
-              <span className={styles.leave} onClick={leaveChatRoom}>
-                X
-              </span>
-            </div>
-            <form onSubmit={onSubmit}>
-              <input
-                type='text'
-                placeholder='내용을 입력해주세요'
-                value={text}
-                onChange={onChange}
-              />
-              <button>보내기</button>
-            </form>
-            <span>{chat.chat}</span>
-            <span>{chat.createdAt}</span>
-          </dialog>
-        </div>
+        <dialog open className={`${styles.dialog} ${styles.chatDidalog}`}>
+          <div className={styles.title}></div>
+          <div className={styles.button}>
+            <span className={styles.leave} onClick={leaveChatRoom}>
+              X
+            </span>
+          </div>
+          <form onSubmit={onSubmit}>
+            <input
+              type='text'
+              placeholder='내용을 입력해주세요'
+              value={text}
+              onChange={onChange}
+            />
+            <button>보내기</button>
+          </form>
+          {chat &&
+            chat.map((result) => (
+              <div>
+                <span>{result.chat}</span>
+                <span>{result.createdAt}</span>
+              </div>
+            ))}
+        </dialog>
       )}
     </div>
   );

@@ -1,22 +1,16 @@
 .chatContainer {
-  position: absolute;
-  display: block;
-  margin: 7rem 10rem;
+  position: relative;
+  top: 10rem;
+  margin: 0 10rem;
 }
 
 .searchContainer {
-  position: relative;
   display: flex;
   align-items: center;
 }
 
 .searchIcon {
   cursor: pointer;
-}
-
-.create {
-  display: flex;
-  margin: 3rem 0;
 }
 
 .roomContainer {
@@ -29,13 +23,31 @@
   border: 1px solid;
 }
 
-.dialogContainer {
+.roomList {
+  position: relative;
+  margin: 2rem 0;
+}
+
+.chat {
+  position: relative;
+}
+
+.create {
   position: absolute;
-  margin-top: -5rem;
-  margin-left: -20rem;
-  width: 100vw;
   display: flex;
   justify-content: center;
+  bottom: -17rem;
+  background-color: #bd42f5;
+  left: 40%;
+  right: 40%;
+  width: 20rem;
+}
+
+.dialogContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  top: -30rem;
 }
 
 .dialog {

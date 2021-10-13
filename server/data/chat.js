@@ -36,7 +36,7 @@ Chat.belongsTo(User);
 Chat.belongsTo(Room);
 
 export async function getAll() {
-  return Chat.findAll({}).then((data) => data[0].dataValues);
+  return Chat.findAll({}).then((data) => data);
 }
 
 export async function createChat(text, roomId, userId, nickname) {
