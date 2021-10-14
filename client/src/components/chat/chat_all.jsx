@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { userChat } from "../../contentsApi/chatApi";
+import { userChat, userRoom } from "../../contentsApi/chatApi";
 import styles from "./chat_all.module.css";
 
-const ChatAll = ({ room }) => {
+const ChatAll = ({ room, roomId }) => {
   const [enter, setEnter] = useState(false);
   const [text, setText] = useState("");
   const [chat, setChat] = useState("");
@@ -26,14 +26,21 @@ const ChatAll = ({ room }) => {
     setText(event.target.value);
   };
 
+  const removeRoom = () => {
+    userChat.deleteRoom(room.id);
+  };
+
+  roomId(room.id);
+
   return (
     <div className={styles.roomContainer}>
-      <li className={styles.room} onClick={enterChatRoom}>
+      <li className={styles.room}>
         <div>{room.title}</div>
         <div className={styles.profile}>
           <img src={room.url} className={styles.image} />
           <div>{room.nickname}</div>
         </div>
+        <span onClick={enterChatRoom}>입장</span>
       </li>
       {enter && (
         <dialog open className={styles.dialog}>
@@ -42,27 +49,32 @@ const ChatAll = ({ room }) => {
             <span className={styles.leave} onClick={leaveChatRoom}>
               X
             </span>
+            <span onClick={removeRoom}>방 나가기</span>
           </div>
           <div className={styles.item}>
             <ul>
               {chat &&
                 chat.map((result) => (
                   <li className={styles.chat}>
-                    <div className={styles.chatProfile}>
-                      <img className={styles.image} src={room.url} />
-                      <span className={styles.chatNickname}>
-                        {room.nickname}
-                      </span>
-                    </div>
-                    <div className={styles.chatContent}>
-                      <span>{result.chat}</span>
-                      <span className={styles.date}>
-                        {result.createdAt.split("T")[0]}
-                      </span>
-                      <span className={styles.time}>
-                        {result.createdAt.slice(12, 19)}
-                      </span>
-                    </div>
+                    {room.id == result.roomId ? (
+                      <>
+                        <div className={styles.chatProfile}>
+                          <img className={styles.image} src={room.url} />
+                          <span className={styles.chatNickname}>
+                            {room.nickname}
+                          </span>
+                        </div>
+                        <div className={styles.chatContent}>
+                          <span>{result.chat}</span>
+                          <span className={styles.date}>
+                            {result.createdAt.split("T")[0]}
+                          </span>
+                          <span className={styles.time}>
+                            {result.createdAt.slice(12, 19)}
+                          </span>
+                        </div>
+                      </>
+                    ) : null}
                   </li>
                 ))}
             </ul>

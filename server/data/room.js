@@ -2,6 +2,7 @@ import SQ from "sequelize";
 import { currentUser } from "../controller/auth.js";
 import { sequelize } from "../db/database.js";
 import { User } from "./auth.js";
+import { Chat } from "./chat.js";
 const DataTypes = SQ.DataTypes;
 
 export const Room = sequelize.define(

@@ -39,6 +39,15 @@ export async function getAll() {
   return Chat.findAll({}).then((data) => data);
 }
 
+export async function getAllById() {
+  return Chat.findAll({
+    where: { roomId: id },
+  }).then((data) => {
+    console.log(data);
+    return data;
+  });
+}
+
 export async function createChat(text, roomId, userId, nickname) {
   return Chat.create({
     nickname,
@@ -46,4 +55,10 @@ export async function createChat(text, roomId, userId, nickname) {
     userUserId: userId,
     roomId,
   }).then((data) => console.log(data));
+}
+
+export async function remove(id) {
+  return Chat.findByPk(id).then((result) => {
+    result.destroy();
+  });
 }

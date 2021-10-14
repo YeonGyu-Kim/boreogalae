@@ -21,6 +21,14 @@ export const userChat = {
       .then((response) => {
         return response.data;
       }),
+  deleteRoom: async (roomId) =>
+    await api
+      .delete(`/chat/room/${roomId}`, {
+        roomId,
+      })
+      .then((response) => {
+        return response.data;
+      }),
 };
 
 export const userRoom = {
@@ -28,9 +36,9 @@ export const userRoom = {
     await api.get("room").then((response) => {
       return response.data;
     }),
-  createRoom: async (title) =>
+  createRoom: async (title, roomId) =>
     api
-      .post("room", {
+      .post(`room/${roomId}`, {
         title: JSON.stringify(title),
         max: 2,
       })

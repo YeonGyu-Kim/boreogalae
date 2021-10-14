@@ -8,6 +8,7 @@ import ChatAll from "./chat_all";
 const ChatScreen = () => {
   const search = useRef();
   const [room, setRoom] = useState();
+  const [roomId, setRoomId] = useState();
   const [create, setCreate] = useState(false);
 
   const [title, setTitle] = useState("");
@@ -32,7 +33,7 @@ const ChatScreen = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    userRoom.createRoom(title).then(() => setTitle(""));
+    userRoom.createRoom(title, roomId).then(() => setTitle(""));
     setCreate(false);
   };
 
@@ -47,7 +48,7 @@ const ChatScreen = () => {
   useEffect(() => {
     userChat.getChat();
   });
-  console.log(room);
+  console.log(roomId);
 
   return (
     <section className={styles.chatContainer}>
@@ -72,7 +73,8 @@ const ChatScreen = () => {
       <div className={styles.roomList}>
         <span>채팅방 목록</span>
         <ul className={styles.chat}>
-          {room && room.map((result) => <ChatAll room={result} />)}
+          {room &&
+            room.map((result) => <ChatAll room={result} roomId={setRoomId} />)}
         </ul>
       </div>
 

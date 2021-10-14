@@ -18,3 +18,11 @@ export const createChat = async (req, res, next) => {
   );
   res.status(201).json(chat);
 };
+
+export async function deleteChatRoom(currentUser, title, max, currentId, url) {
+  const data = req.body;
+  //console.log(data);
+  //const room = await chatRepository.getAllById(data.roomId);
+  await chatRepository.remove(data.roomId);
+  res.sendStatus(204);
+}

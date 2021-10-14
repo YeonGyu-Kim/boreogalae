@@ -10,4 +10,7 @@ router.get("/room/:roomId", chatController.getChat);
 //POST Chat
 router.post("/room/user/:userId", chatController.createChat);
 
+//DELETE Room
+router.delete("/room/:roomId", chatController.deleteChatRoom);
+
 export default router;
