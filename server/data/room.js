@@ -32,6 +32,10 @@ export const Room = sequelize.define(
       defaultValue: 10,
       min: 2,
     },
+    url: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
   },
   {
     timestamps: false,
@@ -46,11 +50,12 @@ export async function getAll() {
   });
 }
 
-export async function createChatRoom(currentUser, title, max, currentId) {
+export async function createChatRoom(currentUser, title, max, currentId, url) {
   return Room.create({
     nickname: currentUser,
     title,
     max,
     userUserId: currentId,
+    url,
   }).then((data) => console.log(data));
 }

@@ -1,12 +1,12 @@
 import request from "request";
 import express from "express";
 import axios from "axios";
-import url from "url";
 import * as userRepository from "../data/auth.js";
 import { db } from "../db/database.js";
 
 export let currentId;
 export let currentUser;
+export let imageUrl;
 export const login = async (req, res, next) => {
   const { data } = req.body;
   const user = await userRepository.findByUserId(data.id);
@@ -24,6 +24,7 @@ export const login = async (req, res, next) => {
     res.status(201).json(user);
     currentId = user.userId;
     currentUser = user.nickname;
+    imageUrl = user.url;
   }
 };
 

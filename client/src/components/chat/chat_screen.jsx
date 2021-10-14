@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { userChat, userRoom } from "../../contentsApi/chatApi";
 import styles from "./chat_screen.module.css";
-import ChatRoomAll from "./chatRoom_all";
+import ChatAll from "./chat_all";
 
 const ChatScreen = () => {
   const search = useRef();
@@ -47,6 +47,7 @@ const ChatScreen = () => {
   useEffect(() => {
     userChat.getChat();
   });
+  console.log(room);
 
   return (
     <section className={styles.chatContainer}>
@@ -64,15 +65,15 @@ const ChatScreen = () => {
             onClick={handleSearch}
           />
         </div>
+        <div className={styles.create}>
+          <span onClick={createChatRoom}>채팅방 생성</span>
+        </div>
       </div>
       <div className={styles.roomList}>
         <span>채팅방 목록</span>
-        <section className={styles.chat}>
-          {room && room.map((result) => <ChatRoomAll room={result} />)}
-        </section>
-      </div>
-      <div className={styles.create}>
-        <span onClick={createChatRoom}>채팅방 생성</span>
+        <ul className={styles.chat}>
+          {room && room.map((result) => <ChatAll room={result} />)}
+        </ul>
       </div>
 
       {create && (

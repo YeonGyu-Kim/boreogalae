@@ -1,7 +1,7 @@
 import SQ from "sequelize";
 import { sequelize } from "../db/database.js";
 import * as roomRepository from "../data/room.js";
-import { currentId, currentUser } from "./auth.js";
+import { currentId, currentUser, imageUrl } from "./auth.js";
 
 export const getRoom = async (req, res, next) => {
   const result = req.body;
@@ -15,7 +15,8 @@ export const createRoom = async (req, res, next) => {
     currentUser,
     JSON.parse(data.title),
     data.max,
-    currentId
+    currentId,
+    imageUrl
   );
   res.status(201).json(room);
 };

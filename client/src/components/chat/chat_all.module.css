@@ -1,0 +1,113 @@
+.room {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 5rem;
+  width: 100%;
+  margin: 1rem 0;
+  border: 1px solid;
+}
+
+.dialogContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: -10rem;
+  margin-left: -10rem;
+  width: 100vw;
+}
+
+.dialog {
+  position: absolute;
+  width: 40vw;
+  height: 60vh;
+  border: none;
+
+  top: -1rem;
+}
+
+.item {
+  overflow-y: scroll;
+  height: 55vh;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.image {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 0.3rem;
+}
+
+.chat {
+  margin: 2rem 0;
+}
+
+.chatProfile {
+  position: relative;
+}
+
+.chatNickname {
+  position: absolute;
+  top: 0.2rem;
+}
+
+.date {
+  margin: 0 0.3rem;
+}
+
+.chatContent {
+  margin-top: 0.5rem;
+}
+
+.form {
+  position: fixed;
+  width: 40vw;
+  height: 7vh;
+  bottom: 5rem;
+  background-color: gray;
+  margin-left: -16px;
+  padding-right: 32px;
+  padding-top: 2rem;
+}
+
+.formItem {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -0.4rem;
+}
+
+.input {
+  height: 2rem;
+  width: 20rem;
+  background-color: gray;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.input::placeholder {
+  color: white;
+  padding-left: 0.5rem;
+}
+
+.submitBtn {
+  background-color: #bd42f5;
+  border: none;
+  padding: 0.5rem;
+}
+
+.leave {
+  position: absolute;
+  right: 1rem;
+}
