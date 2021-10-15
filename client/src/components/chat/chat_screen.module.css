@@ -33,10 +33,11 @@
 }
 
 .dialogContainer {
-  position: relative;
+  position: absolute;
   display: flex;
   justify-content: center;
-  top: -12rem;
+  top: 2rem;
+  left: 25%;
   height: 100%;
 }
 

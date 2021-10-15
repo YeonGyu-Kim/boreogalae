@@ -6,13 +6,13 @@ const api = axios.create({
 
 export const userChat = {
   getChat: async (roomId) =>
-    await api.get(roomId && `chat/room/${roomId}`).then((response) => {
+    await api.get(`chat/room/${roomId}`).then((response) => {
       return response.data;
     }),
 
   createChat: async (text, userId, roomId, nickname) =>
     await api
-      .post(userId && `chat/room/user/${userId}`, {
+      .post(`chat/room/user/${userId}`, {
         text: JSON.stringify(text),
         userId,
         roomId,

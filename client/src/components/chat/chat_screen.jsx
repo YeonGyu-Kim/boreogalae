@@ -5,9 +5,9 @@ import { userChat, userRoom } from "../../contentsApi/chatApi";
 import styles from "./chat_screen.module.css";
 import ChatAll from "./chat_all";
 
-const ChatScreen = () => {
+const ChatScreen = ({ chatService }) => {
   const search = useRef();
-  const [room, setRoom] = useState();
+  const [rooms, setRooms] = useState();
   const [roomId, setRoomId] = useState();
   const [create, setCreate] = useState(false);
 
@@ -42,13 +42,21 @@ const ChatScreen = () => {
   };
 
   useEffect(() => {
-    userRoom.getRoom().then((room) => setRoom(room));
-  }, [userRoom]);
+    userRoom.getRoom().then((room) => setRooms(room));
+    const stopSyncCreateRoom = chatService.onSyncCreateRoom((room) =>
+      onCreatedRoom(room)
+    );
 
-  useEffect(() => {
-    userChat.getChat();
-  });
-  console.log(roomId);
+    return () => {
+      stopSyncCreateRoom();
+    };
+  }, [chatService]);
+
+  const onCreatedRoom = (room) => {
+    setRooms((rooms) => [room, ...rooms]);
+  };
+
+  console.log(rooms);
 
   return (
     <section className={styles.chatContainer}>
@@ -73,8 +81,8 @@ const ChatScreen = () => {
       <div className={styles.roomList}>
         <span>채팅방 목록</span>
         <ul className={styles.chat}>
-          {room &&
-            room.map((result) => <ChatAll room={result} roomId={setRoomId} />)}
+          {rooms &&
+            rooms.map((result) => <ChatAll room={result} roomId={setRoomId} />)}
         </ul>
       </div>
 

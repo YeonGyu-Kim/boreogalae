@@ -58,5 +58,5 @@ export async function createChatRoom(currentUser, title, max, currentId, url) {
     max,
     userUserId: currentId,
     url,
-  }).then((data) => console.log(data));
+  }).then((data) => data);
 }

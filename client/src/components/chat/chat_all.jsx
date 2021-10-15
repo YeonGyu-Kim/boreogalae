@@ -9,7 +9,10 @@ const ChatAll = ({ room, roomId }) => {
 
   const enterChatRoom = () => {
     setEnter(true);
-    userChat.getChat(room.id).then((result) => setChat(result));
+    userChat.getChat(room.id).then((result) => {
+      setChat(result);
+      console.log(chat);
+    });
   };
   const leaveChatRoom = () => {
     setEnter(false);
@@ -28,9 +31,9 @@ const ChatAll = ({ room, roomId }) => {
 
   const removeRoom = () => {
     userChat.deleteRoom(room.id);
+    roomId(room.id);
+    setEnter(false);
   };
-
-  roomId(room.id);
 
   return (
     <div className={styles.roomContainer}>

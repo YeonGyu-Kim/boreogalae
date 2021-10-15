@@ -2,6 +2,7 @@ import SQ from "sequelize";
 import { sequelize } from "../db/database.js";
 import * as roomRepository from "../data/room.js";
 import { currentId, currentUser, imageUrl } from "./auth.js";
+import { getSocketIO } from "../connection/socket.js";
 
 export const getRoom = async (req, res, next) => {
   const result = req.body;
@@ -19,4 +20,5 @@ export const createRoom = async (req, res, next) => {
     imageUrl
   );
   res.status(201).json(room);
+  getSocketIO().emit("create-room", room);
 };

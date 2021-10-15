@@ -50,6 +50,7 @@ function App({
   contentsMovie,
   contentsTV,
   commentService,
+  chatService,
 }) {
   // 영화
   const [popularMovie, setPopularMovie] = useState([]);
@@ -708,7 +709,7 @@ function App({
           <NoticeScreen />
         </Route>
         <Route path='/chat' exact>
-          <ChatScreen />
+          <ChatScreen chatService={chatService} />
         </Route>
       </Switch>
       <GlobalStyle />
