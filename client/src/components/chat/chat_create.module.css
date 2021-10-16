@@ -1,0 +1,29 @@
+.dialogContainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 2rem;
+  left: 25%;
+  height: 100%;
+}
+.hideDialogContainer {
+  display: none;
+}
+
+.dialog {
+  width: 30vw;
+  height: 60vh;
+}
+
+.dialog.chatDidalog {
+  display: flex;
+  justify-content: center;
+}
+
+.inputTitle {
+  margin: 2rem 0;
+}
+
+.enroll {
+  margin-right: 1rem;
+}

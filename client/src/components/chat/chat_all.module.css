@@ -17,7 +17,8 @@
 }
 
 .dialog {
-  position: absolute;
+  position: fixed;
+  margin-top: 12rem;
   width: 40vw;
   height: 60vh;
   border: none;

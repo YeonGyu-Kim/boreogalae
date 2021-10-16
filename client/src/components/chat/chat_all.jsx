@@ -37,7 +37,7 @@ const ChatAll = ({ room, roomId }) => {
 
   return (
     <div className={styles.roomContainer}>
-      <li className={styles.room}>
+      <li key={room.id} className={styles.room}>
         <div>{room.title}</div>
         <div className={styles.profile}>
           <img src={room.url} className={styles.image} />

@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { userChat, userRoom } from "../../contentsApi/chatApi";
 import styles from "./chat_screen.module.css";
 import ChatAll from "./chat_all";
+import ChatCreate from "./chat_create";
 
 const ChatScreen = ({ chatService }) => {
   const search = useRef();
@@ -27,6 +28,7 @@ const ChatScreen = ({ chatService }) => {
     setCreate(true);
   };
 
+  /*
   const cancelChatRoom = () => {
     setCreate(false);
   };
@@ -40,6 +42,7 @@ const ChatScreen = ({ chatService }) => {
   const onChange = (event) => {
     setTitle(event.target.value);
   };
+  */
 
   useEffect(() => {
     userRoom.getRoom().then((room) => setRooms(room));
@@ -52,11 +55,11 @@ const ChatScreen = ({ chatService }) => {
     };
   }, [chatService]);
 
-  const onCreatedRoom = (room) => {
-    setRooms((rooms) => [room, ...rooms]);
-  };
-
-  console.log(rooms);
+  const onCreatedRoom = (room) =>
+    setRooms((rooms) => {
+      console.log(room);
+      setRooms([...rooms, room]);
+    });
 
   return (
     <section className={styles.chatContainer}>
@@ -85,29 +88,7 @@ const ChatScreen = ({ chatService }) => {
             rooms.map((result) => <ChatAll room={result} roomId={setRoomId} />)}
         </ul>
       </div>
-
-      {create && (
-        <div className={styles.dialogContainer}>
-          <dialog open className={styles.dialog}>
-            <form className={styles.form} onSubmit={onSubmit}>
-              <div className={styles.title}>채팅방 설정</div>
-              <input
-                className={styles.inputTitle}
-                type='text'
-                placeholder='제목을 입력하세요.'
-                value={title}
-                onChange={onChange}
-              />
-              <div className={styles.button}>
-                <button className={styles.enroll} type='submit'>
-                  확인
-                </button>
-                <span onClick={cancelChatRoom}>취소</span>
-              </div>
-            </form>
-          </dialog>
-        </div>
-      )}
+      {create && <ChatCreate setCreate={setCreate} />}
     </section>
   );
 };
