@@ -118,6 +118,20 @@ type Comment = [
   }
 ];
 
+type Reply = [
+  {
+    id: number;
+    text: string;
+    createdAt: string;
+    userId: number;
+    nickname: string;
+    url: string;
+    contentsId: number;
+    voteCount: number;
+    p_id: number;
+  }
+];
+
 const ContentsDetail = memo(({ contents, commentService }: any) => {
   const [movieDetail, setMovieDetail] = useState<Content | undefined>();
   const [tvDetail, setTvDetail] = useState<Content | undefined>();
@@ -127,6 +141,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
   const [tvProvider, setTvProvider] = useState<Provider | undefined>();
   const [user, setUser] = useState<User | undefined>();
   const [comments, setComments] = useState<Comment | any>();
+  const [replies, setReplies] = useState<Comment | any>();
 
   const { id } = useParams<ContentsID>();
   const { pathname } = useLocation();
@@ -205,14 +220,11 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
 
   const onCreatedComment = (comment: any) => {
     setComments((comments: Comment) => [comment, ...comments]);
-    console.log(comments);
-    console.log(comment);
   };
 
   const onCreatedReply = (comment: any) => {
-    setComments((comments: Comment) => [...comments, comment]);
+    setComments((comments: Comment) => comments.concat(comment));
     console.log(comments);
-    console.log(comment);
   };
 
   const onUpdated = (comment: any) => {
@@ -226,7 +238,6 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
       comments?.filter((item) => item.id !== comment.id)
     );
   };
-
   return (
     <section className={styles.detailContainer}>
       <div className={styles.contentTitle}>
@@ -381,7 +392,12 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
       <CommentsEnroll user={user} />
       <ul className={styles.commentContainer}>
         {comments?.map((comment: any) => (
-          <CommentsAll key={comment.id} comment={comment} user={user} />
+          <CommentsAll
+            key={comment.id}
+            comment={comment}
+            user={user}
+            replies={replies}
+          />
         ))}
       </ul>
     </section>

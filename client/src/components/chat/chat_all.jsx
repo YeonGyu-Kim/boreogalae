@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { userChat, userRoom } from "../../contentsApi/chatApi";
+import { currentUserId } from "../login/kakao_login";
 import styles from "./chat_all.module.css";
 
 const ChatAll = ({ room, roomId }) => {
   const [enter, setEnter] = useState(false);
   const [text, setText] = useState("");
   const [chat, setChat] = useState("");
+  const [user, setUser] = useState([]);
 
   const enterChatRoom = () => {
     setEnter(true);
@@ -34,6 +36,8 @@ const ChatAll = ({ room, roomId }) => {
     roomId(room.id);
     setEnter(false);
   };
+
+  console.log(currentUserId);
 
   return (
     <div className={styles.roomContainer}>

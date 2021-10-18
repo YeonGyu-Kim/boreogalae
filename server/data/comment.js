@@ -4,8 +4,7 @@ const SELECT_JOIN =
   "SELECT cm.id, cm.text, cm.createdAt, cm.userId, cm.contentsId, cm.voteCount, cm.p_id, us.nickname, us.url, us.userId FROM comments as cm JOIN users as us ON cm.userId = us.userId";
 
 /*const ORDER_DESC = "ORDER BY cm.createdAt DESC"; */
-const ORDER_DESC =
-  "ORDER BY IF(ISNULL(cm.p_id), cm.id, cm.p_id) DESC , cm.createdAt";
+const ORDER_DESC = "ORDER BY IF(ISNULL(cm.p_id), cm.id, cm.p_id) DESC";
 
 /*const ORDER_DESC =
   "ORDER BY CASE WHEN cm.p_id == NULL then cm.id DESC ELSE cm.p_id DESC;" */

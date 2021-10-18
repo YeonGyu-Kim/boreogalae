@@ -50,7 +50,7 @@ const Revise = styled.div`
   margin: 0 0.8rem;
 `;
 
-const CommentsAll = ({ comment, user }) => {
+const CommentsAll = ({ comment, user, replies }) => {
   const [editing, setEditing] = useState(false);
   const [reply, setReply] = useState(false);
   const { id } = useParams();

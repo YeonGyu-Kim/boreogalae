@@ -11,6 +11,7 @@ const ChatScreen = ({ chatService }) => {
   const [rooms, setRooms] = useState();
   const [roomId, setRoomId] = useState();
   const [create, setCreate] = useState(false);
+  const [user, setUser] = useState();
 
   const [title, setTitle] = useState("");
 

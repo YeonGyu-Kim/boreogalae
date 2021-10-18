@@ -5,6 +5,7 @@ import TokenStorage from "../../db/token";
 
 const { Kakao } = window;
 const tokenStorage = new TokenStorage();
+export let currentUserId;
 
 const KakaoLogin = memo(() => {
   const [isLogin, setIsLogin] = useState(false);
@@ -96,6 +97,8 @@ const KakaoLogin = memo(() => {
   useEffect(() => {
     kakaoApi.kakaoMe().then((me) => setUser(me));
   }, [kakaoApi]);
+
+  currentUserId = user.userId;
 
   return (
     <section>
