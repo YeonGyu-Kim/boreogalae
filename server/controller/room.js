@@ -13,11 +13,10 @@ export const getRoom = async (req, res, next) => {
 export const createRoom = async (req, res, next) => {
   const data = req.body;
   const room = await roomRepository.createChatRoom(
-    currentUser,
     JSON.parse(data.title),
-    data.max,
     currentId,
-    imageUrl
+    JSON.parse(data.nickname),
+    JSON.parse(data.url)
   );
   res.status(201).json(room);
   getSocketIO().emit("create-room", room);

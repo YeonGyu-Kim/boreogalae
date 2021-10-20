@@ -2,14 +2,16 @@ import React, { useEffect, useState, useRef } from "react";
 import { userRoom } from "../../contentsApi/chatApi";
 import styles from "./chat_create.module.css";
 
-const ChatCreate = ({ setCreate }) => {
+const ChatCreate = ({ setCreate, user }) => {
   const [roomId, setRoomId] = useState();
   const [title, setTitle] = useState("");
   const componentMounted = useRef(true);
 
   const onSubmit = (event) => {
     event.preventDefault();
-    userRoom.createRoom(title, roomId).then(() => setTitle(""));
+    userRoom
+      .createRoom(title, user.nickname, user.url)
+      .then(() => setTitle(""));
     setCreate(false);
   };
 
@@ -24,6 +26,8 @@ const ChatCreate = ({ setCreate }) => {
   useEffect(() => {
     componentMounted.current = false;
   }, []);
+
+  console.log(user);
 
   return (
     <div className={styles.dialogContainer}>

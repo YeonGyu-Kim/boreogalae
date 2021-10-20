@@ -13,11 +13,11 @@ export const login = async (req, res, next) => {
   console.log(data);
 
   if (!user && data) {
-    const addUserId = await userRepository.createUser({
-      id: data.id,
-      nickname: data.nickname,
-      image: data.image,
-    });
+    const addUserId = await userRepository.createUser(
+      data.id,
+      data.nickname,
+      data.image
+    );
     res.status(201).json(addUserId);
     currentId = addUserId;
   } else {

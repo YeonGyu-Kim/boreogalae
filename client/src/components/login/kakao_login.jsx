@@ -7,7 +7,7 @@ const { Kakao } = window;
 const tokenStorage = new TokenStorage();
 export let currentUserId;
 
-const KakaoLogin = memo(() => {
+const KakaoLogin = () => {
   const [isLogin, setIsLogin] = useState(false);
 
   // 카카오
@@ -31,7 +31,6 @@ const KakaoLogin = memo(() => {
               url: "/v2/user/me",
               success: function ({ kakao_account, id }) {
                 const { profile } = kakao_account;
-
                 axios
                   .post("http://localhost:8080/auth/user", {
                     header: {
@@ -98,8 +97,6 @@ const KakaoLogin = memo(() => {
     kakaoApi.kakaoMe().then((me) => setUser(me));
   }, [kakaoApi]);
 
-  currentUserId = user.userId;
-
   return (
     <section>
       <div onClick={kakaoLogin}>
@@ -109,6 +106,6 @@ const KakaoLogin = memo(() => {
       </div>
     </section>
   );
-});
+};
 
 export default KakaoLogin;

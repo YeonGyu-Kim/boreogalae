@@ -15,10 +15,6 @@ export const Room = sequelize.define(
       primaryKey: true,
       unique: true,
     },
-    nickname: {
-      type: DataTypes.STRING(15),
-      allowNull: false,
-    },
     title: {
       type: DataTypes.STRING(100),
     },
@@ -27,16 +23,11 @@ export const Room = sequelize.define(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    max: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      defaultValue: 10,
-      min: 2,
-    },
-    url: {
-      type: DataTypes.TEXT,
+    nickname: {
+      type: DataTypes.STRING(45),
       allowNull: false,
     },
+    url: DataTypes.TEXT,
   },
   {
     timestamps: false,
@@ -45,18 +36,20 @@ export const Room = sequelize.define(
 Room.belongsTo(User);
 
 export async function getAll() {
-  return Room.findAll().then((data) => {
-    console.log(data);
-    return data;
-  });
+  return Room.findAll({}).then((data) => data);
 }
 
-export async function createChatRoom(currentUser, title, max, currentId, url) {
+export async function findByUserId(id) {
+  return User.findOne({
+    where: { id },
+  }).then((data) => data);
+}
+
+export async function createChatRoom(title, userId, nickname, url) {
   return Room.create({
-    nickname: currentUser,
     title,
-    max,
-    userUserId: currentId,
+    userUserId: userId,
+    nickname,
     url,
   }).then((data) => data);
 }

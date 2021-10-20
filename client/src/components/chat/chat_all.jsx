@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { userChat, userRoom } from "../../contentsApi/chatApi";
-import { currentUserId } from "../login/kakao_login";
+import { kakaoApi } from "../../contentsApi/kakaoApi";
 import styles from "./chat_all.module.css";
 
-const ChatAll = ({ room, roomId }) => {
+const ChatAll = ({ room, user }) => {
   const [enter, setEnter] = useState(false);
   const [text, setText] = useState("");
   const [chat, setChat] = useState("");
-  const [user, setUser] = useState([]);
 
   const enterChatRoom = () => {
     setEnter(true);
@@ -23,7 +22,14 @@ const ChatAll = ({ room, roomId }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     userChat
-      .createChat(text, room.userUserId, room.id, room.nickname)
+      .createChat(
+        text,
+        room.userUserId,
+        room.id,
+        user.nickname,
+        user.url,
+        user.userId
+      )
       .then(() => setText(""));
   };
 
@@ -33,11 +39,10 @@ const ChatAll = ({ room, roomId }) => {
 
   const removeRoom = () => {
     userChat.deleteRoom(room.id);
-    roomId(room.id);
     setEnter(false);
   };
 
-  console.log(currentUserId);
+  console.log(chat);
 
   return (
     <div className={styles.roomContainer}>
@@ -62,13 +67,19 @@ const ChatAll = ({ room, roomId }) => {
             <ul>
               {chat &&
                 chat.map((result) => (
-                  <li className={styles.chat}>
-                    {room.id == result.roomId ? (
+                  <li
+                    className={`${
+                      user.userId === result.userUserId
+                        ? styles.chatRight
+                        : styles.chatLeft
+                    }`}
+                  >
+                    {room.id === result.roomId ? (
                       <>
                         <div className={styles.chatProfile}>
-                          <img className={styles.image} src={room.url} />
+                          <img className={styles.image} src={result.url} />
                           <span className={styles.chatNickname}>
-                            {room.nickname}
+                            {result.nickname}
                           </span>
                         </div>
                         <div className={styles.chatContent}>

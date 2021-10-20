@@ -8,6 +8,6 @@ const router = express.Router();
 router.get("/", roomController.getRoom);
 
 //POST Room
-router.post("/:roomId", roomController.createRoom);
+router.post("/", roomController.createRoom);
 
 export default router;

@@ -14,10 +14,6 @@ export const Chat = sequelize.define(
       primaryKey: true,
       unique: true,
     },
-    nickname: {
-      type: DataTypes.STRING(15),
-      allowNull: false,
-    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -27,6 +23,11 @@ export const Chat = sequelize.define(
       type: DataTypes.STRING(50),
       allowNull: true,
     },
+    nickname: {
+      type: DataTypes.STRING(45),
+      allowNull: false,
+    },
+    url: DataTypes.TEXT,
   },
   {
     timestamps: false,
@@ -48,12 +49,13 @@ export async function getAllById() {
   });
 }
 
-export async function createChat(text, roomId, userId, nickname) {
+export async function createChat(text, nickname, url, roomId, userId) {
   return Chat.create({
-    nickname,
     chat: text,
-    userUserId: userId,
+    nickname,
+    url,
     roomId,
+    userUserId: userId,
   }).then((data) => console.log(data));
 }
 

@@ -82,6 +82,8 @@ const CommentsAll = ({ comment, user, replies }) => {
     return count;
   };
 
+  console.log(comment);
+
   return (
     <div>
       {id == comment.contentsId ? (

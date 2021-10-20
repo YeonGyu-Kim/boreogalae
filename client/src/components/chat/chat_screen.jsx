@@ -5,13 +5,14 @@ import { userChat, userRoom } from "../../contentsApi/chatApi";
 import styles from "./chat_screen.module.css";
 import ChatAll from "./chat_all";
 import ChatCreate from "./chat_create";
+import { kakaoApi } from "../../contentsApi/kakaoApi";
 
 const ChatScreen = ({ chatService }) => {
   const search = useRef();
   const [rooms, setRooms] = useState();
   const [roomId, setRoomId] = useState();
   const [create, setCreate] = useState(false);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState([]);
 
   const [title, setTitle] = useState("");
 
@@ -29,22 +30,6 @@ const ChatScreen = ({ chatService }) => {
     setCreate(true);
   };
 
-  /*
-  const cancelChatRoom = () => {
-    setCreate(false);
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    userRoom.createRoom(title, roomId).then(() => setTitle(""));
-    setCreate(false);
-  };
-
-  const onChange = (event) => {
-    setTitle(event.target.value);
-  };
-  */
-
   useEffect(() => {
     userRoom.getRoom().then((room) => setRooms(room));
     const stopSyncCreateRoom = chatService.onSyncCreateRoom((room) =>
@@ -54,13 +39,19 @@ const ChatScreen = ({ chatService }) => {
     return () => {
       stopSyncCreateRoom();
     };
-  }, [chatService]);
+  }, [chatService, userRoom]);
 
-  const onCreatedRoom = (room) =>
+  const onCreatedRoom = (room) => {
     setRooms((rooms) => {
-      console.log(room);
       setRooms([...rooms, room]);
     });
+  };
+
+  useEffect(() => {
+    kakaoApi.kakaoMe().then((me) => setUser(me));
+  }, []);
+
+  console.log(rooms);
 
   return (
     <section className={styles.chatContainer}>
@@ -86,10 +77,10 @@ const ChatScreen = ({ chatService }) => {
         <span>채팅방 목록</span>
         <ul className={styles.chat}>
           {rooms &&
-            rooms.map((result) => <ChatAll room={result} roomId={setRoomId} />)}
+            rooms.map((result) => <ChatAll room={result} user={user} />)}
         </ul>
       </div>
-      {create && <ChatCreate setCreate={setCreate} />}
+      {create && <ChatCreate setCreate={setCreate} user={user} />}
     </section>
   );
 };

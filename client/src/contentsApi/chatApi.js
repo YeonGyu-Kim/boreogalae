@@ -10,13 +10,14 @@ export const userChat = {
       return response.data;
     }),
 
-  createChat: async (text, userId, roomId, nickname) =>
+  createChat: async (text, userId, roomId, nickname, url, currentId) =>
     await api
       .post(`chat/room/user/${userId}`, {
         text: JSON.stringify(text),
-        userId,
         roomId,
-        nickname,
+        nickname: JSON.stringify(nickname),
+        url: JSON.stringify(url),
+        currentId,
       })
       .then((response) => {
         return response.data;
@@ -36,11 +37,12 @@ export const userRoom = {
     await api.get("room").then((response) => {
       return response.data;
     }),
-  createRoom: async (title, roomId) =>
+  createRoom: async (title, nickname, url) =>
     api
-      .post(`room/${roomId}`, {
+      .post(`room`, {
         title: JSON.stringify(title),
-        max: 2,
+        nickname: JSON.stringify(nickname),
+        url: JSON.stringify(url),
       })
       .then((response) => {
         return response.data;

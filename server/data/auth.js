@@ -23,6 +23,10 @@ export const User = sequelize.define(
   }
 );
 
+User.associations = (models) => {
+  User.hasMany(models.user, {});
+};
+
 export async function findByUserId(id) {
   return User.findByPk(id);
   /*
@@ -35,8 +39,12 @@ export async function findByUserId(id) {
      */
 }
 
-export async function createUser(user) {
-  return User.create(user).then((data) => data.dataValues.id);
+export async function createUser(id, nickname, image) {
+  return User.create({
+    userId: id,
+    nickname,
+    url: image,
+  }).then((data) => data);
   /*
   const { nickname, image, id } = user;
   return db
