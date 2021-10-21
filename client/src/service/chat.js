@@ -6,4 +6,8 @@ export default class ChatService {
   onSyncCreateRoom(callback) {
     return this.socket.onSync("create-room", callback);
   }
+
+  onSyncDeleteRoom(callback) {
+    return this.socket.onSync("delete-room", callback);
+  }
 }

@@ -49,5 +49,7 @@ export async function createChatRoom(title, userId, nickname, url) {
 }
 
 export async function removeRoom(id) {
-  return Room.destroy({ where: { id } });
+  return Room.destroy({
+    where: { id },
+  });
 }

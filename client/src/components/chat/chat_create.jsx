@@ -27,8 +27,6 @@ const ChatCreate = ({ setCreate, user }) => {
     componentMounted.current = false;
   }, []);
 
-  console.log(user);
-
   return (
     <div className={styles.dialogContainer}>
       <dialog open className={styles.dialog}>

@@ -10,4 +10,7 @@ router.get("/", roomController.getRoom);
 //POST Room
 router.post("/", roomController.createRoom);
 
+//DELETE Room
+router.delete("/:roomId", roomController.deleteRoom);
+
 export default router;

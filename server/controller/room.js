@@ -1,6 +1,7 @@
 import SQ from "sequelize";
 import { sequelize } from "../db/database.js";
 import * as roomRepository from "../data/room.js";
+import * as chatRepository from "../data/chat.js";
 import { currentId, currentUser, imageUrl } from "./auth.js";
 import { getSocketIO } from "../connection/socket.js";
 
@@ -20,4 +21,13 @@ export const createRoom = async (req, res, next) => {
   );
   res.status(201).json(room);
   getSocketIO().emit("create-room", room);
+};
+
+export const deleteRoom = async (req, res, next) => {
+  const roomId = req.params.roomId;
+  const room = await chatRepository
+    .remove(roomId)
+    .then(roomRepository.removeRoom(roomId));
+  res.sendStatus(204);
+  getSocketIO().emit("delete-room", room);
 };

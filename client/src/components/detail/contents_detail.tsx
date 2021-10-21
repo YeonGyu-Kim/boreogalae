@@ -234,6 +234,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
   };
 
   const onDelete = (comment: any) => {
+    console.log(comment);
     setComments((comments: Comment) =>
       comments?.filter((item) => item.id !== comment.id)
     );

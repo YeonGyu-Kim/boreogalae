@@ -23,13 +23,9 @@ export const userChat = {
         return response.data;
       }),
   deleteRoom: async (roomId) =>
-    await api
-      .delete(`/chat/room/${roomId}`, {
-        roomId,
-      })
-      .then((response) => {
-        return response.data;
-      }),
+    await api.delete(`/chat/room/${roomId}`, {}).then((response) => {
+      return response.data;
+    }),
 };
 
 export const userRoom = {
@@ -47,4 +43,8 @@ export const userRoom = {
       .then((response) => {
         return response.data;
       }),
+  deleteRoom: async (id) =>
+    await api.delete(`/room/${id}`, {}).then((response) => {
+      return response.data;
+    }),
 };

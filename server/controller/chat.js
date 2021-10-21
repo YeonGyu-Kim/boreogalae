@@ -3,6 +3,7 @@ import { sequelize } from "../db/database.js";
 import * as chatRepository from "../data/chat.js";
 import * as roomRepository from "../data/room.js";
 import { currentId, currentUser } from "./auth.js";
+import { getSocketIO } from "../connection/socket.js";
 
 export const getChat = async (req, res, next) => {
   const result = req.body;
@@ -24,6 +25,8 @@ export const createChat = async (req, res, next) => {
 
 export const deleteChatRoom = async (req, res, next) => {
   const roomId = req.params.roomId;
-  await chatRepository.remove(roomId).then(roomRepository.removeRoom(roomId));
+  const room = await chatRepository
+    .remove(roomId)
+    .then(roomRepository.removeRoom(roomId));
   res.sendStatus(204);
 };

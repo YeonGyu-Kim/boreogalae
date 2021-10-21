@@ -13,6 +13,7 @@ const ChatScreen = ({ chatService }) => {
   const [roomId, setRoomId] = useState();
   const [create, setCreate] = useState(false);
   const [user, setUser] = useState([]);
+  const [deltedRoomId, setDeletedRoomId] = useState();
 
   const [title, setTitle] = useState("");
 
@@ -30,16 +31,29 @@ const ChatScreen = ({ chatService }) => {
     setCreate(true);
   };
 
+  const deleteId = (id) => {
+    setDeletedRoomId(id);
+  };
+
+  useEffect(() => {
+    kakaoApi.kakaoMe().then((me) => setUser(me));
+  }, []);
+
   useEffect(() => {
     userRoom.getRoom().then((room) => setRooms(room));
     const stopSyncCreateRoom = chatService.onSyncCreateRoom((room) =>
       onCreatedRoom(room)
     );
 
+    const stopSyncDeleteRoom = chatService.onSyncDeleteRoom((room) =>
+      onDeletedRoom(room)
+    );
+
     return () => {
       stopSyncCreateRoom();
+      stopSyncDeleteRoom();
     };
-  }, [chatService, userRoom]);
+  }, [chatService]);
 
   const onCreatedRoom = (room) => {
     setRooms((rooms) => {
@@ -47,9 +61,12 @@ const ChatScreen = ({ chatService }) => {
     });
   };
 
-  useEffect(() => {
-    kakaoApi.kakaoMe().then((me) => setUser(me));
-  }, []);
+  const onDeletedRoom = (room) => {
+    setRooms((rooms) =>
+      console.log(rooms.filter((result) => result.id == deltedRoomId))
+    );
+    return setDeletedRoomId(null);
+  };
 
   return (
     <section className={styles.chatContainer}>
@@ -75,7 +92,9 @@ const ChatScreen = ({ chatService }) => {
         <span>채팅방 목록</span>
         <ul className={styles.chat}>
           {rooms &&
-            rooms.map((result) => <ChatAll room={result} user={user} />)}
+            rooms.map((result) => (
+              <ChatAll room={result} user={user} deleteId={deleteId} />
+            ))}
         </ul>
       </div>
       {create && <ChatCreate setCreate={setCreate} user={user} />}

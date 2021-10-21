@@ -59,5 +59,7 @@ export async function count(id, voteCount) {
 }
 
 export async function remove(id) {
-  return db.execute("DELETE FROM comments WHERE id=?", [id]);
+  return db
+    .execute("DELETE FROM comments WHERE id=?", [id])
+    .then((result) => console.log(result));
 }

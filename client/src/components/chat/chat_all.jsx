@@ -3,7 +3,7 @@ import { userChat, userRoom } from "../../contentsApi/chatApi";
 import { kakaoApi } from "../../contentsApi/kakaoApi";
 import styles from "./chat_all.module.css";
 
-const ChatAll = ({ room, user }) => {
+const ChatAll = ({ room, user, deleteId }) => {
   const [enter, setEnter] = useState(false);
   const [text, setText] = useState("");
   const [chat, setChat] = useState("");
@@ -38,8 +38,9 @@ const ChatAll = ({ room, user }) => {
   };
 
   const removeRoom = () => {
-    userChat.deleteRoom(room.id);
+    userRoom.deleteRoom(room.id);
     setEnter(false);
+    deleteId(room.id);
   };
 
   return (
