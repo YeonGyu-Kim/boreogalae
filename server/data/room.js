@@ -39,12 +39,6 @@ export async function getAll() {
   return Room.findAll({}).then((data) => data);
 }
 
-export async function findByUserId(id) {
-  return User.findOne({
-    where: { id },
-  }).then((data) => data);
-}
-
 export async function createChatRoom(title, userId, nickname, url) {
   return Room.create({
     title,
@@ -52,4 +46,8 @@ export async function createChatRoom(title, userId, nickname, url) {
     nickname,
     url,
   }).then((data) => data);
+}
+
+export async function removeRoom(id) {
+  return Room.destroy({ where: { id } });
 }

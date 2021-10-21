@@ -60,7 +60,5 @@ export async function createChat(text, nickname, url, roomId, userId) {
 }
 
 export async function remove(id) {
-  return Chat.findByPk(id).then((result) => {
-    result.destroy();
-  });
+  return Chat.destroy({ where: { roomId: id } });
 }

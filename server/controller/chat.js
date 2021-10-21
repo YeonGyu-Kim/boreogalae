@@ -1,6 +1,7 @@
 import SQ from "sequelize";
 import { sequelize } from "../db/database.js";
 import * as chatRepository from "../data/chat.js";
+import * as roomRepository from "../data/room.js";
 import { currentId, currentUser } from "./auth.js";
 
 export const getChat = async (req, res, next) => {
@@ -21,10 +22,8 @@ export const createChat = async (req, res, next) => {
   res.status(201).json(chat);
 };
 
-export async function deleteChatRoom() {
-  const data = req.body;
-  //console.log(data);
-  //const room = await chatRepository.getAllById(data.roomId);
-  await chatRepository.remove(data.roomId);
+export const deleteChatRoom = async (req, res, next) => {
+  const roomId = req.params.roomId;
+  await chatRepository.remove(roomId).then(roomRepository.removeRoom(roomId));
   res.sendStatus(204);
-}
+};

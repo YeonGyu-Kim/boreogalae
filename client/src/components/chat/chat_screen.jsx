@@ -51,8 +51,6 @@ const ChatScreen = ({ chatService }) => {
     kakaoApi.kakaoMe().then((me) => setUser(me));
   }, []);
 
-  console.log(rooms);
-
   return (
     <section className={styles.chatContainer}>
       <div className={styles.searchContainer}>

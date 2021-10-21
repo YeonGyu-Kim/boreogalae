@@ -42,8 +42,6 @@ const ChatAll = ({ room, user }) => {
     setEnter(false);
   };
 
-  console.log(chat);
-
   return (
     <div className={styles.roomContainer}>
       <li key={room.id} className={styles.room}>
@@ -53,6 +51,7 @@ const ChatAll = ({ room, user }) => {
           <div>{room.nickname}</div>
         </div>
         <span onClick={enterChatRoom}>입장</span>
+        <span onClick={removeRoom}>삭제</span>
       </li>
       {enter && (
         <dialog open className={styles.dialog}>
@@ -68,6 +67,7 @@ const ChatAll = ({ room, user }) => {
               {chat &&
                 chat.map((result) => (
                   <li
+                    key={result.id}
                     className={`${
                       user.userId === result.userUserId
                         ? styles.chatRight
