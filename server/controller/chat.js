@@ -21,12 +21,5 @@ export const createChat = async (req, res, next) => {
     result.currentId
   );
   res.status(201).json(chat);
-};
-
-export const deleteChatRoom = async (req, res, next) => {
-  const roomId = req.params.roomId;
-  const room = await chatRepository
-    .remove(roomId)
-    .then(roomRepository.removeRoom(roomId));
-  res.sendStatus(204);
+  getSocketIO().emit("create-chat", chat);
 };

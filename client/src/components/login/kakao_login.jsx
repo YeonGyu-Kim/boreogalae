@@ -2,17 +2,36 @@ import axios from "axios";
 import React, { memo, useEffect, useState } from "react";
 import { kakaoApi } from "../../contentsApi/kakaoApi";
 import TokenStorage from "../../db/token";
+import styled from "styled-components";
 
 const { Kakao } = window;
 const tokenStorage = new TokenStorage();
 export let currentUserId;
+
+const Profile = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Image = styled.img`
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+`;
+
+const Log = styled.div`
+  cursor: pointer;
+`;
 
 const KakaoLogin = () => {
   const [isLogin, setIsLogin] = useState(false);
 
   // 카카오
   const [user, setUser] = useState([]);
-  const [nickname, setNickname] = useState();
+  const [image, setImage] = useState();
 
   const kakaoLogin = () => {
     try {
@@ -46,7 +65,8 @@ const KakaoLogin = () => {
                     responseType: "json",
                   })
                   .then((res) => {
-                    setNickname(res.data.nickname);
+                    setImage(res.data.url);
+                    console.log(res.data);
                   })
                   .catch((error) => {
                     console.error(error);
@@ -99,11 +119,13 @@ const KakaoLogin = () => {
 
   return (
     <section>
-      <div onClick={kakaoLogin}>
-        {isLogin === false && "로그인"}
-        <div>{isLogin === true && (nickname || user.nickname)}</div>
-        <div onClick={kakaoLogout}>{isLogin === true && "로그아웃"}</div>
-      </div>
+      <Profile onClick={kakaoLogin}>
+        {isLogin === false && <Log>로그인</Log>}
+        {isLogin === true
+          ? <Image src={image} /> || <Image src={user.image} />
+          : null}
+        <Log onClick={kakaoLogout}>{isLogin === true && "로그아웃"}</Log>
+      </Profile>
     </section>
   );
 };

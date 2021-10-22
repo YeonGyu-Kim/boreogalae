@@ -56,7 +56,7 @@ export async function createChat(text, nickname, url, roomId, userId) {
     url,
     roomId,
     userUserId: userId,
-  }).then((data) => console.log(data));
+  }).then((data) => data);
 }
 
 export async function remove(id) {

@@ -22,10 +22,6 @@ export const userChat = {
       .then((response) => {
         return response.data;
       }),
-  deleteRoom: async (roomId) =>
-    await api.delete(`/chat/room/${roomId}`, {}).then((response) => {
-      return response.data;
-    }),
 };
 
 export const userRoom = {

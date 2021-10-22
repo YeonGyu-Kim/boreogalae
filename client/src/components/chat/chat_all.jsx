@@ -3,7 +3,7 @@ import { userChat, userRoom } from "../../contentsApi/chatApi";
 import { kakaoApi } from "../../contentsApi/kakaoApi";
 import styles from "./chat_all.module.css";
 
-const ChatAll = ({ room, user, deleteId }) => {
+const ChatAll = ({ room, user, deleteId, chatService }) => {
   const [enter, setEnter] = useState(false);
   const [text, setText] = useState("");
   const [chat, setChat] = useState("");
@@ -12,7 +12,10 @@ const ChatAll = ({ room, user, deleteId }) => {
     setEnter(true);
     userChat.getChat(room.id).then((result) => {
       setChat(result);
-      console.log(chat);
+    });
+    chatService.onSyncCreateChat((result) => {
+      onCreatedChat(result);
+      return;
     });
   };
   const leaveChatRoom = () => {
@@ -43,16 +46,24 @@ const ChatAll = ({ room, user, deleteId }) => {
     deleteId(room.id);
   };
 
+  const onCreatedChat = (result) => {
+    setChat((room) => [...room, result]);
+  };
+
   return (
     <div className={styles.roomContainer}>
       <li key={room.id} className={styles.room}>
-        <div>{room.title}</div>
+        <div className={styles.title}>{room.title}</div>
         <div className={styles.profile}>
           <img src={room.url} className={styles.image} />
           <div>{room.nickname}</div>
         </div>
-        <span onClick={enterChatRoom}>입장</span>
-        <span onClick={removeRoom}>삭제</span>
+        <span className={styles.enterRoom} onClick={enterChatRoom}>
+          입장
+        </span>
+        <span className={styles.deleteRoom} onClick={removeRoom}>
+          {room.userUserId === user.userId ? "삭제" : null}
+        </span>
       </li>
       {enter && (
         <dialog open className={styles.dialog}>
@@ -61,7 +72,6 @@ const ChatAll = ({ room, user, deleteId }) => {
             <span className={styles.leave} onClick={leaveChatRoom}>
               X
             </span>
-            <span onClick={removeRoom}>방 나가기</span>
           </div>
           <div className={styles.item}>
             <ul>

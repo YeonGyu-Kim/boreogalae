@@ -81,7 +81,9 @@ const Header = memo(({ onSearch }) => {
             />
           </div>
         </div>
-        <KakaoLogin />
+        <div className={styles.login}>
+          <KakaoLogin />
+        </div>
       </section>
     </header>
   );

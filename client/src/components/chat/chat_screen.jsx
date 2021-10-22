@@ -56,16 +56,11 @@ const ChatScreen = ({ chatService }) => {
   }, [chatService]);
 
   const onCreatedRoom = (room) => {
-    setRooms((rooms) => {
-      setRooms([...rooms, room]);
-    });
+    setRooms((rooms) => [room, ...rooms]);
   };
 
   const onDeletedRoom = (room) => {
-    setRooms((rooms) =>
-      console.log(rooms.filter((result) => result.id == deltedRoomId))
-    );
-    return setDeletedRoomId(null);
+    setRooms((rooms) => rooms.filter((result) => result.id == deltedRoomId));
   };
 
   return (
@@ -93,7 +88,12 @@ const ChatScreen = ({ chatService }) => {
         <ul className={styles.chat}>
           {rooms &&
             rooms.map((result) => (
-              <ChatAll room={result} user={user} deleteId={deleteId} />
+              <ChatAll
+                room={result}
+                user={user}
+                deleteId={deleteId}
+                chatService={chatService}
+              />
             ))}
         </ul>
       </div>

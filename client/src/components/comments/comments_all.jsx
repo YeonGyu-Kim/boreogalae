@@ -50,6 +50,10 @@ const Revise = styled.div`
   margin: 0 0.8rem;
 `;
 
+const Like = styled.div`
+  margin: 0 0.8rem;
+`;
+
 const CommentsAll = ({ comment, user, replies }) => {
   const [editing, setEditing] = useState(false);
   const [reply, setReply] = useState(false);
@@ -104,7 +108,9 @@ const CommentsAll = ({ comment, user, replies }) => {
                 <div onClick={handleReply}>답글</div>
                 <Revise onClick={handleRevise}>수정</Revise>
                 <div onClick={handleDelete}>삭제</div>
-                <div onClick={handleLike}>{`좋아요 ${comment.voteCount}`}</div>
+                <Like
+                  onClick={handleLike}
+                >{`좋아요 ${comment.voteCount}`}</Like>
               </Button>
             </Content>
           </ContentContainer>
