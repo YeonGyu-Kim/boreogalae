@@ -27,6 +27,8 @@ const Genre = ({ location }: RouteComponentProps) => {
   const showGenre = () => {
     const showGenre = document.querySelector(".genre");
     showGenre?.classList.toggle("show");
+    const genreColor = document.querySelector(".genre-btn");
+    genreColor?.classList.toggle("show");
     const showMovie = document.querySelector(".contentContainer");
     showMovie?.classList.toggle("show");
   };

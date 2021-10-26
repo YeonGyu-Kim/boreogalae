@@ -66,7 +66,6 @@ const KakaoLogin = () => {
                   })
                   .then((res) => {
                     setImage(res.data.url);
-                    console.log(res.data);
                   })
                   .catch((error) => {
                     console.error(error);
@@ -122,7 +121,7 @@ const KakaoLogin = () => {
       <Profile onClick={kakaoLogin}>
         {isLogin === false && <Log>로그인</Log>}
         {isLogin === true
-          ? <Image src={image} /> || <Image src={user.image} />
+          ? <Image src={user.url} /> || <Image src={image} />
           : null}
         <Log onClick={kakaoLogout}>{isLogin === true && "로그아웃"}</Log>
       </Profile>

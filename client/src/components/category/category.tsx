@@ -20,7 +20,6 @@ const Category = () => {
   const location = useLocation();
 
   const checkedTalk = location.pathname.includes("/talk");
-  const checkedVoice = location.pathname.includes("/voice");
   const checkedChat = location.pathname.includes("/chat");
   const checkedNotice = location.pathname.includes("/notice");
 
@@ -28,9 +27,6 @@ const Category = () => {
     <CG>
       <Link to='/talk'>
         <Button className={`${checkedTalk && styles.checked}`}>톡톡</Button>
-      </Link>
-      <Link to='/voice'>
-        <Button className={`${checkedVoice && styles.checked}`}>음성</Button>
       </Link>
       <Link to='/chat'>
         <Button className={`${checkedChat && styles.checked}`}>채팅방</Button>

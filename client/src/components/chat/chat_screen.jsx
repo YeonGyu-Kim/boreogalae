@@ -65,19 +65,22 @@ const ChatScreen = ({ chatService }) => {
 
   return (
     <section className={styles.chatContainer}>
-      <div className={styles.searchContainer}>
-        <input
-          type='text'
-          placeholder='채팅방 이름 검색'
-          ref={search}
-          onKeyPress={onKeyPress}
-        />
-        <div>
-          <FontAwesomeIcon
-            className={styles.searchIcon}
-            icon={faSearch}
-            onClick={handleSearch}
+      <div className={styles.header}>
+        <div className={styles.searchContainer}>
+          <input
+            className={styles.searchInput}
+            type='text'
+            placeholder='채팅방 이름 검색'
+            ref={search}
+            onKeyPress={onKeyPress}
           />
+          <div>
+            <FontAwesomeIcon
+              className={styles.searchIcon}
+              icon={faSearch}
+              onClick={handleSearch}
+            />
+          </div>
         </div>
         <div className={styles.create}>
           <span onClick={createChatRoom}>채팅방 생성</span>

@@ -24,6 +24,7 @@
 
 .home {
   color: #bd42f5;
+  text-shadow: pink 1px 0 10px;
   font-size: 2rem;
   margin-left: -1rem;
   margin-right: 1rem;

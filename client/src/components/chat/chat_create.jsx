@@ -32,18 +32,23 @@ const ChatCreate = ({ setCreate, user }) => {
       <dialog open className={styles.dialog}>
         <form className={styles.form} onSubmit={onSubmit}>
           <div className={styles.title}>채팅방 설정</div>
-          <input
-            className={styles.inputTitle}
-            type='text'
-            placeholder='제목을 입력하세요.'
-            value={title}
-            onChange={onChange}
-          />
+          <div className={styles.titleContainer}>
+            <span>방제목: </span>
+            <input
+              className={styles.inputTitle}
+              type='text'
+              placeholder='제목을 입력하세요.'
+              value={title}
+              onChange={onChange}
+            />
+          </div>
           <div className={styles.button}>
             <button className={styles.enroll} type='submit'>
               확인
             </button>
-            <span onClick={cancelChatRoom}>취소</span>
+            <button className={styles.cancel} onClick={cancelChatRoom}>
+              취소
+            </button>
           </div>
         </form>
       </dialog>

@@ -5,10 +5,24 @@
   height: 80%;
 }
 
-.searchContainer {
+.header {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.searchContainer {
+  display: flex;
+  border: 1px solid gray;
+  padding: 0.3rem;
+  border-radius: 3%;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  background-color: inherit;
+  color: white;
 }
 
 .searchIcon {

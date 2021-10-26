@@ -41,7 +41,11 @@ const ChatAll = ({ room, user, deleteId, chatService }) => {
   };
 
   const removeRoom = () => {
-    userRoom.deleteRoom(room.id);
+    if (window.confirm("정말 삭제 하시겠습니까?") === true) {
+      userRoom.deleteRoom(room.id);
+    } else {
+      return;
+    }
     setEnter(false);
     deleteId(room.id);
   };
@@ -52,7 +56,7 @@ const ChatAll = ({ room, user, deleteId, chatService }) => {
 
   return (
     <div className={styles.roomContainer}>
-      <li key={room.id} className={styles.room}>
+      <li key={chat.id} className={styles.room}>
         <div className={styles.title}>{room.title}</div>
         <div className={styles.profile}>
           <img src={room.url} className={styles.image} />
@@ -68,7 +72,7 @@ const ChatAll = ({ room, user, deleteId, chatService }) => {
       {enter && (
         <dialog open className={styles.dialog}>
           <div className={styles.header}>
-            <span>{room.title}</span>
+            <span className={styles.roomTitle}>{room.title}</span>
             <span className={styles.leave} onClick={leaveChatRoom}>
               X
             </span>

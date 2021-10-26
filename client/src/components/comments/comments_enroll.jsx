@@ -6,6 +6,7 @@ import styled from "styled-components";
 const CommentContainer = styled.form`
   padding-bottom: 1rem;
   border-bottom: 1px solid gainsboro;
+  margin: 2rem 0;
 `;
 
 const Title = styled.span`

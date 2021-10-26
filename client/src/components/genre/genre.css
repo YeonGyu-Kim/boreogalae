@@ -21,6 +21,10 @@
   cursor: pointer;
 }
 
+.genre-btn.show {
+  background-color: #bd42f5;
+}
+
 .genre-container {
   position: fixed;
   top: 95px;

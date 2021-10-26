@@ -2,8 +2,8 @@
   position: absolute;
   display: flex;
   justify-content: center;
-  top: 2rem;
-  left: 25%;
+  top: 7rem;
+  left: 28%;
   height: 100%;
 }
 .hideDialogContainer {
@@ -11,19 +11,53 @@
 }
 
 .dialog {
-  width: 30vw;
-  height: 60vh;
+  width: 32vw;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.dialog.chatDidalog {
+.title {
+  color: #bd42f5;
+  font-weight: 700;
+}
+
+.form {
+  height: 30vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
 }
 
 .inputTitle {
   margin: 2rem 0;
+  margin-left: 7px;
+  border: none;
+  border-bottom: 1px solid #bd42f5;
+  outline: none;
+}
+
+.inputTitle::placeholder {
+  padding-left: 2px;
 }
 
 .enroll {
+  background-color: #bd42f5;
+}
+
+.enroll,
+.cancel {
+  border: none;
   margin-right: 1rem;
+  padding: 5px 10px;
+  border-radius: 10%;
+  cursor: pointer;
 }
