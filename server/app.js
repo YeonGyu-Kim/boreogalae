@@ -1,6 +1,7 @@
 import express from "express";
 import "express-async-errors";
 import proxy from "express-http-proxy";
+import path, { dirname } from "path";
 import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
@@ -19,17 +20,19 @@ const session = require("express-session");
 
 */
 const app = express();
-
-app.use(express.json());
+const __dirname = path.resolve("../");
 app.use(helmet());
 app.use(cors());
 app.use(morgan("tiny"));
+app.use(express.json());
 
 app.use("/auth", authRotuer);
 app.use("/comments", commenstRouter);
 
 app.use("/chat", chatRouter);
 app.use("/room", roomRouter);
+
+app.use(express.static(path.join(__dirname, "chatbot")));
 
 /*
 app.use(express.urlencoded({ extended: false }));

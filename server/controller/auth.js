@@ -10,7 +10,6 @@ export let imageUrl;
 export const login = async (req, res, next) => {
   const { data } = req.body;
   const user = await userRepository.findByUserId(data.id);
-  console.log(data);
 
   if (!user && data) {
     const addUserId = await userRepository.createUser(

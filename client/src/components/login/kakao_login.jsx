@@ -52,7 +52,7 @@ const KakaoLogin = () => {
                 const { profile } = kakao_account;
                 axios
                   .post("http://localhost:8080/auth/user", {
-                    header: {
+                    headers: {
                       "Access-Control-Allow-Origin": "*",
                       Accept: "application/json",
                       "Content-Type": "application/json",
