@@ -1,11 +1,7 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 
-class Chatbot extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
+const KommunicateChat = () => {
+  useEffect(() => {
     (function (d, m) {
       let kommunicateSettings = {
         appId: "2de166b4d51171dd8bf18bc55d9781d62",
@@ -21,11 +17,9 @@ class Chatbot extends Component {
       window.kommunicate = m;
       m._globals = kommunicateSettings;
     })(document, window.kommunicate || {});
-  }
+  }, []);
 
-  render() {
-    return <div></div>;
-  }
-}
+  return <div></div>;
+};
 
-export default Chatbot;
+export default KommunicateChat;
