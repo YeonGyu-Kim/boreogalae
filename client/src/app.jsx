@@ -42,6 +42,7 @@ import CharacterDetail from "./components/detail/character_detail";
 import ChatScreen from "./components/chat/chat_screen";
 import NoticeScreen from "./components/notice/notice_screen";
 import KidsKr from "./components/kids/kids_kr";
+import Chatbot from "./components/chatbot/chatbot";
 
 function App({
   location,
@@ -704,6 +705,9 @@ function App({
         </Route>
         <Route path='/result/search_query=:result' exact>
           <SearchScreen contents={contents} />
+        </Route>
+        <Route path='/talk' exact>
+          <Chatbot />
         </Route>
         <Route path='/notice' exact>
           <NoticeScreen />
