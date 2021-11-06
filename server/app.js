@@ -9,6 +9,7 @@ import commenstRouter from "./router/comments.js";
 import authRotuer from "./router/auth.js";
 import chatRouter from "./router/chat.js";
 import roomRouter from "./router/room.js";
+import noticeRouter from "./router/notice.js";
 import axios from "axios";
 import { Server } from "socket.io";
 import { initSocket } from "./connection/socket.js";
@@ -25,6 +26,7 @@ app.use("/comments", commenstRouter);
 
 app.use("/chat", chatRouter);
 app.use("/room", roomRouter);
+app.use("/notice", noticeRouter);
 
 app.use((req, res, next) => {
   res.sendStatus(404);
