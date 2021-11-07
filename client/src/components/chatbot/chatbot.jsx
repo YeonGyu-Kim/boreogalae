@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 const KommunicateChat = () => {
+  /*
   useEffect(() => {
     (function (d, m) {
       let kommunicateSettings = {
@@ -18,8 +19,16 @@ const KommunicateChat = () => {
       m._globals = kommunicateSettings;
     })(document, window.kommunicate || {});
   }, []);
+ */
 
-  return <div></div>;
+  return (
+    <iframe
+      width='350'
+      height='430'
+      allow='microphone;'
+      src='https://console.dialogflow.com/api-client/demo/embedded/f92a205b-a728-4519-9473-5e5944176255'
+    ></iframe>
+  );
 };
 
 export default KommunicateChat;
