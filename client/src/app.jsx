@@ -42,7 +42,12 @@ import CharacterDetail from "./components/detail/character_detail";
 import ChatScreen from "./components/chat/chat_screen";
 import NoticeScreen from "./components/notice/notice_screen";
 import KidsKr from "./components/kids/kids_kr";
+<<<<<<< HEAD
 import KommunicateChat from "./components/chatbot/chatbot";
+=======
+import Chatbot from "./components/chatbot/chatbot";
+import NoticeEnroll from "./components/notice/notice_enroll";
+>>>>>>> vvs
 
 function App({
   location,
@@ -709,6 +714,9 @@ function App({
         </Route>
         <Route path='/notice' exact>
           <NoticeScreen />
+        </Route>
+        <Route path='/notice/board' exact>
+          <NoticeEnroll />
         </Route>
         <Route path='/chat' exact>
           <ChatScreen chatService={chatService} />

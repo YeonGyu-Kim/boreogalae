@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
-import styles from "./notice_screen.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { Link, useHistory } from "react-router-dom";
+import styles from "./notice_screen.module.css";
 
 const NoticeScreen = () => {
   const value = useRef();
+  const history = useHistory();
 
   const onKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -33,6 +35,7 @@ const NoticeScreen = () => {
           onClick={handleSearch}
         />
       </div>
+      <Link to='/notice/board'>글쓰기</Link>
     </section>
   );
 };

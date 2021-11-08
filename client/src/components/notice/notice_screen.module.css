@@ -4,9 +4,10 @@
   margin-top: 7rem;
 }
 
-.searchContainer {
-}
-
 .searchIcon {
   cursor: pointer;
+}
+
+.ckEditor {
+  color: black;
 }

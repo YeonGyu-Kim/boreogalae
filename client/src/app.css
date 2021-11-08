@@ -13,3 +13,15 @@
   padding: 1rem;
   overflow: hidden;
 }
+
+.ck-editor__editable {
+  height: 85vh;
+}
+
+.ck-editor {
+  color: #272829;
+}
+
+.ck.ck-editor__editable img {
+  width: 15rem;
+}
