@@ -13,13 +13,38 @@ import noticeRouter from "./router/notice.js";
 import axios from "axios";
 import { Server } from "socket.io";
 import { initSocket } from "./connection/socket.js";
+import multer from "multer";
+
+let storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "image/");
+  },
+  filename: function (req, file, cb) {
+    let ext = file.originalname.split(".");
+    ext = ext[ext.length - 1];
+    cb(null, `${Date.now()}.${ext}`);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+/*
+let corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  credentials: true,
+};
+*/
 
 const app = express();
 
-app.use(helmet());
-app.use(cors());
-app.use(morgan("tiny"));
-app.use(express.json());
+app.use([
+  express.static("public"),
+  express.json(),
+  cors(),
+  upload.array("files"),
+  helmet(),
+]);
 
 app.use("/auth", authRotuer);
 app.use("/comments", commenstRouter);

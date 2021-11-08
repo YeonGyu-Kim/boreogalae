@@ -12,8 +12,11 @@ export const getNotice = async (req, res, next) => {
 
 export const createNotice = async (req, res, next) => {
   const { text } = req.body;
-  const { contentsId } = req.body;
   const comment = await commentRepository.create(JSON.parse(text), currentId);
   res.status(201).json(comment);
-  getSocketIO().emit("create-comment", comment);
+  getSocketIO().emit("create-notice", comment);
+};
+
+export const uploadImage = async (req, res, next) => {
+  console.log(req.files.upload);
 };
