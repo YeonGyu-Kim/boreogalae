@@ -1,10 +1,12 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./notice_screen.module.css";
+import { userNotice } from "../../contentsApi/noticeApi";
 
 const NoticeScreen = () => {
+  const [list, setList] = useState();
   const value = useRef();
   const history = useHistory();
 
@@ -17,6 +19,12 @@ const NoticeScreen = () => {
   const handleSearch = () => {
     console.log(value.current.value);
   };
+
+  useEffect(() => {
+    userNotice.getNotice().then((result) => setList(result));
+  }, []);
+
+  console.log(list);
 
   return (
     <section className={styles.noticeContainer}>
@@ -34,6 +42,19 @@ const NoticeScreen = () => {
           icon={faSearch}
           onClick={handleSearch}
         />
+      </div>
+      <div>
+        {list &&
+          list.map((result) => (
+            <div>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: result.title,
+                }}
+              ></span>
+              <img src={`/server/image/1636471663013.png`} />
+            </div>
+          ))}
       </div>
       <Link to='/notice/board'>글쓰기</Link>
     </section>

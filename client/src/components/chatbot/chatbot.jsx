@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const KommunicateChat = () => {
+const Chatbot = () => {
   /*
   useEffect(() => {
     (function (d, m) {
@@ -20,7 +20,7 @@ const KommunicateChat = () => {
     })(document, window.kommunicate || {});
   }, []);
  */
-
+  /*
   return (
     <iframe
       width='350'
@@ -28,7 +28,8 @@ const KommunicateChat = () => {
       allow='microphone;'
       src='https://console.dialogflow.com/api-client/demo/embedded/f92a205b-a728-4519-9473-5e5944176255'
     ></iframe>
-  );
+    );
+    */ return <div></div>;
 };
 
-export default KommunicateChat;
+export default Chatbot;

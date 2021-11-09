@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { userNotice } from "../../contentsApi/noticeApi";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -11,16 +11,34 @@ const Board = styled.div`
   color: black;
 `;
 
+const TitleForm = styled.form`
+  background-color: white;
+  width: 100%;
+`;
+
+const Input = styled.input`
+  border: none;
+  width: 100%;
+  height: 2rem;
+  padding-left: 0.5rem;
+`;
+
 const NoticeEnroll = () => {
-  const [value, setValue] = useState();
+  const value = useRef();
+  const [content, setContent] = useState();
+  const [title, setTitle] = useState();
   const API_URL = "http://localhost:8080";
   const UPLOAD_ENDPOINT = "notice/upload";
 
   const onClick = (event) => {
-    userNotice.createNotice(value).then(() => {
-      console.log(value);
-      setValue("");
+    userNotice.createNotice(content, title).then(() => {
+      console.log(title);
+      setContent("");
     });
+  };
+
+  const onKeyPress = () => {
+    setTitle(value.current.value);
   };
 
   function uploadAdapter(loader) {
@@ -60,10 +78,19 @@ const NoticeEnroll = () => {
 
   return (
     <Board>
-      <form>제목을 입력하세요</form>
+      <TitleForm>
+        <Input
+          type='text'
+          placeholder='제목을 입력하세요.'
+          ref={value}
+          onKeyPress={onKeyPress}
+        />
+      </TitleForm>
       <CKEditor
         config={{
           extraPlugins: [uploadPlugin],
+          autoParagraph: false,
+          enterMode: 2,
         }}
         editor={ClassicEditor}
         data=''
@@ -72,7 +99,7 @@ const NoticeEnroll = () => {
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
-          setValue(data);
+          setContent(data);
           console.log(data);
         }}
         onBlur={(editor) => {

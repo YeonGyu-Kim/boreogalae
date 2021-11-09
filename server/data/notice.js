@@ -1,7 +1,7 @@
 import { db } from "../db/database.js";
 
 const SELECT_JOIN =
-  "SELECT vs.id, vs.title, vs.createdAt, vs.userId, us.nickname, us.url, us.userId FROM vvs as vs JOIN users as us ON vs.userId = us.userId";
+  "SELECT vs.id, vs.content, vs.image, vs.title, vs.createdAt, vs.userId, us.nickname, us.url, us.userId FROM vvs as vs JOIN users as us ON vs.userId = us.userId";
 
 /*const ORDER_DESC = "ORDER BY cm.createdAt DESC"; */
 const ORDER_DESC = "ORDER BY vs.id DESC";
@@ -28,12 +28,11 @@ export async function getAllById(id) {
   });
 }
 
-export async function create(text, userId) {
+export async function create(content, userId, title, image) {
   return db
-    .execute("INSERT INTO vvs (title, createdAt, userId) VALUES(?,?,?)", [
-      text,
-      new Date(),
-      userId,
-    ])
+    .execute(
+      "INSERT INTO vvs (content, createdAt, userId, title, image) VALUES(?,?,?,?,?)",
+      [content, new Date(), userId, title, image]
+    )
     .then((result) => getAllById(result[0].insertId));
 }

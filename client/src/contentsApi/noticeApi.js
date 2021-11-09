@@ -5,10 +5,11 @@ const api = axios.create({
 });
 
 export const userNotice = {
-  createNotice: async (text, contentsId) =>
+  createNotice: async (content, title) =>
     await api
       .post("notice", {
-        text: JSON.stringify(text),
+        content: JSON.stringify(content),
+        title: JSON.stringify(title),
       })
       .then((response) => {
         return response.data;

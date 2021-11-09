@@ -4,8 +4,7 @@ import * as noticeController from "../controller/notice.js";
 
 const router = express.Router();
 
-// GET /comments
-// GET /comments?username=:username
+// GET /notice
 router.get("/", noticeController.getNotice);
 
 // POST /comments

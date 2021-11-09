@@ -42,12 +42,8 @@ import CharacterDetail from "./components/detail/character_detail";
 import ChatScreen from "./components/chat/chat_screen";
 import NoticeScreen from "./components/notice/notice_screen";
 import KidsKr from "./components/kids/kids_kr";
-<<<<<<< HEAD
-import KommunicateChat from "./components/chatbot/chatbot";
-=======
 import Chatbot from "./components/chatbot/chatbot";
 import NoticeEnroll from "./components/notice/notice_enroll";
->>>>>>> vvs
 
 function App({
   location,
@@ -456,7 +452,7 @@ function App({
       {location.pathname === "/" ? <BeginningScreen /> : <Header />}
       {movieGenre || tvGenre || movieTvKids ? <Genre /> : null}
       {location.pathname === "/detail" && <ContentsDetail />}
-      <KommunicateChat />
+      <Chatbot />
       <Switch>
         <Route path='/movie' exact>
           <main className={styles.main}>
