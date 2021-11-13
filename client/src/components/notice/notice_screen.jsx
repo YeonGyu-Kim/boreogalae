@@ -49,16 +49,20 @@ const NoticeScreen = () => {
       {list &&
         list.map((result) => (
           <table className={styles.tableContainer}>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <tr>
-              <Link to={`/notice/detail/${result.id}`}>
-                <th>{result.title}</th>
-              </Link>
-              <th>{result.nickname}</th>
-              <th>{result.createdAt.split("T")[0]}</th>
-            </tr>
+            <thead>
+              <tr>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+              </tr>
+              <tr>
+                <Link to={`/notice/detail/${result.id}`}>
+                  <th>{result.title}</th>
+                </Link>
+                <th>{result.nickname}</th>
+                <th>{result.createdAt.split("T")[0]}</th>
+              </tr>
+            </thead>
           </table>
         ))}
 

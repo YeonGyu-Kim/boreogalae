@@ -100,14 +100,9 @@ const NoticeEnroll = () => {
         onChange={(event, editor) => {
           const data = editor.getData();
           setContent(data);
-          console.log(data);
         }}
-        onBlur={(editor) => {
-          console.log("Blur.", editor);
-        }}
-        onFocus={(editor) => {
-          console.log("Focus.", editor);
-        }}
+        onBlur={(editor) => {}}
+        onFocus={(editor) => {}}
       />
       <form onClick={onClick} style={{ color: "white" }}>
         등록

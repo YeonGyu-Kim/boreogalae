@@ -17,7 +17,7 @@ import multer from "multer";
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "image/");
+    cb(null, "../client/public/images/");
   },
   filename: function (req, file, cb) {
     let ext = file.originalname.split(".");
