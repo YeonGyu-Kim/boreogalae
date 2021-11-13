@@ -7,7 +7,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 const Contents = styled.div`
-  margin: 1rem 0.5rem 4rem 0.5rem;
+  margin: 1rem 0.5rem 2rem 0.5rem;
   overflow: hidden;
 `;
 

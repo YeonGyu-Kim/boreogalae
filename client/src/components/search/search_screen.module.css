@@ -7,6 +7,11 @@
   padding: 0 3rem;
 }
 
+.result {
+  font-size: 2rem;
+  margin: 2rem 0;
+}
+
 .movieContainer,
 .tvContainer {
   display: grid;
@@ -32,4 +37,15 @@
   display: flex;
   flex-direction: column;
   font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+}
+
+.poster {
+  -webkit-box-shadow: 3px 10px 10px 3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 10px 10px 3px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 10px 10px 3px rgba(0, 0, 0, 0.75);
 }

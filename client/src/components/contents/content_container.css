@@ -11,19 +11,19 @@
 
 .contentsList.next1,
 .contentsList.prev1 {
-  transform: translateX(-60vw);
+  transform: translateX(-70vw);
   transition-duration: 1s;
 }
 
 .contentsList.next2,
 .contentsList.prev2 {
-  transform: translateX(-120vw);
+  transform: translateX(-140vw);
   transition-duration: 1s;
 }
 
 .contentsList.next3,
 .contentsList.prev3 {
-  transform: translateX(-180vw);
+  transform: translateX(-207vw);
   margin-left: 10rem;
   transition-duration: 1s;
 }

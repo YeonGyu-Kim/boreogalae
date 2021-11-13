@@ -1,6 +1,7 @@
 .detailContainer {
   position: absolute;
-  padding: 7rem 5rem 0 5rem;
+  margin: 6rem 5rem;
+  padding-top: 2rem;
 }
 
 .contentTitle {
@@ -9,10 +10,11 @@
 
 .contentsInfo {
   display: flex;
-  padding: 1rem 0;
+  padding: 2rem 0;
 }
 
 .basicInfo {
+  position: relative;
   margin-left: 1rem;
 }
 
@@ -28,11 +30,20 @@
   display: block;
   margin: 1rem 0;
   font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .provider {
-  position: relative;
-  top: 49%;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+}
+
+.poster,
+.logo {
+  -webkit-box-shadow: 3px 10px 10px 3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 10px 10px 3px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 10px 10px 3px rgba(0, 0, 0, 0.75);
 }
 
 .logo {
@@ -44,15 +55,15 @@
 .releaseInfo,
 .voteInfo,
 .runtimeInfo {
-  margin: 1rem 0;
+  margin: 1.5rem 0;
 }
 
 .videoContainer {
-  margin: 2rem 0;
+  margin: 5rem 0;
 }
 
 .video {
-  width: 29vw;
+  min-width: 28rem;
   height: 20rem;
   margin-right: 0.5rem;
 }
@@ -62,6 +73,7 @@
   overflow: auto;
   scrollbar-color: auto;
   width: 87vw;
+  margin: 5rem 0;
 }
 
 .creditContainer::-webkit-scrollbar {

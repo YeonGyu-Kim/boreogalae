@@ -44,6 +44,7 @@ const Text = styled.div`
 const Button = styled.div`
   display: flex;
   margin-top: 2rem;
+  cursor: pointer;
 `;
 
 const Revise = styled.div`
@@ -65,6 +66,8 @@ const CommentsAll = ({ comment, user, replies }) => {
     const update = document.getElementById(`update-${comment.id}`);
     update && update.classList.toggle("hiddenUpdate");
   };
+
+  console.log(user);
 
   const handleDelete = () => {
     if (window.confirm("정말 삭제 하시겠습니까?") === true) {
@@ -107,7 +110,11 @@ const CommentsAll = ({ comment, user, replies }) => {
               <Button>
                 <div onClick={handleReply}>답글</div>
                 <Revise onClick={handleRevise}>수정</Revise>
-                <div onClick={handleDelete}>삭제</div>
+                {user && user.nickname == comment.nickname ? (
+                  <div onClick={handleDelete}>삭제</div>
+                ) : (
+                  ""
+                )}
                 <Like
                   onClick={handleLike}
                 >{`좋아요 ${comment.voteCount}`}</Like>

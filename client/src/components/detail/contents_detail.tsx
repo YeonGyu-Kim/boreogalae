@@ -5,6 +5,7 @@ import styles from "./contents_detail.module.css";
 import CommentsAll from "../comments/comments_all";
 import CommentsEnroll from "../comments/comments_enroll";
 import { userComment } from "../../contentsApi/commentApi";
+import styled from "styled-components";
 
 type Content = {
   key?: number;
@@ -132,6 +133,21 @@ type Reply = [
   }
 ];
 
+type Props = {
+  bgImage: string;
+};
+
+const Backdrop = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 90vh;
+  background-image: url(${(props: Props) => props.bgImage});
+  background-position: center center;
+  background-size: cover;
+  filter: blur(2px);
+  opacity: 0.5;
+`;
+
 const ContentsDetail = memo(({ contents, commentService }: any) => {
   const [movieDetail, setMovieDetail] = useState<Content | undefined>();
   const [tvDetail, setTvDetail] = useState<Content | undefined>();
@@ -239,169 +255,221 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
       comments?.filter((item) => item.id !== comment.id)
     );
   };
+  console.log(movieProvider?.results.KR);
+  console.log(tvProvider?.results.KR);
+
   return (
-    <section className={styles.detailContainer}>
-      <div className={styles.contentTitle}>
-        {isMovie ? movieDetail?.title : isTvKids ? tvDetail?.name : null}
-      </div>
-      <div className={styles.contentsInfo}>
-        <img
-          src={`https://image.tmdb.org/t/p/w300${
-            movieDetail?.poster_path || tvDetail?.poster_path
-          }`}
-        />
-        <div className={styles.basicInfo}>
-          <span className={styles.basicTitle}>기본 정보</span>
-          <div className={styles.genreInfo}>
-            <span>장르: </span>
-            <span>
-              {movieDetail?.genres?.map((genre, index) =>
-                genreLength && index === movieDetail.genres.length - 1
-                  ? genre?.name
-                  : `${genre?.name} / `
-              ) ||
-                tvDetail?.genres?.map((genre, index) =>
-                  genreLength && index === tvDetail.genres.length - 1
+    <>
+      <Backdrop
+        bgImage={`https://image.tmdb.org/t/p/original${
+          movieDetail?.backdrop_path || tvDetail?.backdrop_path
+        }`}
+      />
+      <section className={styles.detailContainer}>
+        <div className={styles.contentTitle}>
+          {isMovie ? movieDetail?.title : isTvKids ? tvDetail?.name : null}
+        </div>
+        <div className={styles.contentsInfo}>
+          <img
+            className={styles.poster}
+            width='300px'
+            src={`https://image.tmdb.org/t/p/w300${
+              movieDetail?.poster_path || tvDetail?.poster_path
+            }`}
+          />
+          <div className={styles.basicInfo}>
+            <span className={styles.basicTitle}>기본 정보</span>
+            <div className={styles.genreInfo}>
+              <span>장르: </span>
+              <span>
+                {movieDetail?.genres?.map((genre, index) =>
+                  genreLength && index === movieDetail.genres.length - 1
                     ? genre?.name
                     : `${genre?.name} / `
-                )}
-            </span>
-          </div>
-          <div className={styles.releaseInfo}>
-            <span>
-              {movieDetail ? "개봉일: " : tvDetail ? "방영일: " : null}
-            </span>
-            <span>{movieDetail?.release_date || tvDetail?.last_air_date}</span>
-          </div>
-          <div className={styles.voteInfo}>
-            <span>평점: </span>
-            <span>{movieDetail?.vote_average || tvDetail?.vote_average}</span>
-          </div>
-          <div className={styles.runtimeInfo}>
-            <span>{movieDetail ? "런타임: " : tvDetail ? "시즌: " : null}</span>
-            <span>
-              {movieDetail
-                ? `${movieDetail?.runtime}분`
-                : tvDetail
-                ? `${tvDetail?.number_of_seasons}`
-                : null}
-            </span>
-          </div>
-          <div className={styles.provider}>
-            {movieProvider?.results?.KR?.flatrate &&
-              movieProvider?.results?.KR?.flatrate.map((flat) => (
-                <img
-                  key={flat.provider_id}
-                  className={styles.logo}
-                  src={`https://image.tmdb.org/t/p/w300${flat?.logo_path}`}
-                />
-              ))}
-            {tvProvider?.results?.KR?.flatrate &&
-              tvProvider?.results?.KR?.flatrate.map((flat) => (
-                <img
-                  key={flat.provider_id}
-                  className={styles.logo}
-                  src={`https://image.tmdb.org/t/p/w300${flat?.logo_path}`}
-                />
-              ))}
+                ) ||
+                  tvDetail?.genres?.map((genre, index) =>
+                    genreLength && index === tvDetail.genres.length - 1
+                      ? genre?.name
+                      : `${genre?.name} / `
+                  )}
+              </span>
+            </div>
+            <div className={styles.releaseInfo}>
+              <span>
+                {movieDetail ? "개봉일: " : tvDetail ? "방영일: " : null}
+              </span>
+              <span>
+                {movieDetail?.release_date || tvDetail?.last_air_date}
+              </span>
+            </div>
+            <div className={styles.voteInfo}>
+              <span>평점: </span>
+              <span>{movieDetail?.vote_average || tvDetail?.vote_average}</span>
+            </div>
+            <div className={styles.runtimeInfo}>
+              <span>
+                {movieDetail ? "런타임: " : tvDetail ? "시즌: " : null}
+              </span>
+              <span>
+                {movieDetail
+                  ? `${movieDetail?.runtime}분`
+                  : tvDetail
+                  ? `${tvDetail?.number_of_seasons}`
+                  : null}
+              </span>
+            </div>
+            <div className={styles.provider}>
+              {movieProvider?.results?.KR?.flatrate &&
+                movieProvider?.results?.KR?.flatrate.map((flat) => (
+                  <a
+                    target='_blank'
+                    href={
+                      flat.provider_id === 8
+                        ? `https://www.netflix.com/browse`
+                        : flat.provider_id === 356
+                        ? `https://www.wavve.com`
+                        : flat.provider_id === 97
+                        ? `https://watcha.com/home`
+                        : flat.provider_id === 337
+                        ? `https://www.disneyplus.com/ko-kr`
+                        : flat.provider_id === 119
+                        ? `https://www.primevideo.com/ref=atv_nb_logo?language=ko_KR`
+                        : ""
+                    }
+                  >
+                    <img
+                      key={flat.provider_id}
+                      className={styles.logo}
+                      src={`https://image.tmdb.org/t/p/w300${flat?.logo_path}`}
+                    />
+                  </a>
+                ))}
+              {tvProvider?.results?.KR?.flatrate &&
+                tvProvider?.results?.KR?.flatrate.map((flat) => (
+                  <a
+                    target='_blank'
+                    href={
+                      flat.provider_id === 8
+                        ? `https://www.netflix.com/browse`
+                        : flat.provider_id === 356
+                        ? `https://www.wavve.com`
+                        : flat.provider_id === 97
+                        ? `https://watcha.com/home`
+                        : flat.provider_id === 337
+                        ? `https://www.disneyplus.com/ko-kr`
+                        : flat.provider_id === 119
+                        ? `https://www.primevideo.com/ref=atv_nb_logo?language=ko_KR`
+                        : ""
+                    }
+                  >
+                    <img
+                      key={flat.provider_id}
+                      className={styles.logo}
+                      src={`https://image.tmdb.org/t/p/w300${flat?.logo_path}`}
+                    />
+                  </a>
+                ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.description}>
-        <span>소개</span>
-        <span className={styles.overview}>
-          {movieDetail?.overview || tvDetail?.overview}
-        </span>
-      </div>
-      <div className={styles.videoContainer}>
-        {movieDetail
-          ? movieDetail?.videos?.results
-              .slice(0, 3)
-              .map((video) => (
-                <iframe
-                  className={styles.video}
-                  key={video.id}
-                  title='video'
-                  src={`https://www.youtube.com/embed/${video.key}`}
-                  frameBorder='0'
-                  allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-                  allowFullScreen
-                />
-              ))
-          : tvDetail
-          ? tvDetail?.videos?.results
-              .slice(0, 3)
-              .map((video) => (
-                <iframe
-                  className={styles.video}
-                  key={video.id}
-                  title='video'
-                  src={`https://www.youtube.com/embed/${video.key}`}
-                  frameBorder='0'
-                  allowFullScreen
-                />
-              ))
-          : null}
-      </div>
-      <ul className={styles.creditContainer}>
-        {movieCredit &&
-          movieCredit.cast.slice(0, 25).map((credit) => (
-            <li key={credit.id} className={styles.creditItem}>
-              <Link to={`/person/${credit?.id}`}>
-                <img
-                  className={styles.creditImg}
-                  src={
-                    credit?.profile_path
-                      ? `https://image.tmdb.org/t/p/w300${credit.profile_path}`
-                      : "/images/person.png"
-                  }
-                  alt='image'
-                />
-                <div className={styles.nameContainer}>
-                  <span className={styles.name}>{credit?.name}</span>
-                  <span className={styles.character}>{credit?.character}</span>
-                </div>
-              </Link>
-            </li>
+        <div className={styles.description}>
+          <span>소개</span>
+          <span className={styles.overview}>
+            {movieDetail?.overview || tvDetail?.overview}
+          </span>
+        </div>
+        <div className={styles.videoContainer}>
+          {movieDetail
+            ? movieDetail?.videos?.results
+                .slice(0, 3)
+                .map((video) => (
+                  <iframe
+                    className={styles.video}
+                    key={video.id}
+                    title='video'
+                    src={`https://www.youtube.com/embed/${video.key}`}
+                    frameBorder='0'
+                    allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                    allowFullScreen
+                  />
+                ))
+            : tvDetail
+            ? tvDetail?.videos?.results
+                .slice(0, 3)
+                .map((video) => (
+                  <iframe
+                    className={styles.video}
+                    key={video.id}
+                    title='video'
+                    src={`https://www.youtube.com/embed/${video.key}`}
+                    frameBorder='0'
+                    allowFullScreen
+                  />
+                ))
+            : null}
+        </div>
+        <ul className={styles.creditContainer}>
+          {movieCredit &&
+            movieCredit.cast.slice(0, 25).map((credit) => (
+              <li key={credit.id} className={styles.creditItem}>
+                <Link to={`/person/${credit?.id}`}>
+                  <img
+                    className={styles.creditImg}
+                    src={
+                      credit?.profile_path
+                        ? `https://image.tmdb.org/t/p/w300${credit.profile_path}`
+                        : "/images/person.png"
+                    }
+                    alt='image'
+                  />
+                  <div className={styles.nameContainer}>
+                    <span className={styles.name}>{credit?.name}</span>
+                    <span className={styles.character}>
+                      {credit?.character}
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          {tvCredit &&
+            tvCredit.cast.slice(0, 25).map((credit) => (
+              <li key={credit.id} className={styles.creditItem}>
+                <Link to={`/person/${credit?.id}`}>
+                  <img
+                    className={styles.creditImg}
+                    src={
+                      credit?.profile_path
+                        ? `https://image.tmdb.org/t/p/w300${credit.profile_path}`
+                        : "/images/person.png"
+                    }
+                    alt='img'
+                  />
+                  <div className={styles.nameContainer}>
+                    <span className={styles.name}>{credit?.name}</span>
+                    <span className={styles.character}>
+                      {credit?.character?.split("/")[0]}
+                    </span>
+                    <span className={styles.character}>
+                      {credit?.character?.split("/")[1]}
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ))}
+        </ul>
+        <CommentsEnroll user={user} />
+        <ul className={styles.commentContainer}>
+          {comments?.map((comment: any) => (
+            <CommentsAll
+              key={comment.id}
+              comment={comment}
+              user={user}
+              replies={replies}
+            />
           ))}
-        {tvCredit &&
-          tvCredit.cast.slice(0, 25).map((credit) => (
-            <li key={credit.id} className={styles.creditItem}>
-              <Link to={`/person/${credit?.id}`}>
-                <img
-                  className={styles.creditImg}
-                  src={
-                    credit?.profile_path
-                      ? `https://image.tmdb.org/t/p/w300${credit.profile_path}`
-                      : "/images/person.png"
-                  }
-                  alt='img'
-                />
-                <div className={styles.nameContainer}>
-                  <span className={styles.name}>{credit?.name}</span>
-                  <span className={styles.character}>
-                    {credit?.character?.split("/")[0]}
-                  </span>
-                  <span className={styles.character}>
-                    {credit?.character?.split("/")[1]}
-                  </span>
-                </div>
-              </Link>
-            </li>
-          ))}
-      </ul>
-      <CommentsEnroll user={user} />
-      <ul className={styles.commentContainer}>
-        {comments?.map((comment: any) => (
-          <CommentsAll
-            key={comment.id}
-            comment={comment}
-            user={user}
-            replies={replies}
-          />
-        ))}
-      </ul>
-    </section>
+        </ul>
+      </section>
+    </>
   );
 });
 

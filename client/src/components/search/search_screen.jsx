@@ -19,6 +19,7 @@ const SearchScreen = memo(({ contents }) => {
 
   return (
     <section className={styles.searchContainer}>
+      <div className={styles.result}>{`"${result}" 검색 결과`}</div>
       <span className={styles.header}>영화</span>
       <ul className={styles.movieContainer}>
         {searchMovie &&
@@ -27,10 +28,14 @@ const SearchScreen = memo(({ contents }) => {
               <Link to={`/movie/${content.id}`}>
                 <div className={styles.list}>
                   <img
-                    src={`https://image.tmdb.org/t/p/w300${content?.poster_path}`}
+                    src={
+                      content.poster_path
+                        ? `https://image.tmdb.org/t/p/w300${content?.poster_path}`
+                        : "/images/poster.png"
+                    }
                     alt='img'
-                    width='100px'
-                    height='100px'
+                    width='120rem'
+                    height='150px'
                   />
                   <div className={styles.text}>
                     <span className={styles.title}>{content?.title}</span>
@@ -50,10 +55,15 @@ const SearchScreen = memo(({ contents }) => {
               <Link to={`/tv/${content.id}`}>
                 <div className={styles.list}>
                   <img
-                    src={`https://image.tmdb.org/t/p/w300${content?.poster_path}`}
+                    className={styles.poster}
+                    src={
+                      content.poster_path
+                        ? `https://image.tmdb.org/t/p/w300${content?.poster_path}`
+                        : "/images/poster.png"
+                    }
                     alt='img'
-                    width='100px'
-                    height='100px'
+                    width='120rem'
+                    height='150px'
                   />
                   <div className={styles.text}>
                     <span className={styles.title}>{content?.name}</span>
