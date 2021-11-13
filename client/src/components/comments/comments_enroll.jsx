@@ -75,13 +75,15 @@ const CommentsEnroll = ({ user }) => {
     setComment(event.target.value);
   };
 
+  console.log(localStorage);
+
   return (
     <CommentContainer onSubmit={onSubmit}>
       <Title>코멘트</Title>
       <Comments>
         <Profile>
           <span>
-            {localStorage.length === 2
+            {localStorage.kakao_6997a1beeca87d1abb46f26367537aaf
               ? user?.nickname
               : "로그인 하신 후 이용해 주시기 바랍니다."}
           </span>

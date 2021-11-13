@@ -44,6 +44,7 @@ import NoticeScreen from "./components/notice/notice_screen";
 import KidsKr from "./components/kids/kids_kr";
 import Chatbot from "./components/chatbot/chatbot";
 import NoticeEnroll from "./components/notice/notice_enroll";
+import NoticeDetail from "./components/notice/notice_detail";
 
 function App({
   location,
@@ -713,6 +714,9 @@ function App({
         </Route>
         <Route path='/notice/board' exact>
           <NoticeEnroll />
+        </Route>
+        <Route path='/notice/detail/:id'>
+          <NoticeDetail />
         </Route>
         <Route path='/chat' exact>
           <ChatScreen chatService={chatService} />

@@ -28,34 +28,40 @@ const NoticeScreen = () => {
 
   return (
     <section className={styles.noticeContainer}>
-      <div className={styles.searchContainer}>
-        <input
-          type='text'
-          placeholder='검색어를 입력하세요'
-          ref={value}
-          onKeyPress={onKeyPress}
-        />
-      </div>
       <div>
-        <FontAwesomeIcon
-          className={styles.searchIcon}
-          icon={faSearch}
-          onClick={handleSearch}
-        />
+        <div className={styles.searchContainer}>
+          <input
+            type='text'
+            placeholder='검색어를 입력하세요'
+            ref={value}
+            onKeyPress={onKeyPress}
+          />
+        </div>
+        <div>
+          <FontAwesomeIcon
+            className={styles.searchIcon}
+            icon={faSearch}
+            onClick={handleSearch}
+          />
+        </div>
       </div>
-      <div>
-        {list &&
-          list.map((result) => (
-            <div>
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: result.title,
-                }}
-              ></span>
-              <img src={`/server/image/1636471663013.png`} />
-            </div>
-          ))}
-      </div>
+
+      {list &&
+        list.map((result) => (
+          <table className={styles.tableContainer}>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <tr>
+              <Link to={`/notice/detail/${result.id}`}>
+                <th>{result.title}</th>
+              </Link>
+              <th>{result.nickname}</th>
+              <th>{result.createdAt.split("T")[0]}</th>
+            </tr>
+          </table>
+        ))}
+
       <Link to='/notice/board'>글쓰기</Link>
     </section>
   );

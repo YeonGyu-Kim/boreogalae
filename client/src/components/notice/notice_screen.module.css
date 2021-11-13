@@ -1,6 +1,6 @@
 .noticeContainer {
   position: absolute;
-  display: flex;
+  display: block;
   margin-top: 7rem;
 }
 
@@ -10,4 +10,22 @@
 
 .ckEditor {
   color: black;
+}
+
+.title {
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+}
+
+.tableContainer {
+  width: 100vw;
+}
+
+th {
+  width: 30rem;
+}
+
+tr {
+  border: 1px solid white;
 }
