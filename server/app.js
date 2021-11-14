@@ -14,6 +14,7 @@ import axios from "axios";
 import { Server } from "socket.io";
 import { initSocket } from "./connection/socket.js";
 import multer from "multer";
+import { config } from "./config.js";
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -28,20 +29,17 @@ let storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-/*
-let corsOptions = {
-  origin: "http://localhost:3000",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  credentials: true,
-};
-*/
-
 const app = express();
+
+const corsOption = {
+  origin: config.cors.allowedOrigin,
+  optionsSuccessStatus: 200,
+};
 
 app.use([
   express.static("public"),
   express.json(),
-  cors(),
+  cors(corsOption),
   upload.array("files"),
   helmet(),
 ]);
@@ -62,9 +60,9 @@ app.use((error, req, res, next) => {
   res.sendStatus(500);
 });
 
-sequelize.sync().then((client) => {
-  console.log(client);
+sequelize.sync().then(() => {
+  console.log(`Server is started... ${new Date()}`);
 });
 
-const server = app.listen(8080);
+const server = app.listen(config.port);
 initSocket(server);

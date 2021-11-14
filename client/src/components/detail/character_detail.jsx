@@ -48,9 +48,16 @@ const CharacterDetail = memo(({ contents }) => {
                     src={`https://image.tmdb.org/t/p/w300${content?.poster_path}`}
                     alt='poster'
                   />
-                  <span className={styles.filmTitle}>
-                    {content?.title || content?.name}
-                  </span>
+                  <div>
+                    <div className={styles.filmTitle}>
+                      {content?.title || content?.name}
+                    </div>
+                    <div className={styles.filmDate}>
+                      {content?.release_date ||
+                        content?.last_air_date ||
+                        content?.first_air_date}
+                    </div>
+                  </div>
                 </div>
               </Link>
             ))}

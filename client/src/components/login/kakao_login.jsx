@@ -120,9 +120,11 @@ const KakaoLogin = () => {
     <section>
       <Profile onClick={kakaoLogin}>
         {isLogin === false && <Log>로그인</Log>}
-        {isLogin === true
-          ? <Image src={user.url} /> || <Image src={image} />
-          : null}
+        {isLogin === true && image ? (
+          <Image src={image} />
+        ) : isLogin === true && user.url ? (
+          <Image src={user.url} />
+        ) : null}
         <Log onClick={kakaoLogout}>{isLogin === true && "로그아웃"}</Log>
       </Profile>
     </section>

@@ -61,7 +61,7 @@ const CommentsEnroll = ({ user }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (localStorage.length === 1) {
+    if (!localStorage.kakao_6997a1beeca87d1abb46f26367537aaf) {
       alert("로그인 하신 후 이용해 주시기 바랍니다");
       setComment("");
     } else {

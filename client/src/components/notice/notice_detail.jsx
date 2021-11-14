@@ -13,19 +13,60 @@ const NoticeDetail = () => {
   console.log(noticeId.id);
 
   return (
-    <div style={{ position: "absolute", top: "10rem" }}>
+    <div
+      style={{
+        position: "absolute",
+        top: "5rem",
+        width: "100%",
+      }}
+    >
       {contents.map((content) =>
         content.id == noticeId.id ? (
-          <div>
-            <img
-              src={`/images/${content.image.split("images\\")[1]}`}
-              width='300px'
-            />
+          <div
+            style={{
+              margin: "3rem",
+            }}
+          >
             <div
-              dangerouslySetInnerHTML={{
-                __html: content.content,
+              style={{
+                padding: "1rem",
+                borderBottom: "1px solid gray",
+                marginBottom: "2rem",
               }}
-            ></div>
+            >
+              <div style={{ fontSize: "2rem" }}>{content.title}</div>
+
+              <div
+                style={{
+                  fontSize: "0.8rem",
+                  lineHeight: "1rem",
+                  marginTop: "1rem",
+                  display: "flex",
+                }}
+              >
+                <img
+                  src={content.url}
+                  width='30px'
+                  style={{ borderRadius: "50%", marginRight: "0.5rem" }}
+                />
+                <div>
+                  <div>{content.nickname}</div>
+                  <div>{content.createdAt.split("T")[0]}</div>
+                </div>
+              </div>
+            </div>
+            <div style={{ display: "flex" }}>
+              <img
+                src={`/images/${content.image.split("images\\")[1]}`}
+                width='300px'
+              />
+              <div
+                style={{ marginLeft: "1rem" }}
+                dangerouslySetInnerHTML={{
+                  __html: content.content,
+                }}
+              ></div>
+            </div>
           </div>
         ) : null
       )}

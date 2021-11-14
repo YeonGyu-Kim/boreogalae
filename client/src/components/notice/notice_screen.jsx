@@ -28,34 +28,41 @@ const NoticeScreen = () => {
 
   return (
     <section className={styles.noticeContainer}>
-      <div>
+      <header className={styles.header}>
+        <span className={styles.noticeTitle}>소통 게시판</span>
+
         <div className={styles.searchContainer}>
           <input
+            className={styles.searchBar}
             type='text'
             placeholder='검색어를 입력하세요'
             ref={value}
             onKeyPress={onKeyPress}
           />
+          <div>
+            <FontAwesomeIcon
+              className={styles.searchIcon}
+              icon={faSearch}
+              onClick={handleSearch}
+            />
+          </div>
         </div>
-        <div>
-          <FontAwesomeIcon
-            className={styles.searchIcon}
-            icon={faSearch}
-            onClick={handleSearch}
-          />
-        </div>
-      </div>
-
-      {list &&
-        list.map((result) => (
-          <table className={styles.tableContainer}>
-            <thead>
-              <tr>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
-              </tr>
-              <tr>
+        <Link to='/notice/board' className={styles.link}>
+          글쓰기
+        </Link>
+      </header>
+      <table className={styles.tableContainer}>
+        <thead>
+          <tr>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
+        {list &&
+          list.map((result) => (
+            <thead className={styles.noticeInfo}>
+              <tr className={styles.noticeContent}>
                 <Link to={`/notice/detail/${result.id}`}>
                   <th>{result.title}</th>
                 </Link>
@@ -63,10 +70,8 @@ const NoticeScreen = () => {
                 <th>{result.createdAt.split("T")[0]}</th>
               </tr>
             </thead>
-          </table>
-        ))}
-
-      <Link to='/notice/board'>글쓰기</Link>
+          ))}
+      </table>
     </section>
   );
 };

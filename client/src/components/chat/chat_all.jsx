@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { userChat, userRoom } from "../../contentsApi/chatApi";
 import { kakaoApi } from "../../contentsApi/kakaoApi";
 import styles from "./chat_all.module.css";
+import { useHistory } from "react-router-dom";
 
 const ChatAll = ({ room, user, deleteId, chatService }) => {
   const [enter, setEnter] = useState(false);

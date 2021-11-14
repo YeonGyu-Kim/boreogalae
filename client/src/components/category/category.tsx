@@ -25,9 +25,6 @@ const Category = () => {
 
   return (
     <CG>
-      <Link to='/talk'>
-        <Button className={`${checkedTalk && styles.checked}`}>톡톡</Button>
-      </Link>
       <Link to='/chat'>
         <Button className={`${checkedChat && styles.checked}`}>채팅방</Button>
       </Link>

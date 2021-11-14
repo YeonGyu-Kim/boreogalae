@@ -14,8 +14,10 @@ export const config = {
     secretKey: required("JWT_SECRET"),
     expireInsec: parseInt(required("JWT_EXPIRES_SEC", 86400)),
   },
-  host: {
-    port: parseInt(required("HOST_PORT", 8080)),
+
+  port: parseInt(required("PORT", 8080)),
+  cors: {
+    allowedOrigin: required("CORS_ALLOW_ORIGIN"),
   },
   db: {
     host: required("DB_HOST"),

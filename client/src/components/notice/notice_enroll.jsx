@@ -3,11 +3,13 @@ import { userNotice } from "../../contentsApi/noticeApi";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import styled from "styled-components";
+import { Link, useHistory } from "react-router-dom";
 
 const Board = styled.div`
   position: absolute;
   margin-top: 6rem;
   width: 100%;
+  height: 70vh;
   color: black;
 `;
 
@@ -25,6 +27,7 @@ const Input = styled.input`
 
 const NoticeEnroll = () => {
   const value = useRef();
+  const history = useHistory();
   const [content, setContent] = useState();
   const [title, setTitle] = useState();
   const API_URL = "http://localhost:8080";
@@ -34,6 +37,7 @@ const NoticeEnroll = () => {
     userNotice.createNotice(content, title).then(() => {
       console.log(title);
       setContent("");
+      history.push("/notice");
     });
   };
 
@@ -104,9 +108,39 @@ const NoticeEnroll = () => {
         onBlur={(editor) => {}}
         onFocus={(editor) => {}}
       />
-      <form onClick={onClick} style={{ color: "white" }}>
-        등록
-      </form>
+      <div
+        style={{
+          display: "flex",
+          color: "white",
+          justifyContent: "center",
+          cursor: "pointer",
+          margin: "1rem",
+        }}
+      >
+        <form
+          onClick={onClick}
+          style={{
+            backgroundColor: "#bd42f5",
+            border: "1px solid #bd42f5",
+            padding: "0.5rem",
+            margin: "0 0.2rem",
+            borderRadius: "5px",
+          }}
+        >
+          등록
+        </form>
+        <div
+          style={{
+            color: "white",
+            border: "1px solid white",
+            padding: "0.5rem",
+            margin: "0 0.2rem",
+            borderRadius: "5px",
+          }}
+        >
+          <Link to='/notice'>취소</Link>
+        </div>
+      </div>
     </Board>
   );
 };
