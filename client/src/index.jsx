@@ -14,7 +14,7 @@ const contents = new Contents(process.env.REACT_APP_TMDB_API_KEY);
 const contentsMovie = new ContentsMovie();
 const contentsTV = new ContentsTV();
 const tokenStorage = new TokenStorage();
-const socketClient = new Socket("http://localhost:8080", () =>
+const socketClient = new Socket("https://boreogalae.herokuapp.com", () =>
   tokenStorage.getToken()
 );
 const commentService = new CommentService(socketClient);
