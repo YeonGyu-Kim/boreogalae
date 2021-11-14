@@ -8,6 +8,10 @@
     "node": "14.17.3",
     "npm": "6.14.13"
   },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
   "dependencies": {
     "@types/sequelize": "^4.28.10",
     "axios": "^0.21.1",
