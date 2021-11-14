@@ -4,6 +4,10 @@
   "description": "boreogalae server",
   "main": "app.js",
   "type": "module",
+  "engines": {
+    "node": "14.17.3",
+    "npm": "6.14.13"
+  },
   "dependencies": {
     "@types/sequelize": "^4.28.10",
     "axios": "^0.21.1",
