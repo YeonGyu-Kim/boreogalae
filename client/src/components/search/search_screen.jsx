@@ -28,6 +28,7 @@ const SearchScreen = memo(({ contents }) => {
               <Link to={`/movie/${content.id}`}>
                 <div className={styles.list}>
                   <img
+                    className={styles.poster}
                     src={
                       content.poster_path
                         ? `https://image.tmdb.org/t/p/w300${content?.poster_path}`
