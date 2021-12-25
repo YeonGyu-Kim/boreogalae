@@ -6,6 +6,7 @@ import CommentsAll from "../comments/comments_all";
 import CommentsEnroll from "../comments/comments_enroll";
 import { userComment } from "../../contentsApi/commentApi";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 
 type Content = {
   key?: number;
@@ -149,12 +150,6 @@ const Backdrop = styled.div`
 `;
 
 const ContentsDetail = memo(({ contents, commentService }: any) => {
-  const [movieDetail, setMovieDetail] = useState<Content | undefined>();
-  const [tvDetail, setTvDetail] = useState<Content | undefined>();
-  const [movieCredit, setMovieCredit] = useState<Credit | undefined>();
-  const [tvCredit, setTvCredit] = useState<Credit | undefined>();
-  const [movieProvider, setMovieProvider] = useState<Provider | undefined>();
-  const [tvProvider, setTvProvider] = useState<Provider | undefined>();
   const [user, setUser] = useState<User | undefined>();
   const [comments, setComments] = useState<Comment | any>();
   const [replies, setReplies] = useState<Comment | any>();
@@ -163,45 +158,30 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
   const { pathname } = useLocation();
   const isMovie = pathname.includes("/movie");
   const isTvKids = pathname.includes("/tv") || pathname.includes("/kids");
+
+  const { isLoading: movieDetailLoading, data: movieDetail } =
+    useQuery<Content>(["movieDetail", id], () => contents.movieDetail(id));
+
+  const { isLoading: tvDetailLoading, data: tvDetail } = useQuery<Content>(
+    ["tvDetail", id],
+    () => contents.tvDetail(id)
+  );
+
+  const { isLoading: movieCreditlLoading, data: movieCredit } =
+    useQuery<Credit>(["movieCredit", id], () => contents.movieCredit(id));
+
+  const { isLoading: tvCreditlLoading, data: tvCredit } = useQuery<Credit>(
+    ["tvCredit", id],
+    () => contents.tvCredit(id)
+  );
+
+  const { isLoading: movieProviderlLoading, data: movieProvider } =
+    useQuery<Provider>(["movieProvider", id], () => contents.movieProvider(id));
+
+  const { isLoading: tvProviderlLoading, data: tvProvider } =
+    useQuery<Provider>(["tvProvider", id], () => contents.tvProvider(id));
+
   const genreLength = movieDetail?.genres?.length || tvDetail?.genres?.length;
-
-  useEffect(() => {
-    isMovie &&
-      contents
-        .movieDetail(id)
-        .then((content: Content) => setMovieDetail(content));
-  }, [contents, isMovie, id]);
-
-  useEffect(() => {
-    isTvKids &&
-      contents.tvDetail(id).then((content: Content) => setTvDetail(content));
-  }, [contents, isTvKids, id]);
-
-  useEffect(() => {
-    isMovie &&
-      contents
-        .movieCredit(id)
-        .then((content: Credit) => setMovieCredit(content));
-  }, [contents, isMovie, id]);
-
-  useEffect(() => {
-    isTvKids &&
-      contents.tvCredit(id).then((content: Credit) => setTvCredit(content));
-  }, [contents, isTvKids, id]);
-
-  useEffect(() => {
-    isMovie &&
-      contents
-        .movieProvider(id)
-        .then((content: Provider) => setMovieProvider(content));
-  }, [contents, isMovie, id]);
-
-  useEffect(() => {
-    isTvKids &&
-      contents
-        .tvProvider(id)
-        .then((content: Provider) => setTvProvider(content));
-  }, [contents, isTvKids, id]);
 
   useEffect(() => {
     kakaoApi.kakaoMe().then((me) => setUser(me));
