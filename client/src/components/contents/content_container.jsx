@@ -55,7 +55,10 @@ const ContentContainer = ({ title, children }) => {
   const nextSlide = () => {
     if (children) {
       const totalMovies = children.length;
-      const maxIndex = Math.floor(totalMovies / offset) - 1;
+      const maxIndex =
+        totalMovies % offset > 3
+          ? Math.floor(totalMovies / offset)
+          : Math.floor(totalMovies / offset) - 1;
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
   };
