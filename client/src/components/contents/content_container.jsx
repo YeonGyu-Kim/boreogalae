@@ -5,6 +5,7 @@ import "./content_container.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 
 const Contents = styled.div`
   margin: 1rem 0.5rem 2rem 0.5rem;
@@ -27,56 +28,89 @@ const Button = styled.div`
   width: 100%;
 `;
 
+const Slider = styled(motion.ul)`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  height: 100%;
+`;
+
+const variants: Variants = {
+  hidden: {
+    x: 5,
+  },
+  visible: {
+    x: 0,
+  },
+  exit: {
+    x: -5,
+  },
+};
+
 const ContentContainer = ({ title, children }) => {
-  const [current, setCurrent] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [slide, setSlide] = useState(false);
+  const offset = 7;
 
-  const prevSlide = (event) => {
-    const slide = event.nativeEvent.path[2].children[0];
-    setCurrent(current < 1 ? 3 : current - 1);
-    slide.classList.remove(`next${current}`);
-    slide.classList.add(`prev${current - 1}`);
-    slide.classList.remove(`prev${current}`);
-
-    if (current === 0) {
-      slide.classList.add(`prev${current + 3}`);
-      slide.classList.remove(`prev${current - 1}`);
-    }
-
-    if (current === 1) {
-      slide.classList.remove(`prev${current - 1}`);
+  const nextSlide = () => {
+    if (children) {
+      const totalMovies = children.length;
+      const maxIndex = Math.floor(totalMovies / offset) - 1;
+      setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
   };
 
-  const nextSlide = (event) => {
-    const slide = event.nativeEvent.path[2].children[0];
-    setCurrent(current === 3 ? current - 3 : current + 1);
-    slide.classList.remove(`prev${current}`);
-    slide.classList.add(`next${current + 1}`);
-    slide.classList.remove(`next${current}`);
-    if (current === 3) {
-      slide.classList.remove(`next${current + 1}`);
+  const prevSlide = () => {
+    if (children) {
+      const totalMovies = children.length;
+      const maxIndex = Math.floor(totalMovies / offset) - 1;
+      setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+      console.log(index);
+      console.log(maxIndex);
     }
   };
+
+  console.log(
+    children &&
+      children
+        .slice(offset * index, offset * index + offset)
+        .map((result) => result)
+  );
 
   return (
-    <Contents>
-      <Title>{title}</Title>
-      <div className='listContainer'>
-        <ul className='contentsList'>{children}</ul>
-        <Button>
-          <FontAwesomeIcon
-            className='btnLeft'
-            icon={faChevronLeft}
-            onClick={prevSlide}
-          />
-          <FontAwesomeIcon
-            className='btnRight'
-            icon={faChevronRight}
-            onClick={nextSlide}
-          />
-        </Button>
-      </div>
-    </Contents>
+    <AnimatePresence initial={false}>
+      <Contents>
+        <Title>{title}</Title>
+        <div className='listContainer'>
+          <Slider
+            variants={variants}
+            initial='hidden'
+            animate='visible'
+            exit='exit'
+            className='contentsList'
+            transition={{ type: "tween" }}
+            key={index}
+          >
+            {children &&
+              children
+                .slice(offset * index, offset * index + offset)
+                .map((result) => result)}
+          </Slider>
+          <Button>
+            <FontAwesomeIcon
+              className='btnLeft'
+              icon={faChevronLeft}
+              onClick={prevSlide}
+            />
+            <FontAwesomeIcon
+              className='btnRight'
+              icon={faChevronRight}
+              onClick={nextSlide}
+            />
+          </Button>
+        </div>
+      </Contents>
+    </AnimatePresence>
   );
 };
 

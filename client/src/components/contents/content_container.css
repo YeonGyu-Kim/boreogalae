@@ -2,40 +2,14 @@
   margin-bottom: -14rem;
 }
 
-.contentsList {
-  display: flex;
-  margin-top: 1rem;
-  transition-duration: 1s;
-  height: 100%;
-}
-
-.contentsList.next1,
-.contentsList.prev1 {
-  transform: translateX(-70vw);
-  transition-duration: 1s;
-}
-
-.contentsList.next2,
-.contentsList.prev2 {
-  transform: translateX(-140vw);
-  transition-duration: 1s;
-}
-
-.contentsList.next3,
-.contentsList.prev3 {
-  transform: translateX(-207vw);
-  margin-left: 10rem;
-  transition-duration: 1s;
-}
-
 .btnLeft,
 .btnRight {
   position: relative;
   font-size: 2rem;
-  top: -17.9rem;
+  top: -29vh;
   cursor: pointer;
   border: 1px solid black;
-  padding: 8rem 1rem;
+  padding: 12.9vh 1rem;
   background-color: black;
   opacity: 0;
 }
