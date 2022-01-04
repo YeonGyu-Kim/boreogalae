@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import "./content_container.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  Variants,
+} from "framer-motion";
 
 const Contents = styled.div`
   margin: 1rem 0.5rem 2rem 0.5rem;
   overflow: hidden;
-`;
-
-const UL = styled.ul`
-  display: flex;
-  margin-top: 1rem;
 `;
 
 const Title = styled.span`
@@ -33,6 +33,9 @@ const Slider = styled(motion.ul)`
   justify-content: center;
   margin-top: 1rem;
   height: 100%;
+  @media (max-width: 1250px) {
+    justify-content: flex-start;
+  }
 `;
 
 const variants: Variants = {
@@ -68,17 +71,8 @@ const ContentContainer = ({ title, children }) => {
       const totalMovies = children.length;
       const maxIndex = Math.floor(totalMovies / offset) - 1;
       setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
-      console.log(index);
-      console.log(maxIndex);
     }
   };
-
-  console.log(
-    children &&
-      children
-        .slice(offset * index, offset * index + offset)
-        .map((result) => result)
-  );
 
   return (
     <AnimatePresence initial={false}>

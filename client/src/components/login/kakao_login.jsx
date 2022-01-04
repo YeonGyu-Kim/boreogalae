@@ -24,6 +24,9 @@ const Image = styled.img`
 
 const Log = styled.div`
   cursor: pointer;
+  @media (max-width: 1250px) {
+    margin-right: 2rem;
+  }
 `;
 
 const KakaoLogin = () => {

@@ -6,10 +6,10 @@
 .btnRight {
   position: relative;
   font-size: 2rem;
-  top: -29vh;
+  top: -28.5vh;
   cursor: pointer;
   border: 1px solid black;
-  padding: 12.9vh 1rem;
+  padding: 12.6vh 1rem;
   background-color: black;
   opacity: 0;
 }
