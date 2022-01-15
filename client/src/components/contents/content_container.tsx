@@ -1,4 +1,4 @@
-import React, { ReactChild } from "react";
+import { ReactChild, useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import "./content_container.css";
@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { genreChecked } from "../../atom";
 
 const Contents = styled.div<{ checked: boolean }>`
@@ -55,9 +55,12 @@ interface IContentContainerProps {
 
 const ContentContainer = ({ title, children }: IContentContainerProps) => {
   const [index, setIndex] = useState(0);
-  const checked = useRecoilValue(genreChecked);
-
+  const [checked, setChecked] = useRecoilState(genreChecked);
   const offset = 7;
+
+  useEffect(() => {
+    setChecked(false);
+  }, []);
 
   const nextSlide = () => {
     if (children) {
