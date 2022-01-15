@@ -10,6 +10,7 @@ import Socket from "./network/socket";
 import CommentService from "./service/comments";
 import ChatService from "./service/chat";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { RecoilRoot } from "recoil";
 
 const contents = new Contents(process.env.REACT_APP_TMDB_API_KEY);
 const contentsMovie = new ContentsMovie();
@@ -25,17 +26,19 @@ const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <App
-          contents={contents}
-          contentsMovie={contentsMovie}
-          contentsTV={contentsTV}
-          commentService={commentService}
-          chatService={chatService}
-        />
-      </BrowserRouter>
-    </QueryClientProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <App
+            contents={contents}
+            contentsMovie={contentsMovie}
+            contentsTV={contentsTV}
+            commentService={commentService}
+            chatService={chatService}
+          />
+        </BrowserRouter>
+      </QueryClientProvider>
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById("root")
 );

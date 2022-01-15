@@ -1,20 +1,18 @@
-import React, { useEffect } from "react";
+import React, { ReactChild } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import "./content_container.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  Variants,
-} from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
+import { useRecoilValue } from "recoil";
+import { genreChecked } from "../../atom";
 
-const Contents = styled.div`
+const Contents = styled.div<{ checked: boolean }>`
   margin: 1rem 0.5rem 2rem 0.5rem;
   overflow: hidden;
+  margin-left: ${(props) => (props.checked ? "12rem" : "")};
 `;
 
 const Title = styled.span`
@@ -28,9 +26,9 @@ const Button = styled.div`
   width: 100%;
 `;
 
-const Slider = styled(motion.ul)`
+const Slider = styled(motion.ul)<{ checked: boolean }>`
   display: flex;
-  justify-content: center;
+  justify-content: ${(props) => (props.checked ? "felx-start" : "center")};
   margin-top: 1rem;
   height: 100%;
   @media (max-width: 1250px) {
@@ -50,9 +48,15 @@ const variants: Variants = {
   },
 };
 
-const ContentContainer = ({ title, children }) => {
+interface IContentContainerProps {
+  title: string;
+  children: ReactChild[];
+}
+
+const ContentContainer = ({ title, children }: IContentContainerProps) => {
   const [index, setIndex] = useState(0);
-  const [slide, setSlide] = useState(false);
+  const checked = useRecoilValue(genreChecked);
+
   const offset = 7;
 
   const nextSlide = () => {
@@ -76,10 +80,11 @@ const ContentContainer = ({ title, children }) => {
 
   return (
     <AnimatePresence initial={false}>
-      <Contents>
+      <Contents checked={checked}>
         <Title>{title}</Title>
         <div className='listContainer'>
           <Slider
+            checked={checked}
             variants={variants}
             initial='hidden'
             animate='visible'

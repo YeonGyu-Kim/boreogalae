@@ -1,7 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 import styles from "./content_screen.module.css";
 
-const ContentScreen = ({ id, title, poster }) => {
+interface IContentScreenProps {
+  id: string;
+  title: string;
+  poster: string;
+}
+
+const ContentScreen = ({ id, title, poster }: IContentScreenProps) => {
   const { pathname } = useLocation();
   return (
     <li key={id} className={styles.content}>
@@ -13,7 +19,7 @@ const ContentScreen = ({ id, title, poster }) => {
             ? `/tv/${id}`
             : pathname === "/kids"
             ? `/kids/${id}`
-            : null
+            : ""
         }
       >
         <img
