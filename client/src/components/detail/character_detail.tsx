@@ -2,18 +2,70 @@ import React, { memo, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./character_detail.module.css";
 
-const CharacterDetail = memo(({ contents }) => {
-  const [personCredit, setPersonCredit] = useState(undefined);
-  const [personDetail, setPersonDetail] = useState(undefined);
+interface IParams {
+  id: string;
+}
 
-  const { id } = useParams();
+interface ICredit {
+  cast: [
+    {
+      adult?: boolean;
+      backdrop_path?: string;
+      character?: string;
+      credit_id?: string;
+      id?: number;
+      media_type?: string;
+      order?: number;
+      original_language?: string;
+      original_title?: string;
+      overview?: string;
+      popularity?: number;
+      poster_path?: string;
+      release_date?: string;
+      last_air_date?: string;
+      first_air_date: string;
+      title?: string;
+      name?: string;
+      video?: false;
+      vote_average?: number;
+      vote_count?: number;
+    }
+  ];
+}
+
+interface IDetail {
+  adult: boolean;
+  biography: string;
+  birthday: string;
+  deathday: null;
+  gender: number;
+  homepage: string;
+  id: number;
+  imdb_id: string;
+  known_for_department: string;
+  name: string;
+  place_of_birth: string;
+  popularity: number;
+  profile_path: string;
+}
+
+const CharacterDetail = memo(({ contents }: any) => {
+  const [personCredit, setPersonCredit] = useState<ICredit>();
+  const [personDetail, setPersonDetail] = useState<IDetail>();
+  const { id } = useParams<IParams>();
+
+  console.log(personDetail);
 
   useEffect(() => {
-    contents.personCredit(id).then((content) => setPersonCredit(content));
+    contents
+      .personCredit(id)
+      .then((content: ICredit) => setPersonCredit(content));
   }, [contents, id]);
 
   useEffect(() => {
-    contents.personDetail(id).then((content) => setPersonDetail(content));
+    contents
+      .personDetail(id)
+      .then((content: IDetail) => setPersonDetail(content));
   }, [contents, id]);
 
   return (
@@ -32,7 +84,7 @@ const CharacterDetail = memo(({ contents }) => {
       <div className={styles.filmContainer}>
         {personCredit &&
           personCredit?.cast
-            .sort((a, b) => b.popularity - a.popularity)
+            .sort((a: any, b: any) => b.popularity - a.popularity)
             .slice(0, 10)
             .map((content) => (
               <Link

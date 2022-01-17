@@ -75,8 +75,6 @@ const CommentsEnroll = ({ user }) => {
     setComment(event.target.value);
   };
 
-  console.log(localStorage);
-
   return (
     <CommentContainer onSubmit={onSubmit}>
       <Title>코멘트</Title>

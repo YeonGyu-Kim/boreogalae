@@ -166,6 +166,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
     ["tvDetail", id],
     () => contents.tvDetail(id)
   );
+  console.log(tvDetail);
 
   const { isLoading: movieCreditlLoading, data: movieCredit } =
     useQuery<Credit>(["movieCredit", id], () => contents.movieCredit(id));
@@ -235,8 +236,6 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
       comments?.filter((item) => item.id !== comment.id)
     );
   };
-  console.log(movieProvider?.results.KR);
-  console.log(tvProvider?.results.KR);
 
   return (
     <>
@@ -254,7 +253,7 @@ const ContentsDetail = memo(({ contents, commentService }: any) => {
             className={styles.poster}
             width='300px'
             src={`https://image.tmdb.org/t/p/w300${
-              movieDetail?.poster_path || tvDetail?.poster_path
+              isMovie ? movieDetail?.poster_path : tvDetail?.poster_path
             }`}
           />
           <div className={styles.basicInfo}>
