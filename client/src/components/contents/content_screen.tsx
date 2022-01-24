@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import styles from "./content_screen.module.css";
 
 interface IContentScreenProps {
-  id: string;
+  id: number;
   title: string;
   poster: string;
 }
